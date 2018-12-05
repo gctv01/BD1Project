@@ -1,0 +1,27 @@
+﻿
+
+@{
+    ViewBag.Title = "Menuenvios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ul class="hola">
+    <li>@Html.ActionLink("Homeempleado", "About", "Home")</li>
+    <li>@Html.ActionLink("Envíos", "Menuenvios", "Home")</li>
+    <li>@Html.ActionLink("Vehículos", "Contact", "Home")</li>
+    <li>@Html.ActionLink("Pagos", "Contact", "Home")</li>
+</ul>
+<p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px; text-align: center;">ENVIOS <p/>
+                                                                                                                 
+
+<div style="background-color: lightgray;">
+    <a style="text-align: justify;">@Html.ActionLink("Combinación de traslados", "About", "Home")</a>
+    <p style="color: black; padding: 15px; font-size: 15px;"><b>Añade varios paquetes a mismo destino mediante vehículos</b><p />
+</div>
+<div style="background-color: lightgray;">
+    <a style="text-align: justify;">@Html.ActionLink("Registrar nuevo paquete", "Enviarpaquete", "Home")</a>
+    <p style="color: black; padding: 15px; font-size: 15px;"><b>Registra el destino, monto, tamaño y medio de transporte</b><p />
+</div>
+<div style="background-color: lightgray;">
+    <a style="text-align: justify;">@Html.ActionLink("Registro de pago", "About", "Home")</a>
+    <p style="color: black; padding: 15px; font-size: 15px;"><b>Función solo para cajero. Registra el pago de un paquete y emite factura</b><p />
+</div>
