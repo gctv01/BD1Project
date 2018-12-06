@@ -18,6 +18,10 @@ namespace bd1.Controllers
             return View();
         }
 
+        public ActionResult Homecliente()
+        {
+            return View();
+        }
         public ActionResult Homempleado()
         {
             return View();
