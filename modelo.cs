@@ -33,5 +33,7 @@ namespace bd1.Models
         public string Nombre;
         public int Peso;
         public string Destino;
+        public string Estado;
+        public string Numguia;
     }
 }

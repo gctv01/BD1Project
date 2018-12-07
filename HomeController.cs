@@ -22,6 +22,10 @@ namespace bd1.Controllers
         {
             return View();
         }
+        public ActionResult Detalleenvio()
+        {
+            return View();
+        }
         public ActionResult Homempleado()
         {
             return View();
@@ -31,6 +35,10 @@ namespace bd1.Controllers
             return View();
         }
         public ActionResult Enviarpaquete()
+        {
+            return View();
+        }
+        public ActionResult Cambioestatuspaquete()
         {
             return View();
         }

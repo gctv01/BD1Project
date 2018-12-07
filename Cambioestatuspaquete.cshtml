@@ -1,0 +1,69 @@
+﻿@model bd1.Models.ModeloPaquete
+@{
+    ViewBag.Title = "Cambioestatuspaquete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="hola">
+    <li>@Html.ActionLink("Home", "Homempleado", "Home")</li>
+    <li>@Html.ActionLink("Envíos", "Menuenvios", "Home")</li>
+    <li>@Html.ActionLink("Vehículos", "Contact", "Home")</li>
+    <li>@Html.ActionLink("Pagos", "Contact", "Home")</li>
+</ul>
+<p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px; text-align: center;">Cambio estatus paquete <p />
+<div class="jumbotron">
+    @using (Html.BeginForm("Enviarpaquete", "Home",
+                FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.Numguia, new { @class = "form-control", placeholder = "NumGuía del paquete" })
+        </p>
+
+
+        <p>
+            @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", placeholder = "Peso del paquete" })
+        </p>
+        <p>
+            @Html.TextBoxFor(m => m.Destino, new { @class = "form-control", placeholder = "Destino" })
+        </p>
+        <fieldset>
+            <p><b>Medio de transporte</b></p>
+            <p>
+                @Html.RadioButtonFor(m => m.Tipo, "Aereo", new { id = "tipo" })
+                @Html.Label("tipo", "Aereo")
+            </p>
+            <p>
+                @Html.RadioButtonFor(m => m.Tipo, "Marítimo")
+                @Html.Label("tipo", "Maritimo")
+            </p>
+            <p>
+                @Html.RadioButtonFor(m => m.Tipo, "Terrestre")
+                @Html.Label("tipo", "Terrestre")
+            </p>
+        </fieldset>
+        <fieldset>
+            <p><b>Estado del envío</b></p>
+            <p>
+                @Html.RadioButtonFor(m => m.Estado, "Entregado", new { id = "estado" })
+                @Html.Label("estado", "Entregado")
+            </p>
+            <p>
+                @Html.RadioButtonFor(m => m.Estado, "Cancelado")
+                @Html.Label("estado", "Cancelado")
+            </p>
+            <p>
+                @Html.RadioButtonFor(m => m.Estado, "En curso")
+                @Html.Label("estado", "En curso")
+            </p>
+        </fieldset>
+
+        <div>
+            <input type="submit" value="Enviar" />
+
+
+
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("Menuenvios", "Home")'" />
+        </div>
+    }
+</div>
+
