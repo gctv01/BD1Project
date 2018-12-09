@@ -1,4 +1,4 @@
-﻿@model bd1.Models.ModeloLogIn
+﻿@model bd1.Models.Persona
 
 @{
     ViewBag.Title = "Inicio";
@@ -15,14 +15,15 @@
         <h1>Bienvenido/a a SISLOG UCAB</h1>
 
 
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        @using (Html.BeginForm("insertar", "Prueba", FormMethod.Post))
         {
             <p>
-                @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", placeholder = "Usuario" })
+                @Html.TextBoxFor(m => m.ci, new { @class = "form-control", placeholder = "ci" })
             </p>
             <p>
-                @Html.TextBoxFor(model => model.Contrasena, new { @class = "form-control", placeholder = "Contraseña" })
+                @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", placeholder = "nombre" })
             </p>
+
             <div>
                 <input type="submit" value="Entrar" />
                 

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<bd1.Models.Persona>
 @{
     ViewBag.Title = "PruebaTabla";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,17 +11,36 @@
         <h1>Bienvenido/a a PRUEBA</h1>
 
         <table class="table table-bordered table-hover" style="border-spacing:5px;">
-            @*@model List<Persona>*@
-            <tr>
-                @*@foreach (string data in Model)
-                {
-                    <td style="width:154.8px; height:252px">
-                        <p>@data</p> 
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Apellido
+                    </th>
+                    <th>
+                        Cedula
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (var persona in Model)
+            {
+                <tr>
+                    <td>
+                        <p>@persona.nombre</p>
                     </td>
+                    <td>
+                        <p>@persona.apellido</p>
+                    </td>
+                    <td>
+                        <p>@persona.ci</p>
+                    </td>
+                </tr>
 
-
-                }*@
-            </tr>
+            }
+                
         </table>
     </div>
 

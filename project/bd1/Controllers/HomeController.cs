@@ -11,10 +11,7 @@ namespace bd1.Controllers
     {
         public ActionResult Index()
         {
-            ModeloLogIn data = new ModeloLogIn();
-            data.Usuario = "RAFAEL";
-            data.Contrasena = 1234;
-            return View(data);
+            return View();
         }
         public ActionResult Register()
         {

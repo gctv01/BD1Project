@@ -18,5 +18,18 @@ namespace bd1.Controllers
             return View(personas);
 			//prueba
         }
+
+        [HttpPost]
+        public ActionResult insertar(Persona model)
+        {
+            //string ci = model.ci;
+            //string nombre = model.nombre;
+
+            DAO data = new DAO();
+
+            data.insertarPersona(model.ci, model.nombre);
+
+            return View("~/Views/Home/Index.cshtml");
+        }
     }
 }
