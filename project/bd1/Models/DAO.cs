@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace bd1.Models
 {
-    public class Program
+    public class DAO
     {
         public const string connString = "Server=localhost;Port=5434;" +
                     "User Id=postgres;Password=123;Database=Test;";
@@ -16,7 +16,7 @@ namespace bd1.Models
 
         public static NpgsqlConnection getInstanceDAO()
         {
-            if (Program.connS != null)
+            if (DAO.connS != null)
             {
                 return connS;
             }
@@ -27,10 +27,10 @@ namespace bd1.Models
             }
         }
 
-        public static void Main(string[] args)
+        public List<Persona> obtenerPersonas()
         {
 
-            NpgsqlConnection conn = Program.getInstanceDAO();
+            NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
             string sql = "SELECT * FROM \"Persona\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -40,22 +40,24 @@ namespace bd1.Models
 
             while (dr.Read())
             {
-                //Console.WriteLine("connection established");
+                System.Diagnostics.Debug.WriteLine("connection established");
                 data.Add(new Persona()
                 {
-                    nombre = dr[2].ToString(),
-                    apellido = dr[0].ToString(),
-                    ci = dr[1].ToString()
+                    nombre = dr[1].ToString(),
+                    apellido = dr[2].ToString(),
+                    ci = dr[0].ToString()
                 });
             }
             dr.Close();
             conn.Close();
 
-            Console.WriteLine("Los datos obtenidos fueron");
+            System.Diagnostics.Debug.WriteLine("Los datos obtenidos fueron");
             foreach (Persona p in data)
             {
-                Console.WriteLine("nombre: " + p.nombre + "\t apellido: " + p.apellido + "\t CI: " + p.ci);
+                System.Diagnostics.Debug.WriteLine("nombre: " + p.nombre + "\t apellido: " + p.apellido + "\t CI: " + p.ci);
             }
+
+            return data;
 
             //AHORA UN INSERT
 
