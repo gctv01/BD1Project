@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using bd1.Models;
 
-namespace bd1.Controllers
+namespace bd1.Controlers
 {
     public class HomeController : Controller
     {
