@@ -1,0 +1,16 @@
+﻿.hola {
+    background-color: snow;
+    display: inline-flex;
+    list-style: none;
+    padding: 25px;
+  
+    text-decoration: underline;
+    
+}
+
+
+.imagen{
+    display: block;
+    margin-left:20%;
+    
+}
