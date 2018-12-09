@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using bd1.Models;
 
-namespace bd1.Controlers
+namespace bd1.Controllers
 {
     public class HomeController : Controller
     {
@@ -42,7 +42,27 @@ namespace bd1.Controlers
         {
             return View();
         }
+        public ActionResult HomeAdmin()
+        {
+            return View();
+        }
+        public ActionResult DetallesOficina()
+        {
+            return View();
+        }
 
+        public ActionResult EditarOficina()
+        {
+            return View();
+        }
+        public ActionResult MenuAdmin()
+        {
+            return View();
+        }
+        public ActionResult GestionUsuario()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult EnviarPaquete(ModeloPaquete model)
         {
