@@ -1,0 +1,50 @@
+﻿@model bd1.Models.ModeloPaquete
+@{
+    ViewBag.Title = "Enviarpaquete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ul class="hola">
+    <li>@Html.ActionLink("Home", "Homempleado", "Home")</li>
+    <li>@Html.ActionLink("Envíos", "Menuenvios", "Home")</li>
+    <li>@Html.ActionLink("Vehículos", "Contact", "Home")</li>
+    <li>@Html.ActionLink("Pagos", "Contact", "Home")</li>
+</ul>
+<p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px; text-align: center;">ENVIAR PAQUETE <p />
+
+@using (Html.BeginForm("Enviarpaquete", "Home",
+                FormMethod.Post))
+{
+    <p>
+        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre Usuario del Cliente" })
+    </p>
+
+
+    <p>
+        @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", placeholder = "Peso del paquete" })
+    </p>
+    <p>
+        @Html.TextBoxFor(m => m.Destino, new { @class = "form-control", placeholder = "Destino" })
+    </p>
+    <p>
+        @Html.RadioButtonFor(m => m.Tipo, "Aereo", new { id = "tipo" })
+        @Html.Label("tipo", "Aereo")
+    </p>
+    <p>
+        @Html.RadioButtonFor(m => m.Tipo, "Marítimo")
+        @Html.Label("tipo", "Maritimo")
+    </p>
+    <p>
+        @Html.RadioButtonFor(m => m.Tipo, "Terrestre")
+        @Html.Label("tipo", "Terrestre")
+    </p>
+
+    <div>
+        <input type="submit" value="Enviar" />
+
+
+
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("Menuenvios", "Home")'" />
+    </div>
+}
+
+

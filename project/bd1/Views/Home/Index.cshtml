@@ -1,0 +1,44 @@
+﻿@model bd1.Models.ModeloLogIn
+
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<body>
+
+
+
+
+    <div class="jumbotron">
+        <h1>Bienvenido/a a SISLOG UCAB</h1>
+
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            <p>
+                @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", placeholder = "Usuario" })
+            </p>
+            <p>
+                @Html.TextBoxFor(model => model.Contrasena, new { @class = "form-control", placeholder = "Contraseña" })
+            </p>
+            <div>
+                <input type="submit" value="Entrar" />
+                
+                <input type="button" value="Registrarse" onclick="location.href='@Url.Action("Register", "Home")'" />
+
+                <input type="button" value="PRUEBA" onclick="location.href='@Url.Action("Index", "Prueba")'" />
+            </div>
+
+
+        }
+
+        <div>
+
+        </div>
+
+        <p>¿No eres empleado? Haz click aquí</p>
+    </div>
+
+</body>
