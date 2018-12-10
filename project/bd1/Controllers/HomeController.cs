@@ -22,7 +22,7 @@ namespace bd1.Controllers
             //string name = model.username;
             //string pass = model.contrasena;
 
-            DAOUsuario data = new DAOUsuario();
+            DAOUsuario data = DAOUsuario.getInstance();
 
             int redireccion = data.buscandoUsuario(model.username, model.contrasena);
             if(redireccion == 1)

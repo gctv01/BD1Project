@@ -13,25 +13,23 @@ namespace bd1.Models
         public string tipoUsuario { get; set; }
     }
 
-    public class DAOUsuario
+    public class DAOUsuario : DAO
     {
-        public const string connString = "Server=localhost;Port=5432;" +
-                    "User Id=postgres;Password=123;Database=LogUcab;";
+        private static DAOUsuario u = null;
 
-        private static NpgsqlConnection connS = null;
-
-        public static NpgsqlConnection getInstanceDAO()
+        public static DAOUsuario getInstance()
         {
-            if (DAOUsuario.connS != null)
+            if (DAOUsuario.u != null)
             {
-                return connS;
+                return u;
             }
             else
             {
-                connS = new NpgsqlConnection(connString);
-                return connS;
+                u = new DAOUsuario();
+                return u;
             }
         }
+
         public int insertar(string username, string contrasena)
         {
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();

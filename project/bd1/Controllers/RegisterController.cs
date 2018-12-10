@@ -22,7 +22,7 @@ namespace bd1.Controllers
             //string name = model.username;
             //int pass = model.Contrasena;
 
-            DAOUsuario data = new DAOUsuario();
+            DAOUsuario data = DAOUsuario.getInstance();
 
             data.insertar(model.username, model.contrasena);
 
