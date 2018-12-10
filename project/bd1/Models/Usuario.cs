@@ -15,8 +15,8 @@ namespace bd1.Models
 
     public class DAOUsuario
     {
-        public const string connString = "Server=localhost;Port=5434;" +
-                    "User Id=postgres;Password=123;Database=LogUCAB;";
+        public const string connString = "Server=localhost;Port=5432;" +
+                    "User Id=postgres;Password=123;Database=LogUcab;";
 
         private static NpgsqlConnection connS = null;
 
@@ -37,24 +37,9 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            string sql = "SELECT * FROM \"Usuario\"";
+            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Username\", \"Contrasena\") VALUES ((SELECT NEXTVAL('usuario_seq')),'" + username + "', '" + contrasena + "')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            int Cantdata = 0;
-
-            while (dr.Read())
-            {
-                System.Diagnostics.Debug.WriteLine("connection established");
-                Cantdata++;
-            }
-            dr.Close();
-
-            Cantdata++;
-
-            sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Username\", \"Contrasena\") VALUES ("+ Cantdata +",'" + username + "', '" + contrasena + "')";
-            cmd = new NpgsqlCommand(sql, conn);
-            int resp = cmd.ExecuteNonQuery(); //ESTO SOLO EJECUTA EL COMANDO, NO HAY NADA QUE LEER
+            int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
             conn.Close();
 
             return resp;
@@ -65,7 +50,7 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            string sql = "SELECT * FROM \"Usuario\"";
+            string sql = "SELECT \"Username\", \"Contrasena\" FROM \"Usuario\" WHERE \"Username\" = '" + username + "'";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -75,15 +60,15 @@ namespace bd1.Models
                 {
                     System.Diagnostics.Debug.WriteLine("connection established");
  
-                    if (String.Equals(dr[1].ToString(), username) && String.Equals(dr[2].ToString(), contrasena)){
+                    if (String.Equals(dr[1].ToString(), contrasena)){
                         compData = 1;
-                        break;
                     }
                 }
             }
-            catch
+            catch (Exception e)
             {
                 compData = 0;
+                System.Diagnostics.Debug.WriteLine(e.ToString());
             }
             dr.Close();
        
