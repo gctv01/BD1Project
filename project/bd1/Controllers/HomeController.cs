@@ -13,10 +13,7 @@ namespace bd1.Controllers
         {
             return View();
         }
-        public ActionResult Register()
-        {
-            return View();
-        }
+        
 
         [HttpPost]
         public ActionResult Index(ModeloLogIn model)
