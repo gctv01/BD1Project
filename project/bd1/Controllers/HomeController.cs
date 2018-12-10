@@ -16,17 +16,19 @@ namespace bd1.Controllers
         
 
         [HttpPost]
-        public ActionResult buscandoEmpleado(Usuario model)
+        public ActionResult buscando(Usuario model)
         {
-           
+
             //string name = model.username;
             //string pass = model.contrasena;
+            string tipoUsuario = model.tipoUsuario;
 
             DAOUsuario data = new DAOUsuario();
 
             int redireccion = data.buscandoUsuario(model.username, model.contrasena);
             if(redireccion == 1)
             {
+                if (tipoUsuario ==)
                 return View("~/Views/Home/Empleado.cshtml");
             }
             else

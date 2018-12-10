@@ -15,7 +15,7 @@
         <h1>Bienvenido/a a SISLOG UCAB</h1>
 
         @ViewBag.Message
-        @using (Html.BeginForm("buscandoEmpleado", "Home", FormMethod.Post))
+        @using (Html.BeginForm("buscando", "Home", FormMethod.Post))
         {
             <p>
                 @Html.TextBoxFor(m => m.username, new { @class = "form-control", placeholder = "username" })
