@@ -10,6 +10,7 @@ namespace bd1.Models
     {
         public string username { get; set; }
         public string contrasena { get; set; }
+        public string tipoUsuario { get; set; }
     }
 
     public class DAOUsuario
@@ -36,7 +37,7 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            string sql = "SELECT * FROM \"Perfil\"";
+            string sql = "SELECT * FROM \"Usuario\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -51,12 +52,45 @@ namespace bd1.Models
 
             Cantdata++;
 
-            sql = "INSERT INTO \"Perfil\" (\"COD\" ,\"Username\", \"Contrasena\") VALUES ("+ Cantdata +",'" + username + "', '" + contrasena + "')";
+            sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Username\", \"Contrasena\") VALUES ("+ Cantdata +",'" + username + "', '" + contrasena + "')";
             cmd = new NpgsqlCommand(sql, conn);
             int resp = cmd.ExecuteNonQuery(); //ESTO SOLO EJECUTA EL COMANDO, NO HAY NADA QUE LEER
             conn.Close();
 
             return resp;
+        }
+
+        public int buscandoUsuario(string username, string contrasena)
+        {
+            NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
+            conn.Open();
+
+            string sql = "SELECT * FROM \"Usuario\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            int compData = 0;
+            try { 
+                while (dr.Read())
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+ 
+                    if (String.Equals(dr[1].ToString(), username) && String.Equals(dr[2].ToString(), contrasena)){
+                        compData = 1;
+                        break;
+                    }
+                }
+            }
+            catch
+            {
+                compData = 0;
+            }
+            dr.Close();
+       
+            conn.Close();
+
+            return compData;
+
         }
     }
 

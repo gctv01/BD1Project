@@ -1,4 +1,4 @@
-﻿@model bd1.Models.Persona
+﻿@model bd1.Models.Usuario
 
 @{
     ViewBag.Title = "Inicio";
@@ -14,19 +14,23 @@
     <div class="jumbotron">
         <h1>Bienvenido/a a SISLOG UCAB</h1>
 
-
-        @using (Html.BeginForm("insertar", "Prueba", FormMethod.Post))
+        @ViewBag.Message
+        @using (Html.BeginForm("buscandoEmpleado", "Home", FormMethod.Post))
         {
             <p>
-                @Html.TextBoxFor(m => m.ci, new { @class = "form-control", placeholder = "ci" })
+                @Html.TextBoxFor(m => m.username, new { @class = "form-control", placeholder = "username" })
             </p>
             <p>
-                @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", placeholder = "nombre" })
+                @Html.PasswordFor(model => model.contrasena, new { @class = "form-control", placeholder = "contrasena" })
             </p>
-
+            <p>
+                @Html.RadioButtonFor(m => m.tipoUsuario, "Cliente", true) Cliente
+                @Html.RadioButtonFor(m => m.tipoUsuario, "Empleado", false) Empleado
+            </p>
+            <br/>
             <div>
                 <input type="submit" value="Entrar" />
-                
+
                 <input type="button" value="Registrarse" onclick="location.href='@Url.Action("Registro", "Register")'" />
 
                 <input type="button" value="PRUEBA" onclick="location.href='@Url.Action("PruebaTabla", "Prueba")'" />
@@ -39,7 +43,6 @@
 
         </div>
 
-        <p>¿No eres empleado? Haz click aquí</p>
     </div>
 
 </body>

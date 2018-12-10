@@ -16,13 +16,25 @@ namespace bd1.Controllers
         
 
         [HttpPost]
-        public ActionResult Index(ModeloLogIn model)
+        public ActionResult buscandoEmpleado(Usuario model)
         {
            
-            string name = model.Usuario;
-            int pass = model.Contrasena;
+            //string name = model.username;
+            //string pass = model.contrasena;
 
-            return View();
+            DAOUsuario data = new DAOUsuario();
+
+            int redireccion = data.buscandoUsuario(model.username, model.contrasena);
+            if(redireccion == 1)
+            {
+                return View("~/Views/Home/Empleado.cshtml");
+            }
+            else
+            {
+                ViewBag.Message = "No existe el usuario, pruebe nuevamente";
+                return View("~/Views/Home/Index.cshtml");
+            }
+            
         }
 
         public ActionResult About()
@@ -36,6 +48,16 @@ namespace bd1.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Empleado()
+        {
+            return View();
+        }
+
+        public ActionResult Cliente()
+        {
             return View();
         }
     }
