@@ -30,12 +30,12 @@ namespace bd1.Models
             }
         }
 
-        public int insertar(string username, string contrasena)
+        public int insertarUsuario(string username, string contrasena, string rol)
         {
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Username\", \"Contrasena\") VALUES ((SELECT NEXTVAL('usuario_seq')),'" + username + "', '" + contrasena + "')";
+            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Username\", \"Contrasena\", \"FK-Rol\") VALUES ((SELECT NEXTVAL('usuario_seq')),'" + username + "', '" + contrasena + "', " + rol + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
             conn.Close();

@@ -23,7 +23,7 @@ namespace bd1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registro(Usuario model)
+        public ActionResult Registro(Usuario model, string rol)
         {
 
             //string name = model.username;
@@ -31,7 +31,7 @@ namespace bd1.Controllers
 
             DAOUsuario data = DAOUsuario.getInstance();
 
-            data.insertar(model.username, model.contrasena);
+            data.insertarUsuario(model.username, model.contrasena, rol);
 
             return View("~/Views/Register/Registro.cshtml");
         }
