@@ -178,6 +178,7 @@
     <Compile Include="Models\DAO.cs" />
     <Compile Include="Models\Modelo.cs" />
     <Compile Include="Models\Persona.cs" />
+    <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -224,7 +225,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Prueba\PruebaTabla.cshtml" />
     <Content Include="Views\Register\Registro.cshtml" />
-    <Content Include="Views\Home\Empleado.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Cliente.cshtml" />
   </ItemGroup>
   <ItemGroup>

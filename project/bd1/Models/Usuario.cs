@@ -10,7 +10,7 @@ namespace bd1.Models
     {
         public string username { get; set; }
         public string contrasena { get; set; }
-        public string tipoUsuario { get; set; }
+        public string Rol { get; set; }
     }
 
     public class DAOUsuario : DAO

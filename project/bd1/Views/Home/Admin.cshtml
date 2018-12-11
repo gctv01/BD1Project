@@ -1,16 +1,16 @@
-﻿model bd1.Models.ModeloLogIn
+﻿@model bd1.Models.ModeloLogIn
 
 @{
     ViewBag.Title = "Homempleado";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Home Empleado</h2>
 <ul class="hola">
-    <li>@Html.ActionLink("Home", "Empleado", "Home")</li>
+    <li>@Html.ActionLink("Home", "Homempleado", "Home")</li>
     <li>@Html.ActionLink("Envíos", "MenuEnvios", "Home")</li>
     <li>@Html.ActionLink("Vehículos", "Contact", "Home")</li>
     <li>@Html.ActionLink("Pagos", "Contact", "Home")</li>
+    <li>@Html.ActionLink("Admin", "Contact", "Home")</li>
 </ul>
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>Bienvenido (nombre de usuario). Estatus de Oficinas</b></p>
@@ -22,10 +22,11 @@
            FormMethod.Post))
 {
     <p>
-        @*@Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", placeholder = "Num Oficina" })*@
+        @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", placeholder = "Num Oficina" })
     </p>
     <input type="submit" value="Buscar" />
 }
+<br />
 <style>
     table, th, td {
         border: 1px solid black;
@@ -50,6 +51,4 @@
         </tr>
     </table>
 </div>
-
-
 

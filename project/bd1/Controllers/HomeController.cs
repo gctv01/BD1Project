@@ -16,18 +16,31 @@ namespace bd1.Controllers
         
 
         [HttpPost]
-        public ActionResult buscandoEmpleado(Usuario model)
+        public ActionResult buscando(Usuario model)
         {
-           
+
             //string name = model.username;
             //string pass = model.contrasena;
+            string tipoUsuario = model.Rol;
 
             DAOUsuario data = DAOUsuario.getInstance();
 
             int redireccion = data.buscandoUsuario(model.username, model.contrasena);
             if(redireccion == 1)
             {
-                return View("~/Views/Home/Empleado.cshtml");
+                if (tipoUsuario == "Empleado")
+                {
+                    return View("~/Views/Home/Admin.cshtml");
+                }else
+                if (tipoUsuario == "Cliente")
+                {
+                    return View("~/Views/Home/Cliente.cshtml");
+                }
+                else
+                {
+                    ViewBag.Message = "No existe el usuario, pruebe nuevamente";
+                    return View("~/Views/Home/Index.cshtml");
+                }
             }
             else
             {
