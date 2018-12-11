@@ -23,7 +23,7 @@ namespace bd1.Controllers
             //string pass = model.contrasena;
             string tipoUsuario = model.Rol;
 
-            DAOUsuario data = new DAOUsuario();
+            DAOUsuario data = DAOUsuario.getInstance();
 
             int redireccion = data.buscandoUsuario(model.username, model.contrasena);
             if(redireccion == 1)
