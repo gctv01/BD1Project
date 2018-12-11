@@ -1,0 +1,12 @@
+﻿@model IEnumerable<bd1.Models.Rol>
+
+<p>
+    <select name="listbox" id="listbox">
+        @foreach (var item in Model)
+        {
+            <option value="@item.COD">
+                @item.Nombre
+            </option>
+        }
+    </select>
+</p>

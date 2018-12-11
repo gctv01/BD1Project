@@ -1,6 +1,6 @@
-﻿@*@model bd1.Models.Usuario
-@model bd1.Models.Rol*@
-@model IEnumerable<bd1.Models.Rol>
+﻿@model bd1.Models.Usuario
+@*@model bd1.Models.Rol
+    @model IEnumerable<bd1.Models.Rol>*@
 
 @{
     ViewBag.Title = "Registro";
@@ -14,26 +14,19 @@
 
 
     @using (Html.BeginForm("Registro", "Register",
-            FormMethod.Post))
+    FormMethod.Post))
     {
-        @*<p>
+        <p>
             @Html.TextBoxFor(m => m.username, new { @class = "form-control", placeholder = "Usuario" })
         </p>
         <p>
             @Html.PasswordFor(model => model.contrasena, new { @class = "form-control", placeholder = "Contraseña" })
         </p>
-        <p>
-            @Html.PasswordFor(model => model., new { @class = "form-control", placeholder = "Verificar contraseña" })
-        </p>*@
-        <p>
-           <select name="listbox" id="listbox">
-                @foreach(var item in Model){
-                    <option value="@item.COD" >
-                        @item.Nombre
-                    </option>
-                 }
-           </select>
-        </p>
+        @*<p>
+                @Html.PasswordFor(model => model., new { @class = "form-control", placeholder = "Verificar contraseña" })
+            </p>*@
+        @Html.Action("Rol");
+        
         @*<p>
                 @Html.TextBoxFor(m => m.Correoelectronico, new { @class = "form-control", placeholder = "Correo electrónico" })
             </p>

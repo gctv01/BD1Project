@@ -7,8 +7,8 @@ using System.Web.Mvc;
 
 namespace bd1.Controllers
 {
-    public class PruebaController : Controller
-    {
+    public class PruebaController : Controller { }
+    /*{
         // GET: Prueba
         public ActionResult PruebaTabla()
         {
@@ -31,5 +31,5 @@ namespace bd1.Controllers
 
             return View("~/Views/Home/Index.cshtml");
         }
-    }
+    }*/
 }

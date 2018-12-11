@@ -46,8 +46,8 @@ namespace bd1.Models
                 System.Diagnostics.Debug.WriteLine("connection established");
                 data.Add(new Rol()
                 {
-                    Nombre = dr[1].ToString(),
-                    COD = Int32.Parse(dr[0].ToString())
+                    Nombre = dr[0].ToString(),
+                    COD = Int32.Parse(dr[1].ToString())
                 });
             }
             dr.Close();
