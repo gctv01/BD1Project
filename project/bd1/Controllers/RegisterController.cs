@@ -12,9 +12,14 @@ namespace bd1.Controllers
         // GET: Register
         public ActionResult Registro()
         {
+            return View();
+        }
+
+        public PartialViewResult Rol()
+        {
             DAORol data = DAORol.getInstance();
             List<Rol> roles = data.obtenerRol();
-            return View(roles);
+            return PartialView("rolDropdown", roles);
         }
 
         [HttpPost]
