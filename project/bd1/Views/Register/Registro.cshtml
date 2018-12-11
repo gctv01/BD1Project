@@ -11,11 +11,14 @@
 <h2>Registro de Usuario</h2>
 
 <div class="jumbotron">
+    @{
+        string ID = ViewBag.ID;
+    }
 
-
-    @using (Html.BeginForm("Registro", "Register",
+    @using (Html.BeginForm(ID, "Register",
     FormMethod.Post))
     {
+        <h3>Informacion del Usuario</h3>
         <p>
             @Html.TextBoxFor(m => m.username, new { @class = "form-control", placeholder = "Usuario" })
         </p>
@@ -26,7 +29,25 @@
                 @Html.PasswordFor(model => model., new { @class = "form-control", placeholder = "Verificar contraseña" })
             </p>*@
         @Html.Action("Rol");
-        
+
+        if (ID == "RegistroC")
+        {
+            @Html.Action("Cliente");
+            <div>
+                <input type="submit" value="RegistroC" />
+                <input type="button" value="Regresar" onclick="location.href='@Url.Action("Index", "Home")'" />
+            </div>
+        }
+        else
+        {
+
+            @Html.Action("Empleado");
+            <div>
+                <input type="submit" value="RegistroE" />
+                <input type="button" value="Regresar" onclick="location.href='@Url.Action("Index", "Home")'" />
+            </div>
+        }
+
         @*<p>
                 @Html.TextBoxFor(m => m.Correoelectronico, new { @class = "form-control", placeholder = "Correo electrónico" })
             </p>
@@ -35,13 +56,8 @@
             </p>
             <p>
                 @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", placeholder = "Teléfono" })
-             </p>*@
-
-        <div>
-            <input type="submit" value="Registro" />
-            <input type="button" value="Regresar" onclick="location.href='@Url.Action("Index", "Home")'" />
-        </div>
-
+                </p>*@
+       
     }
 
-</div>
+    </div>

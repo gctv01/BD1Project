@@ -175,7 +175,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\DAO.cs" />
+    <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\Modelo.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Rol.cs" />
@@ -228,6 +230,8 @@
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Cliente.cshtml" />
     <Content Include="Views\Shared\rolDropdown.cshtml" />
+    <Content Include="Views\Shared\formCliente.cshtml" />
+    <Content Include="Views\Shared\formEmpleado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

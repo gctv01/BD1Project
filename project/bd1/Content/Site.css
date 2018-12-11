@@ -24,3 +24,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.inline{
+    display: inline;
+    font-size: medium;
+}   

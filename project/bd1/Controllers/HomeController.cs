@@ -25,29 +25,41 @@ namespace bd1.Controllers
 
             DAOUsuario data = DAOUsuario.getInstance();
 
-            int redireccion = data.buscandoUsuario(model.username, model.contrasena);
-            if(redireccion == 1)
+            //int redireccion = data.buscandoUsuario(model.username, model.contrasena);
+            
+            if (tipoUsuario == "Empleado")
             {
-                if (tipoUsuario == "Empleado")
+                int redireccion = data.buscandoUsuarioE(model.username, model.contrasena);
+                if (redireccion == 1)
                 {
                     return View("~/Views/Home/Admin.cshtml");
-                }else
-                if (tipoUsuario == "Cliente")
-                {
-                    return View("~/Views/Home/Cliente.cshtml");
                 }
                 else
                 {
                     ViewBag.Message = "No existe el usuario, pruebe nuevamente";
                     return View("~/Views/Home/Index.cshtml");
                 }
+
             }
             else
-            {
-                ViewBag.Message = "No existe el usuario, pruebe nuevamente";
-                return View("~/Views/Home/Index.cshtml");
-            }
-            
+                if (tipoUsuario == "Cliente")
+                {
+                    int redireccion = data.buscandoUsuarioC(model.username, model.contrasena);
+                    if(redireccion == 1)
+                    {
+                        return View("~/Views/Home/Cliente.cshtml");
+                    }
+                    else
+                    {
+                        ViewBag.Message = "No existe el usuario, pruebe nuevamente";
+                        return View("~/Views/Home/Index.cshtml");
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = "Seleccionar el tipo de usuario";
+                    return View("~/Views/Home/Index.cshtml");
+                }
         }
 
         public ActionResult About()
