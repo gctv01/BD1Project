@@ -10,13 +10,13 @@ namespace bd1.Models
     {
         public string username { get; set; }
         public string contrasena { get; set; }
-        public string tipoUsuario { get; set; }
+        public string Rol { get; set; }
     }
 
     public class DAOUsuario
     {
-        public const string connString = "Server=localhost;Port=5432;" +
-                    "User Id=postgres;Password=123;Database=LogUcab;";
+        public const string connString = "Server=localhost;Port=5434;" +
+                    "User Id=postgres;Password=123;Database=LogUCAB;";
 
         private static NpgsqlConnection connS = null;
 

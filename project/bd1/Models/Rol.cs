@@ -1,0 +1,50 @@
+﻿using Npgsql;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace bd1.Models
+{
+    public class Rol
+    {
+        public int COD { get; set; }
+        public string Nombre { get; set; } 
+    }
+
+    public class DAORol
+    {
+        public List<Rol> obtenerRol()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"Nombre\" FROM \"Rol\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Rol> data = new List<Rol>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Rol()
+                {
+                    Nombre = dr[1].ToString(),
+                    COD = Int32.Parse(dr[0].ToString())
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            System.Diagnostics.Debug.WriteLine("Los datos obtenidos fueron");
+            foreach (Rol p in data)
+            {
+                System.Diagnostics.Debug.WriteLine("Cod: " + p.COD + "\t nombre: " + p.Nombre);
+            }
+
+            return data;
+
+        }
+    }
+}

@@ -59,15 +59,6 @@ namespace bd1.Models
 
             return data;
 
-            //AHORA UN INSERT
-
-            /*NpgsqlConnection conn2 = Program.getInstanceDAO();
-            conn2.Open();
-            sql = "INSERT INTO \"Persona\" (\"Nombre\", \"CI\") VALUES ('Pep', 13579)";
-            NpgsqlCommand cmd2 = new NpgsqlCommand(sql, conn2);
-            cmd2.ExecuteNonQuery(); //ESTO SOLO EJECUTA EL COMANDO, NO HAY NADA QUE LEER
-            conn.Close();*/
-
         }
 
         public int insertarPersona(string ci, string name)

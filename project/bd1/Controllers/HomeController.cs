@@ -21,15 +21,26 @@ namespace bd1.Controllers
 
             //string name = model.username;
             //string pass = model.contrasena;
-            string tipoUsuario = model.tipoUsuario;
+            string tipoUsuario = model.Rol;
 
             DAOUsuario data = new DAOUsuario();
 
             int redireccion = data.buscandoUsuario(model.username, model.contrasena);
             if(redireccion == 1)
             {
-                if (tipoUsuario ==)
-                return View("~/Views/Home/Empleado.cshtml");
+                if (tipoUsuario == "Empleado")
+                {
+                    return View("~/Views/Home/Admin.cshtml");
+                }else
+                if (tipoUsuario == "Cliente")
+                {
+                    return View("~/Views/Home/Cliente.cshtml");
+                }
+                else
+                {
+                    ViewBag.Message = "No existe el usuario, pruebe nuevamente";
+                    return View("~/Views/Home/Index.cshtml");
+                }
             }
             else
             {

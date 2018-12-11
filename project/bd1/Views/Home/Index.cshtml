@@ -24,8 +24,8 @@
                 @Html.PasswordFor(model => model.contrasena, new { @class = "form-control", placeholder = "contrasena" })
             </p>
             <p>
-                @Html.RadioButtonFor(m => m.tipoUsuario, "Cliente", true) Cliente
-                @Html.RadioButtonFor(m => m.tipoUsuario, "Empleado", false) Empleado
+                @Html.RadioButtonFor(m => m.Rol, "Cliente", true) Cliente
+                @Html.RadioButtonFor(m => m.Rol, "Empleado", false) Empleado
             </p>
             <br/>
             <div>
