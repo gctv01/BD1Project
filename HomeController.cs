@@ -63,6 +63,27 @@ namespace bd1.Controllers
         {
             return View();
         }
+        public ActionResult Agregarvehiculoadmin()
+        {
+            return View();
+        }
+        public ActionResult Pantallavehiculosadmin()
+        {
+            return View();
+        }
+        public ActionResult EditarVehiculo()
+        {
+            return View();
+        }
+        public ActionResult AgregarRuta()
+        {
+            return View();
+        }
+        public ActionResult EditarRuta()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult EnviarPaquete(ModeloPaquete model)
         {
