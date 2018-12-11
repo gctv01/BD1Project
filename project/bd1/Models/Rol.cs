@@ -12,14 +12,30 @@ namespace bd1.Models
         public string Nombre { get; set; } 
     }
 
-    public class DAORol
+    public class DAORol : DAO
     {
+
+        private static DAORol r = null;
+
+        public static DAORol getInstance()
+        {
+            if (DAORol.r != null)
+            {
+                return r;
+            }
+            else
+            {
+                r = new DAORol();
+                return r;
+            }
+        }
+
         public List<Rol> obtenerRol()
         {
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"Nombre\" FROM \"Rol\"";
+            string sql = "SELECT \"Nombre\", \"COD\" FROM \"Rol\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 

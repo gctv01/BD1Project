@@ -12,7 +12,7 @@ namespace bd1.Controllers
         // GET: Register
         public ActionResult Registro()
         {
-            DAORol data = new DAORol();
+            DAORol data = DAORol.getInstance();
             List<Rol> roles = data.obtenerRol();
             return View(roles);
         }
