@@ -32,7 +32,7 @@ namespace bd1.Controllers
                 int redireccion = data.buscandoUsuarioE(model.username, model.contrasena);
                 if (redireccion == 1)
                 {
-                    return View("~/Views/Home/Admin.cshtml");
+                    return View("~/Views/Admin/IndexAdmin.cshtml");
                 }
                 else
                 {

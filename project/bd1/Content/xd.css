@@ -3,9 +3,13 @@
     display: inline-flex;
     list-style: none;
     padding: 25px;
-  
+    width: 100%;
     text-decoration: underline;
     
+}
+
+.foot{
+    margin-top: 0.5%;
 }
 
 

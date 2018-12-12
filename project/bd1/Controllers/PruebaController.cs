@@ -7,33 +7,34 @@ using System.Web.Mvc;
 
 namespace bd1.Controllers
 {
-    public class PruebaController : Controller { }
-//    {
-//         GET: Prueba
-//        public ActionResult PruebaTabla()
-//    {
-//        DAO data = new DAO();
-//        List<Persona> personas = data.obtenerPersonas();
+    public class PruebaController : Controller
+    {
+        //GET: Prueba
+        public ActionResult PruebaTabla()
+        {
+            DAO data = new DAO();
+            //List<Persona> personas = data.obtenerPersonas();
 
-//        return View(personas);
-//        //prueba
-//    }
+            return View();
+            //prueba
+        }
 
-//    [HttpPost]
-//    public ActionResult insertar(Persona model)
-//    {
-//        //string ci = model.ci;
-//        //string nombre = model.nombre;
+        //    [HttpPost]
+        //    public ActionResult insertar(Persona model)
+        //    {
+        //        //string ci = model.ci;
+        //        //string nombre = model.nombre;
 
-//        DAO data = DAO.getInstanceDAO();
+        //        DAO data = DAO.getInstanceDAO();
 
-//        data.insertarPersona(model.ci, model.nombre);
+        //        data.insertarPersona(model.ci, model.nombre);
 
-//        return View("~/Views/Home/Index.cshtml");
-//    }
-//}
-//            return View("~/Views/Home/Index.cshtml");
-//        }
-//     }
+        //        return View("~/Views/Home/Index.cshtml");
+        //    }
+        //}
+        //            return View("~/Views/Home/Index.cshtml");
+        //        }
+        //     }
 
+    }
 }

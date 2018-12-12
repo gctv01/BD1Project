@@ -1,19 +1,13 @@
-﻿@model bd1.Models.ModeloLogIn
+﻿@*@model bd1.Models.*@
 
 @{
     ViewBag.Title = "Homempleado";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<ul class="hola">
-    <li style="margin-right:10%">@Html.ActionLink("Home", "Homempleado", "Home")</li>
-    <li>@Html.ActionLink("Paquetes", "MenuEnvios", "Home")</li>
-    @*<li>@Html.ActionLink("Vehículos", "Contact", "Home")</li>
-    <li>@Html.ActionLink("Pagos", "Contact", "Home")</li>
-    <li>@Html.ActionLink("Admin", "Contact", "Home")</li>*@
-</ul>
+@Html.Action("MenuSuperior");
 <div>
-    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>Bienvenido (nombre de usuario). Estatus de Oficinas</b></p>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>PAQUETES</b></p>
 </div>
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; margin-right: 75%;">Búsqueda por número de oficina</p>
@@ -22,7 +16,7 @@
            FormMethod.Post))
 {
     <p>
-        @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", placeholder = "Num Oficina" })
+        @*@Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", placeholder = "Num Oficina" })*@
     </p>
     <input type="submit" value="Buscar" />
 }
@@ -51,4 +45,6 @@
         </tr>
     </table>
 </div>
+
+
 

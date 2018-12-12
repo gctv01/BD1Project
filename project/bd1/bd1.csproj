@@ -169,7 +169,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OficinasController.cs" />
+    <Compile Include="Controllers\PaqueteController.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,6 +182,7 @@
     <Compile Include="Models\DAO.cs" />
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\Modelo.cs" />
+    <Compile Include="Models\Oficina.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -232,6 +236,12 @@
     <Content Include="Views\Shared\rolDropdown.cshtml" />
     <Content Include="Views\Shared\formCliente.cshtml" />
     <Content Include="Views\Shared\formEmpleado.cshtml" />
+    <Content Include="Views\Admin\IndexAdmin.cshtml" />
+    <Content Include="Views\Paquete\IndexPaquete.cshtml" />
+    <Content Include="Views\Oficinas\IndexOficina.cshtml" />
+    <Content Include="Views\Shared\MenuSuperiorAdm.cshtml" />
+    <Content Include="Views\Shared\TextBoxOFICINA.cshtml" />
+    <Content Include="Views\Oficinas\AgregarOficina.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
