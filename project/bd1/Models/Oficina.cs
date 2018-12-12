@@ -31,7 +31,7 @@ namespace bd1.Models
                 return c;
             }
         }
-
+        //MOSTRAR
         public List<Oficina> obtenerOficinas()
         {
 
@@ -69,13 +69,14 @@ namespace bd1.Models
             return data;
 
         }
+        //INSERTAR
         public int insertarOficina(string nombre, int capacidad, string correo, int almacenamiento)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
 
             String sql = "INSERT INTO \"Sucursal\" (\"COD\", \"Nombre\", \"Capacidad\", \"Correo\" ,\"Almacenamiento\", \"FK-LugarS\", \"FK-EmpleadoS\") " +
-                "VALUES ((SELECT NEXTVAL('codigos')),'" + nombre + "','" + capacidad + "','" + correo + "','" + almacenamiento + "'," +
+                "VALUES ((SELECT NEXTVAL('TipoPaq')),'" + nombre + "','" + capacidad + "','" + correo + "','" + almacenamiento + "'," +
                 "'1', '6316457')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
@@ -83,6 +84,7 @@ namespace bd1.Models
 
             return resp;
         }
+        //BUSCAR A UNO
         public Oficina buscarOficina(int cod)
         {
 
@@ -116,6 +118,7 @@ namespace bd1.Models
             return data;
 
         }
+        //ELIMINAR
         public int eliminarOficina(int cod)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
@@ -128,6 +131,7 @@ namespace bd1.Models
 
             return resp;
         }
+        //MODIFICAR
         public int modificarOficina(int cod,string nombre, int capacidad, string correo, int almacenamiento)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();

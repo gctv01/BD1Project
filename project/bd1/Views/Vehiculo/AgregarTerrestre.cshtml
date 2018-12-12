@@ -1,0 +1,68 @@
+﻿@model bd1.Models.Terrestre
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>VEHICULO - TERRESTRE</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Agregando Vehiculo Terrestre</h2>
+    <br />
+    @using (Html.BeginForm("AgregarTerrestre", "Vehiculo",
+    FormMethod.Post))
+    {
+        //public string placa { get; set; }
+        //public int serialMotor { get; set; }
+        //public int capacidad { get; set; }
+        //public int peso { get; set; }
+        //public string descripcion { get; set; }
+        //public int serialCarroceria { get; set; }
+        //public DateTime fechaCreacion { get; set; }
+        <p>
+            @Html.TextBoxFor(m => m.placa, new { @class = "form-control", placeholder = "Placa" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.serialMotor, new { @class = "form-control",
+                    placeholder = "Serial del Motor" })
+        </p>
+        <p>
+            @Html.TextBoxFor(m => m.capacidad, new { @class = "form-control", placeholder = "Capacidad" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.peso, new { @class = "form-control",
+                    placeholder = "Peso" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.descripcion, new { @class = "form-control",
+                    placeholder = "Descripcion" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.serialCarroceria, new { @class = "form-control",
+                    placeholder = "Serial de Carroceria" })
+        </p>
+        <p>
+            <h5>Fecha de Creacion:</h5>
+            @Html.TextBoxFor(model => model.fechaCreacion, new { @class = "form-control", @type = "date",
+                placeholder = "Fecha de Creacion" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.tipo, new { @class = "form-control",
+                placeholder = "Tipo" })
+        </p>
+        <div>
+            <input type="submit" value="Agregar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexVehiculo", "Vehiculo")'" />
+        </div>
+    }
+</div>
+
+
+
+
+
+

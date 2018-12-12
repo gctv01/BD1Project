@@ -10,7 +10,7 @@ namespace bd1.Models
     public class DAO
     {
         public const string connString = "Server=localhost;Port=5434;" +
-                    "User Id=postgres;Password=123;Database=SisLogUcab;";
+                    "User Id=postgres;Password=123;Database=LogUcab;";
 
         private static NpgsqlConnection connS = null;
 

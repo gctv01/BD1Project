@@ -1,0 +1,28 @@
+﻿@model bd1.Models.Terrestre
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>VEHICULO - TERRESTRE</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Eliminando Vehiculo Terrestre</h2>
+    <br />
+    @using (Html.BeginForm("EliminarTerrestre", "Vehiculo",
+    FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.placa, new { @class = "form-control", placeholder = "Placa del Vehiculo" })
+        </p>
+        <div>
+            <input type="submit" value="Eliminar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexVehiculo", "Vehiculo")'" />
+        </div>
+    }
+</div>
+

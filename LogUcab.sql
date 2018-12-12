@@ -1,4 +1,4 @@
---
+﻿--
 -- TOC entry 196 (class 1259 OID 17111)
 -- Name: Accion; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -161,12 +161,12 @@ CREATE TABLE public."Empleado" (
     "EstadoCivil" character varying NOT NULL,
     "CantHijos" character varying NOT NULL,
     "CorreoEmpresa" character varying NOT NULL,
-    "HorarioAsig" character varying NOT NULL,
     "SalarioAsig" integer NOT NULL,
     "FechaContratado" date,
     "FechaFinal" date,
     "FK-GastosE" integer NOT NULL,
-    "FK-SucursalEmp" integer NOT NULL
+    "FK-SucursalEmp" integer NOT NULL,
+    "FK-HorarioEmp" integer NOT NULL
 );
 
 
@@ -219,6 +219,20 @@ CREATE TABLE public."Gastos" (
 
 
 ALTER TABLE public."Gastos" OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 17780)
+-- Name: Horario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Horario" (
+    "COD" integer NOT NULL,
+    "HorarioInicio" time without time zone NOT NULL,
+    "HorarioFinal" time without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Horario" OWNER TO postgres;
 
 --
 -- TOC entry 207 (class 1259 OID 17197)
@@ -616,7 +630,7 @@ CREATE TABLE public."Zona" (
 ALTER TABLE public."Zona" OWNER TO postgres;
 
 --
--- TOC entry 2835 (class 2606 OID 17118)
+-- TOC entry 2839 (class 2606 OID 17118)
 -- Name: Accion Accion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -625,7 +639,7 @@ ALTER TABLE ONLY public."Accion"
 
 
 --
--- TOC entry 2837 (class 2606 OID 17123)
+-- TOC entry 2841 (class 2606 OID 17123)
 -- Name: Aeropuerto Aeropuerto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -634,7 +648,7 @@ ALTER TABLE ONLY public."Aeropuerto"
 
 
 --
--- TOC entry 2841 (class 2606 OID 17128)
+-- TOC entry 2845 (class 2606 OID 17128)
 -- Name: Asistencia Asistencia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -643,7 +657,7 @@ ALTER TABLE ONLY public."Asistencia"
 
 
 --
--- TOC entry 2849 (class 2606 OID 17147)
+-- TOC entry 2853 (class 2606 OID 17147)
 -- Name: Barco Barco_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -652,7 +666,7 @@ ALTER TABLE ONLY public."Barco"
 
 
 --
--- TOC entry 2853 (class 2606 OID 17155)
+-- TOC entry 2857 (class 2606 OID 17155)
 -- Name: Cheque Cheque_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -661,7 +675,7 @@ ALTER TABLE ONLY public."Cheque"
 
 
 --
--- TOC entry 2856 (class 2606 OID 17163)
+-- TOC entry 2860 (class 2606 OID 17163)
 -- Name: Cliente Cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -670,7 +684,7 @@ ALTER TABLE ONLY public."Cliente"
 
 
 --
--- TOC entry 2968 (class 2606 OID 17376)
+-- TOC entry 2973 (class 2606 OID 17376)
 -- Name: Efectivo Efectivo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -679,7 +693,7 @@ ALTER TABLE ONLY public."Efectivo"
 
 
 --
--- TOC entry 2859 (class 2606 OID 17171)
+-- TOC entry 2863 (class 2606 OID 17171)
 -- Name: Empleado Empleado_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -688,7 +702,7 @@ ALTER TABLE ONLY public."Empleado"
 
 
 --
--- TOC entry 2863 (class 2606 OID 17179)
+-- TOC entry 2868 (class 2606 OID 17179)
 -- Name: Envio Envio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -697,7 +711,7 @@ ALTER TABLE ONLY public."Envio"
 
 
 --
--- TOC entry 2867 (class 2606 OID 17187)
+-- TOC entry 2872 (class 2606 OID 17187)
 -- Name: Estatus Estatus_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -706,7 +720,7 @@ ALTER TABLE ONLY public."Estatus"
 
 
 --
--- TOC entry 2869 (class 2606 OID 17195)
+-- TOC entry 2874 (class 2606 OID 17195)
 -- Name: Gastos Gastos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -715,7 +729,16 @@ ALTER TABLE ONLY public."Gastos"
 
 
 --
--- TOC entry 2872 (class 2606 OID 17201)
+-- TOC entry 2976 (class 2606 OID 17784)
+-- Name: Horario Horario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Horario"
+    ADD CONSTRAINT "Horario_pkey" PRIMARY KEY ("COD");
+
+
+--
+-- TOC entry 2877 (class 2606 OID 17201)
 -- Name: L-VIP L-VIP_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -724,7 +747,7 @@ ALTER TABLE ONLY public."L-VIP"
 
 
 --
--- TOC entry 2875 (class 2606 OID 17209)
+-- TOC entry 2880 (class 2606 OID 17209)
 -- Name: Lugar Lugar_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -733,7 +756,7 @@ ALTER TABLE ONLY public."Lugar"
 
 
 --
--- TOC entry 2884 (class 2606 OID 17225)
+-- TOC entry 2889 (class 2606 OID 17225)
 -- Name: Marca Marca_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -742,7 +765,7 @@ ALTER TABLE ONLY public."Marca"
 
 
 --
--- TOC entry 2886 (class 2606 OID 17233)
+-- TOC entry 2891 (class 2606 OID 17233)
 -- Name: Modelo Modelo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -751,7 +774,7 @@ ALTER TABLE ONLY public."Modelo"
 
 
 --
--- TOC entry 2845 (class 2606 OID 17139)
+-- TOC entry 2849 (class 2606 OID 17139)
 -- Name: Avion PK-Avion; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -760,7 +783,7 @@ ALTER TABLE ONLY public."Avion"
 
 
 --
--- TOC entry 2878 (class 2606 OID 17378)
+-- TOC entry 2883 (class 2606 OID 17378)
 -- Name: Mantenimiento PK-Mantenimiento; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -769,7 +792,7 @@ ALTER TABLE ONLY public."Mantenimiento"
 
 
 --
--- TOC entry 2889 (class 2606 OID 17240)
+-- TOC entry 2894 (class 2606 OID 17240)
 -- Name: Pago-Metodo Pago-Metodo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -778,7 +801,7 @@ ALTER TABLE ONLY public."Pago-Metodo"
 
 
 --
--- TOC entry 2896 (class 2606 OID 17245)
+-- TOC entry 2901 (class 2606 OID 17245)
 -- Name: Pago Pago_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -787,7 +810,7 @@ ALTER TABLE ONLY public."Pago"
 
 
 --
--- TOC entry 2900 (class 2606 OID 17250)
+-- TOC entry 2905 (class 2606 OID 17250)
 -- Name: Paquete Paquete_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -796,7 +819,7 @@ ALTER TABLE ONLY public."Paquete"
 
 
 --
--- TOC entry 2907 (class 2606 OID 17259)
+-- TOC entry 2912 (class 2606 OID 17259)
 -- Name: Puerto Puerto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -805,7 +828,7 @@ ALTER TABLE ONLY public."Puerto"
 
 
 --
--- TOC entry 2913 (class 2606 OID 17272)
+-- TOC entry 2918 (class 2606 OID 17272)
 -- Name: Rol-Accion Rol-Accion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -814,7 +837,7 @@ ALTER TABLE ONLY public."Rol-Accion"
 
 
 --
--- TOC entry 2911 (class 2606 OID 17267)
+-- TOC entry 2916 (class 2606 OID 17267)
 -- Name: Rol Rol_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -823,7 +846,7 @@ ALTER TABLE ONLY public."Rol"
 
 
 --
--- TOC entry 2917 (class 2606 OID 17277)
+-- TOC entry 2922 (class 2606 OID 17277)
 -- Name: Ruta Ruta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -832,7 +855,7 @@ ALTER TABLE ONLY public."Ruta"
 
 
 --
--- TOC entry 2922 (class 2606 OID 17285)
+-- TOC entry 2927 (class 2606 OID 17285)
 -- Name: Servicio Servicio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -841,7 +864,7 @@ ALTER TABLE ONLY public."Servicio"
 
 
 --
--- TOC entry 2925 (class 2606 OID 17293)
+-- TOC entry 2930 (class 2606 OID 17293)
 -- Name: Sucursal Sucursal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -850,7 +873,7 @@ ALTER TABLE ONLY public."Sucursal"
 
 
 --
--- TOC entry 2929 (class 2606 OID 17301)
+-- TOC entry 2934 (class 2606 OID 17301)
 -- Name: Taller Taller_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -859,7 +882,7 @@ ALTER TABLE ONLY public."Taller"
 
 
 --
--- TOC entry 2933 (class 2606 OID 17309)
+-- TOC entry 2938 (class 2606 OID 17309)
 -- Name: Tarjeta Tarjeta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -868,7 +891,7 @@ ALTER TABLE ONLY public."Tarjeta"
 
 
 --
--- TOC entry 2936 (class 2606 OID 17314)
+-- TOC entry 2941 (class 2606 OID 17314)
 -- Name: Telefono Telefono_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -877,7 +900,7 @@ ALTER TABLE ONLY public."Telefono"
 
 
 --
--- TOC entry 2941 (class 2606 OID 17323)
+-- TOC entry 2946 (class 2606 OID 17323)
 -- Name: Terrestre Terrestre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -886,7 +909,7 @@ ALTER TABLE ONLY public."Terrestre"
 
 
 --
--- TOC entry 2945 (class 2606 OID 17331)
+-- TOC entry 2950 (class 2606 OID 17331)
 -- Name: TipoPaquete TipoPaquete_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -895,7 +918,7 @@ ALTER TABLE ONLY public."TipoPaquete"
 
 
 --
--- TOC entry 2947 (class 2606 OID 17339)
+-- TOC entry 2952 (class 2606 OID 17339)
 -- Name: Transferencia Transferencia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -904,7 +927,7 @@ ALTER TABLE ONLY public."Transferencia"
 
 
 --
--- TOC entry 2950 (class 2606 OID 17344)
+-- TOC entry 2955 (class 2606 OID 17344)
 -- Name: Traslado Traslado_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -913,7 +936,7 @@ ALTER TABLE ONLY public."Traslado"
 
 
 --
--- TOC entry 2954 (class 2606 OID 17352)
+-- TOC entry 2959 (class 2606 OID 17352)
 -- Name: Usuario Usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -922,7 +945,7 @@ ALTER TABLE ONLY public."Usuario"
 
 
 --
--- TOC entry 2959 (class 2606 OID 17360)
+-- TOC entry 2964 (class 2606 OID 17360)
 -- Name: Veh-Rut Veh-Rut_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -931,7 +954,7 @@ ALTER TABLE ONLY public."Veh-Rut"
 
 
 --
--- TOC entry 2965 (class 2606 OID 17368)
+-- TOC entry 2970 (class 2606 OID 17368)
 -- Name: Zona Zona_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -940,7 +963,7 @@ ALTER TABLE ONLY public."Zona"
 
 
 --
--- TOC entry 2842 (class 1259 OID 17396)
+-- TOC entry 2846 (class 1259 OID 17396)
 -- Name: fki_CIEmpleado; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -948,7 +971,7 @@ CREATE INDEX "fki_CIEmpleado" ON public."Asistencia" USING btree ("CIEmpleado");
 
 
 --
--- TOC entry 2914 (class 1259 OID 17616)
+-- TOC entry 2919 (class 1259 OID 17616)
 -- Name: fki_CODAccion; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -956,7 +979,7 @@ CREATE INDEX "fki_CODAccion" ON public."Rol-Accion" USING btree ("CODAccion");
 
 
 --
--- TOC entry 2890 (class 1259 OID 17540)
+-- TOC entry 2895 (class 1259 OID 17540)
 -- Name: fki_CODCheque; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -964,7 +987,7 @@ CREATE INDEX "fki_CODCheque" ON public."Pago-Metodo" USING btree ("CODCheque");
 
 
 --
--- TOC entry 2891 (class 1259 OID 17552)
+-- TOC entry 2896 (class 1259 OID 17552)
 -- Name: fki_CODEfect; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -972,7 +995,7 @@ CREATE INDEX "fki_CODEfect" ON public."Pago-Metodo" USING btree ("CODEfect");
 
 
 --
--- TOC entry 2951 (class 1259 OID 17724)
+-- TOC entry 2956 (class 1259 OID 17724)
 -- Name: fki_CODEnvio; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -980,7 +1003,7 @@ CREATE INDEX "fki_CODEnvio" ON public."Traslado" USING btree ("CODEnvio");
 
 
 --
--- TOC entry 2892 (class 1259 OID 17528)
+-- TOC entry 2897 (class 1259 OID 17528)
 -- Name: fki_CODPago; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -988,7 +1011,7 @@ CREATE INDEX "fki_CODPago" ON public."Pago-Metodo" USING btree ("CODPago");
 
 
 --
--- TOC entry 2915 (class 1259 OID 17610)
+-- TOC entry 2920 (class 1259 OID 17610)
 -- Name: fki_CODRol; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -996,7 +1019,7 @@ CREATE INDEX "fki_CODRol" ON public."Rol-Accion" USING btree ("CODRol");
 
 
 --
--- TOC entry 2960 (class 1259 OID 17748)
+-- TOC entry 2965 (class 1259 OID 17748)
 -- Name: fki_CODRuta; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1004,7 +1027,7 @@ CREATE INDEX "fki_CODRuta" ON public."Veh-Rut" USING btree ("CODRuta");
 
 
 --
--- TOC entry 2879 (class 1259 OID 17486)
+-- TOC entry 2884 (class 1259 OID 17486)
 -- Name: fki_CODTaller; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1012,7 +1035,7 @@ CREATE INDEX "fki_CODTaller" ON public."Mantenimiento" USING btree ("CODTaller")
 
 
 --
--- TOC entry 2893 (class 1259 OID 17534)
+-- TOC entry 2898 (class 1259 OID 17534)
 -- Name: fki_CODTarjeta; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1020,7 +1043,7 @@ CREATE INDEX "fki_CODTarjeta" ON public."Pago-Metodo" USING btree ("CODTarjeta")
 
 
 --
--- TOC entry 2894 (class 1259 OID 17546)
+-- TOC entry 2899 (class 1259 OID 17546)
 -- Name: fki_CODTrans; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1028,7 +1051,7 @@ CREATE INDEX "fki_CODTrans" ON public."Pago-Metodo" USING btree ("CODTrans");
 
 
 --
--- TOC entry 2952 (class 1259 OID 17718)
+-- TOC entry 2957 (class 1259 OID 17718)
 -- Name: fki_CODVeh-Rut; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1036,7 +1059,7 @@ CREATE INDEX "fki_CODVeh-Rut" ON public."Traslado" USING btree ("CODVeh-Rut");
 
 
 --
--- TOC entry 2843 (class 1259 OID 17402)
+-- TOC entry 2847 (class 1259 OID 17402)
 -- Name: fki_CODZona; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1044,7 +1067,7 @@ CREATE INDEX "fki_CODZona" ON public."Asistencia" USING btree ("CODZona");
 
 
 --
--- TOC entry 2846 (class 1259 OID 17414)
+-- TOC entry 2850 (class 1259 OID 17414)
 -- Name: fki_FK-Aeropuerto; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1052,7 +1075,7 @@ CREATE INDEX "fki_FK-Aeropuerto" ON public."Avion" USING btree ("FK-Aeropuerto")
 
 
 --
--- TOC entry 2873 (class 1259 OID 17474)
+-- TOC entry 2878 (class 1259 OID 17474)
 -- Name: fki_FK-CLienteL; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1060,7 +1083,7 @@ CREATE INDEX "fki_FK-CLienteL" ON public."L-VIP" USING btree ("FK-ClienteL");
 
 
 --
--- TOC entry 2937 (class 1259 OID 17689)
+-- TOC entry 2942 (class 1259 OID 17689)
 -- Name: fki_FK-Cliente; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1068,7 +1091,7 @@ CREATE INDEX "fki_FK-Cliente" ON public."Telefono" USING btree ("FK-Cliente");
 
 
 --
--- TOC entry 2901 (class 1259 OID 17581)
+-- TOC entry 2906 (class 1259 OID 17581)
 -- Name: fki_FK-Cliente1; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1076,7 +1099,7 @@ CREATE INDEX "fki_FK-Cliente1" ON public."Paquete" USING btree ("FK-Cliente1");
 
 
 --
--- TOC entry 2902 (class 1259 OID 17587)
+-- TOC entry 2907 (class 1259 OID 17587)
 -- Name: fki_FK-Cliente2; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1084,7 +1107,7 @@ CREATE INDEX "fki_FK-Cliente2" ON public."Paquete" USING btree ("FK-Cliente2");
 
 
 --
--- TOC entry 2969 (class 1259 OID 17444)
+-- TOC entry 2974 (class 1259 OID 17444)
 -- Name: fki_FK-ClienteE; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1092,7 +1115,7 @@ CREATE INDEX "fki_FK-ClienteE" ON public."Efectivo" USING btree ("FK-ClienteE");
 
 
 --
--- TOC entry 2854 (class 1259 OID 17432)
+-- TOC entry 2858 (class 1259 OID 17432)
 -- Name: fki_FK-ClienteM; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1100,7 +1123,7 @@ CREATE INDEX "fki_FK-ClienteM" ON public."Cheque" USING btree ("FK-ClienteM");
 
 
 --
--- TOC entry 2934 (class 1259 OID 17671)
+-- TOC entry 2939 (class 1259 OID 17671)
 -- Name: fki_FK-ClienteT; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1108,7 +1131,7 @@ CREATE INDEX "fki_FK-ClienteT" ON public."Tarjeta" USING btree ("FK-ClienteT");
 
 
 --
--- TOC entry 2948 (class 1259 OID 17712)
+-- TOC entry 2953 (class 1259 OID 17712)
 -- Name: fki_FK-ClienteTrans; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1116,7 +1139,7 @@ CREATE INDEX "fki_FK-ClienteTrans" ON public."Transferencia" USING btree ("FK-Cl
 
 
 --
--- TOC entry 2955 (class 1259 OID 17766)
+-- TOC entry 2960 (class 1259 OID 17766)
 -- Name: fki_FK-ClienteU; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1124,7 +1147,7 @@ CREATE INDEX "fki_FK-ClienteU" ON public."Usuario" USING btree ("FK-ClienteU");
 
 
 --
--- TOC entry 2938 (class 1259 OID 17683)
+-- TOC entry 2943 (class 1259 OID 17683)
 -- Name: fki_FK-Empleado; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1132,7 +1155,7 @@ CREATE INDEX "fki_FK-Empleado" ON public."Telefono" USING btree ("FK-Empleado");
 
 
 --
--- TOC entry 2864 (class 1259 OID 17456)
+-- TOC entry 2869 (class 1259 OID 17456)
 -- Name: fki_FK-EmpleadoE; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1140,7 +1163,7 @@ CREATE INDEX "fki_FK-EmpleadoE" ON public."Envio" USING btree ("FK-EmpleadoE");
 
 
 --
--- TOC entry 2897 (class 1259 OID 17516)
+-- TOC entry 2902 (class 1259 OID 17516)
 -- Name: fki_FK-EmpleadoP; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1148,7 +1171,7 @@ CREATE INDEX "fki_FK-EmpleadoP" ON public."Pago" USING btree ("FK-EmpleadoP");
 
 
 --
--- TOC entry 2926 (class 1259 OID 17653)
+-- TOC entry 2931 (class 1259 OID 17653)
 -- Name: fki_FK-EmpleadoS; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1156,7 +1179,7 @@ CREATE INDEX "fki_FK-EmpleadoS" ON public."Sucursal" USING btree ("FK-EmpleadoS"
 
 
 --
--- TOC entry 2956 (class 1259 OID 17772)
+-- TOC entry 2961 (class 1259 OID 17772)
 -- Name: fki_FK-EmpleadoU; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1164,7 +1187,7 @@ CREATE INDEX "fki_FK-EmpleadoU" ON public."Usuario" USING btree ("FK-EmpleadoU")
 
 
 --
--- TOC entry 2898 (class 1259 OID 17522)
+-- TOC entry 2903 (class 1259 OID 17522)
 -- Name: fki_FK-EnvioP; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1172,7 +1195,7 @@ CREATE INDEX "fki_FK-EnvioP" ON public."Pago" USING btree ("FK-EnvioP");
 
 
 --
--- TOC entry 2903 (class 1259 OID 17575)
+-- TOC entry 2908 (class 1259 OID 17575)
 -- Name: fki_FK-EnvioPa; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1180,7 +1203,7 @@ CREATE INDEX "fki_FK-EnvioPa" ON public."Paquete" USING btree ("FK-EnvioP");
 
 
 --
--- TOC entry 2865 (class 1259 OID 17462)
+-- TOC entry 2870 (class 1259 OID 17462)
 -- Name: fki_FK-EstatusE; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1188,7 +1211,7 @@ CREATE INDEX "fki_FK-EstatusE" ON public."Envio" USING btree ("FK-EstatusE");
 
 
 --
--- TOC entry 2860 (class 1259 OID 17450)
+-- TOC entry 2864 (class 1259 OID 17450)
 -- Name: fki_FK-GastosE; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1196,7 +1219,7 @@ CREATE INDEX "fki_FK-GastosE" ON public."Empleado" USING btree ("FK-GastosE");
 
 
 --
--- TOC entry 2923 (class 1259 OID 17641)
+-- TOC entry 2928 (class 1259 OID 17641)
 -- Name: fki_FK-GastosS; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1204,7 +1227,15 @@ CREATE INDEX "fki_FK-GastosS" ON public."Servicio" USING btree ("FK-GastosS");
 
 
 --
--- TOC entry 2838 (class 1259 OID 17390)
+-- TOC entry 2865 (class 1259 OID 17790)
+-- Name: fki_FK-HorarioEmp; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_FK-HorarioEmp" ON public."Empleado" USING btree ("FK-HorarioEmp");
+
+
+--
+-- TOC entry 2842 (class 1259 OID 17390)
 -- Name: fki_FK-LugarAe; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1212,7 +1243,7 @@ CREATE INDEX "fki_FK-LugarAe" ON public."Aeropuerto" USING btree ("FK-LugarAe");
 
 
 --
--- TOC entry 2857 (class 1259 OID 17438)
+-- TOC entry 2861 (class 1259 OID 17438)
 -- Name: fki_FK-LugarC; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1220,7 +1251,7 @@ CREATE INDEX "fki_FK-LugarC" ON public."Cliente" USING btree ("FK-LugarC");
 
 
 --
--- TOC entry 2876 (class 1259 OID 17480)
+-- TOC entry 2881 (class 1259 OID 17480)
 -- Name: fki_FK-LugarL; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1228,7 +1259,7 @@ CREATE INDEX "fki_FK-LugarL" ON public."Lugar" USING btree ("Fk-LugarL");
 
 
 --
--- TOC entry 2908 (class 1259 OID 17593)
+-- TOC entry 2913 (class 1259 OID 17593)
 -- Name: fki_FK-LugarP; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1236,7 +1267,7 @@ CREATE INDEX "fki_FK-LugarP" ON public."Puerto" USING btree ("FK-LugarP");
 
 
 --
--- TOC entry 2927 (class 1259 OID 17647)
+-- TOC entry 2932 (class 1259 OID 17647)
 -- Name: fki_FK-LugarS; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1244,7 +1275,7 @@ CREATE INDEX "fki_FK-LugarS" ON public."Sucursal" USING btree ("FK-LugarS");
 
 
 --
--- TOC entry 2930 (class 1259 OID 17659)
+-- TOC entry 2935 (class 1259 OID 17659)
 -- Name: fki_FK-LugarT; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1252,7 +1283,7 @@ CREATE INDEX "fki_FK-LugarT" ON public."Taller" USING btree ("FK-LugarT");
 
 
 --
--- TOC entry 2887 (class 1259 OID 17510)
+-- TOC entry 2892 (class 1259 OID 17510)
 -- Name: fki_FK-MarcaM; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1260,7 +1291,7 @@ CREATE INDEX "fki_FK-MarcaM" ON public."Modelo" USING btree ("FK-MarcaM");
 
 
 --
--- TOC entry 2847 (class 1259 OID 17408)
+-- TOC entry 2851 (class 1259 OID 17408)
 -- Name: fki_FK-ModeloA; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1268,7 +1299,7 @@ CREATE INDEX "fki_FK-ModeloA" ON public."Avion" USING btree ("FK-ModeloA");
 
 
 --
--- TOC entry 2850 (class 1259 OID 17420)
+-- TOC entry 2854 (class 1259 OID 17420)
 -- Name: fki_FK-ModeloB; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1276,7 +1307,7 @@ CREATE INDEX "fki_FK-ModeloB" ON public."Barco" USING btree ("FK-ModeloB");
 
 
 --
--- TOC entry 2942 (class 1259 OID 17706)
+-- TOC entry 2947 (class 1259 OID 17706)
 -- Name: fki_FK-ModeloT; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1284,7 +1315,7 @@ CREATE INDEX "fki_FK-ModeloT" ON public."Terrestre" USING btree ("FK-ModeloT");
 
 
 --
--- TOC entry 2851 (class 1259 OID 17426)
+-- TOC entry 2855 (class 1259 OID 17426)
 -- Name: fki_FK-PuertoB; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1292,7 +1323,7 @@ CREATE INDEX "fki_FK-PuertoB" ON public."Barco" USING btree ("FK-PuertoB");
 
 
 --
--- TOC entry 2957 (class 1259 OID 17760)
+-- TOC entry 2962 (class 1259 OID 17760)
 -- Name: fki_FK-RolU; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1300,7 +1331,7 @@ CREATE INDEX "fki_FK-RolU" ON public."Usuario" USING btree ("FK-RolU");
 
 
 --
--- TOC entry 2918 (class 1259 OID 17635)
+-- TOC entry 2923 (class 1259 OID 17635)
 -- Name: fki_FK-Ruta; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1308,7 +1339,7 @@ CREATE INDEX "fki_FK-Ruta" ON public."Ruta" USING btree ("FK-Ruta");
 
 
 --
--- TOC entry 2904 (class 1259 OID 17564)
+-- TOC entry 2909 (class 1259 OID 17564)
 -- Name: fki_FK-Sucursal; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1316,7 +1347,7 @@ CREATE INDEX "fki_FK-Sucursal" ON public."Paquete" USING btree ("FK-Sucursal");
 
 
 --
--- TOC entry 2919 (class 1259 OID 17623)
+-- TOC entry 2924 (class 1259 OID 17623)
 -- Name: fki_FK-Sucursal1; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1324,7 +1355,7 @@ CREATE INDEX "fki_FK-Sucursal1" ON public."Ruta" USING btree ("FK-Sucursal1");
 
 
 --
--- TOC entry 2920 (class 1259 OID 17629)
+-- TOC entry 2925 (class 1259 OID 17629)
 -- Name: fki_FK-Sucursal2; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1332,7 +1363,7 @@ CREATE INDEX "fki_FK-Sucursal2" ON public."Ruta" USING btree ("Fk-Sucursal2");
 
 
 --
--- TOC entry 2839 (class 1259 OID 17384)
+-- TOC entry 2843 (class 1259 OID 17384)
 -- Name: fki_FK-SucursalA; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1340,7 +1371,7 @@ CREATE INDEX "fki_FK-SucursalA" ON public."Aeropuerto" USING btree ("FK-Sucursal
 
 
 --
--- TOC entry 2861 (class 1259 OID 17779)
+-- TOC entry 2866 (class 1259 OID 17779)
 -- Name: fki_FK-SucursalEmp; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1348,7 +1379,7 @@ CREATE INDEX "fki_FK-SucursalEmp" ON public."Empleado" USING btree ("FK-Sucursal
 
 
 --
--- TOC entry 2870 (class 1259 OID 17468)
+-- TOC entry 2875 (class 1259 OID 17468)
 -- Name: fki_FK-SucursalG; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1356,7 +1387,7 @@ CREATE INDEX "fki_FK-SucursalG" ON public."Gastos" USING btree ("FK-SucursalG");
 
 
 --
--- TOC entry 2909 (class 1259 OID 17604)
+-- TOC entry 2914 (class 1259 OID 17604)
 -- Name: fki_FK-SucursalPu; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1364,7 +1395,7 @@ CREATE INDEX "fki_FK-SucursalPu" ON public."Puerto" USING btree ("FK-Sucursal");
 
 
 --
--- TOC entry 2939 (class 1259 OID 17677)
+-- TOC entry 2944 (class 1259 OID 17677)
 -- Name: fki_FK-SucursalT; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1372,7 +1403,7 @@ CREATE INDEX "fki_FK-SucursalT" ON public."Telefono" USING btree ("FK-SucursalT"
 
 
 --
--- TOC entry 2943 (class 1259 OID 17700)
+-- TOC entry 2948 (class 1259 OID 17700)
 -- Name: fki_FK-SucursalTe; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1380,7 +1411,7 @@ CREATE INDEX "fki_FK-SucursalTe" ON public."Terrestre" USING btree ("FK-Sucursal
 
 
 --
--- TOC entry 2966 (class 1259 OID 17754)
+-- TOC entry 2971 (class 1259 OID 17754)
 -- Name: fki_FK-SucursalZ; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1388,7 +1419,7 @@ CREATE INDEX "fki_FK-SucursalZ" ON public."Zona" USING btree ("FK-SucursalZ");
 
 
 --
--- TOC entry 2931 (class 1259 OID 17665)
+-- TOC entry 2936 (class 1259 OID 17665)
 -- Name: fki_FK-TelefonoT; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1396,7 +1427,7 @@ CREATE INDEX "fki_FK-TelefonoT" ON public."Taller" USING btree ("FK-TelefonoT");
 
 
 --
--- TOC entry 2905 (class 1259 OID 17558)
+-- TOC entry 2910 (class 1259 OID 17558)
 -- Name: fki_FK-TipoPaquete; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1404,7 +1435,7 @@ CREATE INDEX "fki_FK-TipoPaquete" ON public."Paquete" USING btree ("FK-TipoPaque
 
 
 --
--- TOC entry 2880 (class 1259 OID 17492)
+-- TOC entry 2885 (class 1259 OID 17492)
 -- Name: fki_PlacaA; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1412,7 +1443,7 @@ CREATE INDEX "fki_PlacaA" ON public."Mantenimiento" USING btree ("PlacaA");
 
 
 --
--- TOC entry 2961 (class 1259 OID 17730)
+-- TOC entry 2966 (class 1259 OID 17730)
 -- Name: fki_PlacaA-Veh-Rut; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1420,7 +1451,7 @@ CREATE INDEX "fki_PlacaA-Veh-Rut" ON public."Veh-Rut" USING btree ("PlacaA");
 
 
 --
--- TOC entry 2881 (class 1259 OID 17498)
+-- TOC entry 2886 (class 1259 OID 17498)
 -- Name: fki_PlacaB; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1428,7 +1459,7 @@ CREATE INDEX "fki_PlacaB" ON public."Mantenimiento" USING btree ("PlacaB");
 
 
 --
--- TOC entry 2962 (class 1259 OID 17736)
+-- TOC entry 2967 (class 1259 OID 17736)
 -- Name: fki_PlacaB-Veh-Rut; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1436,7 +1467,7 @@ CREATE INDEX "fki_PlacaB-Veh-Rut" ON public."Veh-Rut" USING btree ("PlacaB");
 
 
 --
--- TOC entry 2882 (class 1259 OID 17504)
+-- TOC entry 2887 (class 1259 OID 17504)
 -- Name: fki_PlacaT; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1444,7 +1475,7 @@ CREATE INDEX "fki_PlacaT" ON public."Mantenimiento" USING btree ("PlacaT");
 
 
 --
--- TOC entry 2963 (class 1259 OID 17742)
+-- TOC entry 2968 (class 1259 OID 17742)
 -- Name: fki_PlacaT-Veh-Rut; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1452,7 +1483,7 @@ CREATE INDEX "fki_PlacaT-Veh-Rut" ON public."Veh-Rut" USING btree ("PlacaT");
 
 
 --
--- TOC entry 2972 (class 2606 OID 17391)
+-- TOC entry 2979 (class 2606 OID 17391)
 -- Name: Asistencia CIEmpleado; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1461,7 +1492,7 @@ ALTER TABLE ONLY public."Asistencia"
 
 
 --
--- TOC entry 3009 (class 2606 OID 17611)
+-- TOC entry 3017 (class 2606 OID 17611)
 -- Name: Rol-Accion CODAccion; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1470,7 +1501,7 @@ ALTER TABLE ONLY public."Rol-Accion"
 
 
 --
--- TOC entry 2994 (class 2606 OID 17535)
+-- TOC entry 3002 (class 2606 OID 17535)
 -- Name: Pago-Metodo CODCheque; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1479,7 +1510,7 @@ ALTER TABLE ONLY public."Pago-Metodo"
 
 
 --
--- TOC entry 2996 (class 2606 OID 17547)
+-- TOC entry 3004 (class 2606 OID 17547)
 -- Name: Pago-Metodo CODEfect; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1488,7 +1519,7 @@ ALTER TABLE ONLY public."Pago-Metodo"
 
 
 --
--- TOC entry 3027 (class 2606 OID 17719)
+-- TOC entry 3035 (class 2606 OID 17719)
 -- Name: Traslado CODEnvio; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1497,7 +1528,7 @@ ALTER TABLE ONLY public."Traslado"
 
 
 --
--- TOC entry 2992 (class 2606 OID 17523)
+-- TOC entry 3000 (class 2606 OID 17523)
 -- Name: Pago-Metodo CODPago; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1506,7 +1537,7 @@ ALTER TABLE ONLY public."Pago-Metodo"
 
 
 --
--- TOC entry 3008 (class 2606 OID 17605)
+-- TOC entry 3016 (class 2606 OID 17605)
 -- Name: Rol-Accion CODRol; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1515,7 +1546,7 @@ ALTER TABLE ONLY public."Rol-Accion"
 
 
 --
--- TOC entry 3034 (class 2606 OID 17743)
+-- TOC entry 3042 (class 2606 OID 17743)
 -- Name: Veh-Rut CODRuta; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1524,7 +1555,7 @@ ALTER TABLE ONLY public."Veh-Rut"
 
 
 --
--- TOC entry 2987 (class 2606 OID 17481)
+-- TOC entry 2995 (class 2606 OID 17481)
 -- Name: Mantenimiento CODTaller; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1533,7 +1564,7 @@ ALTER TABLE ONLY public."Mantenimiento"
 
 
 --
--- TOC entry 2993 (class 2606 OID 17529)
+-- TOC entry 3001 (class 2606 OID 17529)
 -- Name: Pago-Metodo CODTarjeta; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1542,7 +1573,7 @@ ALTER TABLE ONLY public."Pago-Metodo"
 
 
 --
--- TOC entry 2995 (class 2606 OID 17541)
+-- TOC entry 3003 (class 2606 OID 17541)
 -- Name: Pago-Metodo CODTrans; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1551,7 +1582,7 @@ ALTER TABLE ONLY public."Pago-Metodo"
 
 
 --
--- TOC entry 3026 (class 2606 OID 17713)
+-- TOC entry 3034 (class 2606 OID 17713)
 -- Name: Traslado CODVeh-Rut; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1560,7 +1591,7 @@ ALTER TABLE ONLY public."Traslado"
 
 
 --
--- TOC entry 2973 (class 2606 OID 17397)
+-- TOC entry 2980 (class 2606 OID 17397)
 -- Name: Asistencia CODZona; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1569,7 +1600,7 @@ ALTER TABLE ONLY public."Asistencia"
 
 
 --
--- TOC entry 2975 (class 2606 OID 17409)
+-- TOC entry 2982 (class 2606 OID 17409)
 -- Name: Avion FK-Aeropuerto; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1578,7 +1609,7 @@ ALTER TABLE ONLY public."Avion"
 
 
 --
--- TOC entry 2985 (class 2606 OID 17469)
+-- TOC entry 2993 (class 2606 OID 17469)
 -- Name: L-VIP FK-CLienteL; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1587,7 +1618,7 @@ ALTER TABLE ONLY public."L-VIP"
 
 
 --
--- TOC entry 3021 (class 2606 OID 17684)
+-- TOC entry 3029 (class 2606 OID 17684)
 -- Name: Telefono FK-Cliente; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1596,7 +1627,7 @@ ALTER TABLE ONLY public."Telefono"
 
 
 --
--- TOC entry 3000 (class 2606 OID 17576)
+-- TOC entry 3008 (class 2606 OID 17576)
 -- Name: Paquete FK-Cliente1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1605,7 +1636,7 @@ ALTER TABLE ONLY public."Paquete"
 
 
 --
--- TOC entry 3001 (class 2606 OID 17582)
+-- TOC entry 3009 (class 2606 OID 17582)
 -- Name: Paquete FK-Cliente2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1614,7 +1645,7 @@ ALTER TABLE ONLY public."Paquete"
 
 
 --
--- TOC entry 3036 (class 2606 OID 17439)
+-- TOC entry 3044 (class 2606 OID 17439)
 -- Name: Efectivo FK-ClienteE; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1623,7 +1654,7 @@ ALTER TABLE ONLY public."Efectivo"
 
 
 --
--- TOC entry 2978 (class 2606 OID 17427)
+-- TOC entry 2985 (class 2606 OID 17427)
 -- Name: Cheque FK-ClienteM; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1632,7 +1663,7 @@ ALTER TABLE ONLY public."Cheque"
 
 
 --
--- TOC entry 3018 (class 2606 OID 17666)
+-- TOC entry 3026 (class 2606 OID 17666)
 -- Name: Tarjeta FK-ClienteT; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1641,7 +1672,7 @@ ALTER TABLE ONLY public."Tarjeta"
 
 
 --
--- TOC entry 3025 (class 2606 OID 17707)
+-- TOC entry 3033 (class 2606 OID 17707)
 -- Name: Transferencia FK-ClienteTrans; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1650,7 +1681,7 @@ ALTER TABLE ONLY public."Transferencia"
 
 
 --
--- TOC entry 3029 (class 2606 OID 17761)
+-- TOC entry 3037 (class 2606 OID 17761)
 -- Name: Usuario FK-ClienteU; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1659,7 +1690,7 @@ ALTER TABLE ONLY public."Usuario"
 
 
 --
--- TOC entry 3020 (class 2606 OID 17678)
+-- TOC entry 3028 (class 2606 OID 17678)
 -- Name: Telefono FK-Empleado; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1668,7 +1699,7 @@ ALTER TABLE ONLY public."Telefono"
 
 
 --
--- TOC entry 2982 (class 2606 OID 17451)
+-- TOC entry 2990 (class 2606 OID 17451)
 -- Name: Envio FK-EmpleadoE; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1677,7 +1708,7 @@ ALTER TABLE ONLY public."Envio"
 
 
 --
--- TOC entry 2997 (class 2606 OID 17511)
+-- TOC entry 3005 (class 2606 OID 17511)
 -- Name: Pago FK-EmpleadoP; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1686,7 +1717,7 @@ ALTER TABLE ONLY public."Pago"
 
 
 --
--- TOC entry 3015 (class 2606 OID 17648)
+-- TOC entry 3023 (class 2606 OID 17648)
 -- Name: Sucursal FK-EmpleadoS; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1695,7 +1726,7 @@ ALTER TABLE ONLY public."Sucursal"
 
 
 --
--- TOC entry 3030 (class 2606 OID 17767)
+-- TOC entry 3038 (class 2606 OID 17767)
 -- Name: Usuario FK-EmpleadoU; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1704,7 +1735,7 @@ ALTER TABLE ONLY public."Usuario"
 
 
 --
--- TOC entry 2998 (class 2606 OID 17517)
+-- TOC entry 3006 (class 2606 OID 17517)
 -- Name: Pago FK-EnvioP; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1713,7 +1744,7 @@ ALTER TABLE ONLY public."Pago"
 
 
 --
--- TOC entry 3004 (class 2606 OID 17565)
+-- TOC entry 3012 (class 2606 OID 17565)
 -- Name: Paquete FK-EnvioP; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1722,7 +1753,7 @@ ALTER TABLE ONLY public."Paquete"
 
 
 --
--- TOC entry 2999 (class 2606 OID 17570)
+-- TOC entry 3007 (class 2606 OID 17570)
 -- Name: Paquete FK-EnvioPa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1731,7 +1762,7 @@ ALTER TABLE ONLY public."Paquete"
 
 
 --
--- TOC entry 2983 (class 2606 OID 17457)
+-- TOC entry 2991 (class 2606 OID 17457)
 -- Name: Envio FK-EstatusE; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1740,7 +1771,7 @@ ALTER TABLE ONLY public."Envio"
 
 
 --
--- TOC entry 2980 (class 2606 OID 17445)
+-- TOC entry 2987 (class 2606 OID 17445)
 -- Name: Empleado FK-GastosE; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1749,7 +1780,7 @@ ALTER TABLE ONLY public."Empleado"
 
 
 --
--- TOC entry 3013 (class 2606 OID 17636)
+-- TOC entry 3021 (class 2606 OID 17636)
 -- Name: Servicio FK-GastosS; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1758,7 +1789,16 @@ ALTER TABLE ONLY public."Servicio"
 
 
 --
--- TOC entry 2971 (class 2606 OID 17385)
+-- TOC entry 2989 (class 2606 OID 17785)
+-- Name: Empleado FK-HorarioEmp; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Empleado"
+    ADD CONSTRAINT "FK-HorarioEmp" FOREIGN KEY ("FK-HorarioEmp") REFERENCES public."Horario"("COD");
+
+
+--
+-- TOC entry 2978 (class 2606 OID 17385)
 -- Name: Aeropuerto FK-LugarAe; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1767,7 +1807,7 @@ ALTER TABLE ONLY public."Aeropuerto"
 
 
 --
--- TOC entry 2979 (class 2606 OID 17433)
+-- TOC entry 2986 (class 2606 OID 17433)
 -- Name: Cliente FK-LugarC; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1776,7 +1816,7 @@ ALTER TABLE ONLY public."Cliente"
 
 
 --
--- TOC entry 2986 (class 2606 OID 17475)
+-- TOC entry 2994 (class 2606 OID 17475)
 -- Name: Lugar FK-LugarL; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1785,7 +1825,7 @@ ALTER TABLE ONLY public."Lugar"
 
 
 --
--- TOC entry 3005 (class 2606 OID 17588)
+-- TOC entry 3013 (class 2606 OID 17588)
 -- Name: Puerto FK-LugarP; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1794,7 +1834,7 @@ ALTER TABLE ONLY public."Puerto"
 
 
 --
--- TOC entry 3014 (class 2606 OID 17642)
+-- TOC entry 3022 (class 2606 OID 17642)
 -- Name: Sucursal FK-LugarS; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1803,7 +1843,7 @@ ALTER TABLE ONLY public."Sucursal"
 
 
 --
--- TOC entry 3016 (class 2606 OID 17654)
+-- TOC entry 3024 (class 2606 OID 17654)
 -- Name: Taller FK-LugarT; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1812,7 +1852,7 @@ ALTER TABLE ONLY public."Taller"
 
 
 --
--- TOC entry 2991 (class 2606 OID 17505)
+-- TOC entry 2999 (class 2606 OID 17505)
 -- Name: Modelo FK-MarcaM; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1821,7 +1861,7 @@ ALTER TABLE ONLY public."Modelo"
 
 
 --
--- TOC entry 2974 (class 2606 OID 17403)
+-- TOC entry 2981 (class 2606 OID 17403)
 -- Name: Avion FK-ModeloA; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1830,7 +1870,7 @@ ALTER TABLE ONLY public."Avion"
 
 
 --
--- TOC entry 2976 (class 2606 OID 17415)
+-- TOC entry 2983 (class 2606 OID 17415)
 -- Name: Barco FK-ModeloB; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1839,7 +1879,7 @@ ALTER TABLE ONLY public."Barco"
 
 
 --
--- TOC entry 3024 (class 2606 OID 17701)
+-- TOC entry 3032 (class 2606 OID 17701)
 -- Name: Terrestre FK-ModeloT; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1848,7 +1888,7 @@ ALTER TABLE ONLY public."Terrestre"
 
 
 --
--- TOC entry 2977 (class 2606 OID 17421)
+-- TOC entry 2984 (class 2606 OID 17421)
 -- Name: Barco FK-PuertoB; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1857,7 +1897,7 @@ ALTER TABLE ONLY public."Barco"
 
 
 --
--- TOC entry 3028 (class 2606 OID 17755)
+-- TOC entry 3036 (class 2606 OID 17755)
 -- Name: Usuario FK-RolU; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1866,7 +1906,7 @@ ALTER TABLE ONLY public."Usuario"
 
 
 --
--- TOC entry 3012 (class 2606 OID 17630)
+-- TOC entry 3020 (class 2606 OID 17630)
 -- Name: Ruta FK-Ruta; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1875,7 +1915,7 @@ ALTER TABLE ONLY public."Ruta"
 
 
 --
--- TOC entry 3003 (class 2606 OID 17559)
+-- TOC entry 3011 (class 2606 OID 17559)
 -- Name: Paquete FK-Sucursal; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1884,7 +1924,7 @@ ALTER TABLE ONLY public."Paquete"
 
 
 --
--- TOC entry 3006 (class 2606 OID 17594)
+-- TOC entry 3014 (class 2606 OID 17594)
 -- Name: Puerto FK-Sucursal; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1893,7 +1933,7 @@ ALTER TABLE ONLY public."Puerto"
 
 
 --
--- TOC entry 3010 (class 2606 OID 17618)
+-- TOC entry 3018 (class 2606 OID 17618)
 -- Name: Ruta FK-Sucursal1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1902,7 +1942,7 @@ ALTER TABLE ONLY public."Ruta"
 
 
 --
--- TOC entry 3011 (class 2606 OID 17624)
+-- TOC entry 3019 (class 2606 OID 17624)
 -- Name: Ruta FK-Sucursal2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1911,7 +1951,7 @@ ALTER TABLE ONLY public."Ruta"
 
 
 --
--- TOC entry 2970 (class 2606 OID 17379)
+-- TOC entry 2977 (class 2606 OID 17379)
 -- Name: Aeropuerto FK-SucursalA; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1920,7 +1960,7 @@ ALTER TABLE ONLY public."Aeropuerto"
 
 
 --
--- TOC entry 2981 (class 2606 OID 17774)
+-- TOC entry 2988 (class 2606 OID 17774)
 -- Name: Empleado FK-SucursalEmp; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1929,7 +1969,7 @@ ALTER TABLE ONLY public."Empleado"
 
 
 --
--- TOC entry 2984 (class 2606 OID 17463)
+-- TOC entry 2992 (class 2606 OID 17463)
 -- Name: Gastos FK-SucursalG; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1938,7 +1978,7 @@ ALTER TABLE ONLY public."Gastos"
 
 
 --
--- TOC entry 3007 (class 2606 OID 17599)
+-- TOC entry 3015 (class 2606 OID 17599)
 -- Name: Puerto FK-SucursalPu; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1947,7 +1987,7 @@ ALTER TABLE ONLY public."Puerto"
 
 
 --
--- TOC entry 3019 (class 2606 OID 17672)
+-- TOC entry 3027 (class 2606 OID 17672)
 -- Name: Telefono FK-SucursalT; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1956,7 +1996,7 @@ ALTER TABLE ONLY public."Telefono"
 
 
 --
--- TOC entry 3022 (class 2606 OID 17690)
+-- TOC entry 3030 (class 2606 OID 17690)
 -- Name: Terrestre FK-SucursalT; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1965,7 +2005,7 @@ ALTER TABLE ONLY public."Terrestre"
 
 
 --
--- TOC entry 3023 (class 2606 OID 17695)
+-- TOC entry 3031 (class 2606 OID 17695)
 -- Name: Terrestre FK-SucursalTe; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1974,7 +2014,7 @@ ALTER TABLE ONLY public."Terrestre"
 
 
 --
--- TOC entry 3035 (class 2606 OID 17749)
+-- TOC entry 3043 (class 2606 OID 17749)
 -- Name: Zona FK-SucursalZ; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1983,7 +2023,7 @@ ALTER TABLE ONLY public."Zona"
 
 
 --
--- TOC entry 3017 (class 2606 OID 17660)
+-- TOC entry 3025 (class 2606 OID 17660)
 -- Name: Taller FK-TelefonoT; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1992,7 +2032,7 @@ ALTER TABLE ONLY public."Taller"
 
 
 --
--- TOC entry 3002 (class 2606 OID 17553)
+-- TOC entry 3010 (class 2606 OID 17553)
 -- Name: Paquete FK-TipoPaquete; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2001,7 +2041,7 @@ ALTER TABLE ONLY public."Paquete"
 
 
 --
--- TOC entry 2988 (class 2606 OID 17487)
+-- TOC entry 2996 (class 2606 OID 17487)
 -- Name: Mantenimiento PlacaA; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2010,7 +2050,7 @@ ALTER TABLE ONLY public."Mantenimiento"
 
 
 --
--- TOC entry 3031 (class 2606 OID 17725)
+-- TOC entry 3039 (class 2606 OID 17725)
 -- Name: Veh-Rut PlacaA-Veh-Rut; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2019,7 +2059,7 @@ ALTER TABLE ONLY public."Veh-Rut"
 
 
 --
--- TOC entry 2989 (class 2606 OID 17493)
+-- TOC entry 2997 (class 2606 OID 17493)
 -- Name: Mantenimiento PlacaB; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2028,7 +2068,7 @@ ALTER TABLE ONLY public."Mantenimiento"
 
 
 --
--- TOC entry 3032 (class 2606 OID 17731)
+-- TOC entry 3040 (class 2606 OID 17731)
 -- Name: Veh-Rut PlacaB-Veh-Rut; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2037,7 +2077,7 @@ ALTER TABLE ONLY public."Veh-Rut"
 
 
 --
--- TOC entry 2990 (class 2606 OID 17499)
+-- TOC entry 2998 (class 2606 OID 17499)
 -- Name: Mantenimiento PlacaT; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2046,7 +2086,7 @@ ALTER TABLE ONLY public."Mantenimiento"
 
 
 --
--- TOC entry 3033 (class 2606 OID 17737)
+-- TOC entry 3041 (class 2606 OID 17737)
 -- Name: Veh-Rut PlacaT-Veh-Rut; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2054,7 +2094,7 @@ ALTER TABLE ONLY public."Veh-Rut"
     ADD CONSTRAINT "PlacaT-Veh-Rut" FOREIGN KEY ("PlacaT") REFERENCES public."Terrestre"("Placa");
 
 
--- Completed on 2018-12-11 00:00:11
+-- Completed on 2018-12-12 14:26:27
 
 --
 -- PostgreSQL database dump complete

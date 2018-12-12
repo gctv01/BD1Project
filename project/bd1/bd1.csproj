@@ -178,6 +178,7 @@
     <Compile Include="Controllers\PaqueteController.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\VehiculoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +190,7 @@
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Vehiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +249,9 @@
     <Content Include="Views\Oficinas\AgregarOficina.cshtml" />
     <Content Include="Views\Oficinas\EliminarOficina.cshtml" />
     <Content Include="Views\Oficinas\ModificarOficina.cshtml" />
+    <Content Include="Views\Vehiculo\IndexVehiculo.cshtml" />
+    <Content Include="Views\Vehiculo\AgregarTerrestre.cshtml" />
+    <Content Include="Views\Vehiculo\EliminarTerrestre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

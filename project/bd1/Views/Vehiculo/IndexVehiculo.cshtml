@@ -1,0 +1,78 @@
+﻿@model IEnumerable<bd1.Models.Terrestre>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>VEHICULOS - TERRESTRE</b></p>
+</div>
+
+@using (Html.BeginForm("BuscarOficina", "Oficinas",
+           FormMethod.Post))
+{
+    @*@Html.Action("TBOficina");*@
+    <input type="button" style="margin-right:1%" value="Terrestres"
+           onclick="location.href='@Url.Action("IndexTerrestre", "Vehiculo")'" />
+    <input type="button" style="margin-right:1%" value="Barcos"
+           onclick="location.href='@Url.Action("EliminarOficina", "Oficinas")'" />
+    <input type="button" style="margin-right:1%" value="Aviones"
+           onclick="location.href='@Url.Action("EliminarOficina", "Oficinas")'" />
+    <input type="button" style="float:right" value="Eliminar Vehiculo"
+           onclick="location.href='@Url.Action("EliminarTerrestre", "Vehiculo")'" />
+    <input type="button" style="float:right; margin-right:1%" value="Agregar Vehiculo"
+           onclick="location.href='@Url.Action("AgregarTerrestre", "Vehiculo")'" />
+}
+<br />
+<div class="jumbotron">
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Placa
+                </th>
+                <th>
+                    Tipo
+                </th>
+                <th>
+                    Capacidad(m2)
+                </th>
+                <th>
+                    Peso(Kg)
+                </th>
+                <th>
+                    Fecha de Creacion
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var terrestre in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(@terrestre.placa, "ModificarOficina", "Oficinas", new { id = @terrestre.placa }, null)
+                    </td>
+                    <td>
+                        <p>@terrestre.tipo</p>
+                    </td>
+                    <td>
+                        <p>@terrestre.capacidad</p>
+                    </td>
+                    <td>
+                        <p>@terrestre.peso</p>
+                    </td>
+                    <td>
+                        <p>@terrestre.fechaCreacion</p>
+                    </td>
+                </tr>
+            }
+
+    </table>
+    
+</div>
+
+
+
