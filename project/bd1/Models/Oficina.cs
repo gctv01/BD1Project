@@ -62,7 +62,7 @@ namespace bd1.Models
             System.Diagnostics.Debug.WriteLine("Los datos obtenidos fueron");
             foreach (Oficina p in data)
             {
-                System.Diagnostics.Debug.WriteLine("Codigo: " + p.cod + "\t nombre: " + p.nombre + 
+                System.Diagnostics.Debug.WriteLine("Codigo: " + p.cod + "\t nombre: " + p.nombre +
                     "\t Capacidad: " + p.capacidad + "\t correo: " + p.correo + "\t Almacenamiento: " + p.almacenamiento);
             }
 
@@ -83,7 +83,65 @@ namespace bd1.Models
 
             return resp;
         }
-    }
+        public Oficina buscarOficina(int cod)
+        {
 
-    
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"COD\", \"Nombre\", \"Capacidad\", \"Correo\", \"Almacenamiento\"  FROM \"Sucursal\"" +
+                "WHERE \"COD\" = " + cod + "";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Oficina data = new Oficina();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.cod = Int32.Parse(dr[0].ToString());
+                data.nombre = dr[1].ToString();
+                data.capacidad = Int32.Parse(dr[2].ToString());
+                data.correo = dr[3].ToString();
+                data.almacenamiento = Int32.Parse(dr[4].ToString());
+
+            }
+            dr.Close();
+            conn.Close();
+
+            System.Diagnostics.Debug.WriteLine("Los datos obtenidos fueron");
+            System.Diagnostics.Debug.WriteLine("Codigo: " + data.cod + "\t nombre: " + data.nombre +
+                    "\t Capacidad: " + data.capacidad + "\t correo: " + data.correo + "\t Almacenamiento: " + data.almacenamiento);
+
+
+            return data;
+
+        }
+        public int eliminarOficina(int cod)
+        {
+            NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
+            conn.Open();
+
+            String sql = "DELETE FROM \"Sucursal\" WHERE \"COD\" = " + cod + "";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+            conn.Close();
+
+            return resp;
+        }
+        public int modificarOficina(int cod,string nombre, int capacidad, string correo, int almacenamiento)
+        {
+            NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
+            conn.Open();
+
+            String sql = "UPDATE \"Sucursal\" SET \"Nombre\"='" + nombre + "', \"Capacidad\"='" + capacidad + "', " +
+                            "\"Correo\"='" + correo + "' ,\"Almacenamiento\"='" + almacenamiento + "'" +
+                            "WHERE \"COD\"= " + cod + "";
+
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+            conn.Close();
+
+            return resp;
+        }
+    }
 }

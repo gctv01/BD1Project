@@ -11,14 +11,15 @@
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>OFICINAS</b></p>
 </div>
 
-@using (Html.BeginForm("Index", "Home",
+@using (Html.BeginForm("BuscarOficina", "Oficinas",
            FormMethod.Post))
 {
     @Html.Action("TBOficina");
     <input type="submit" value="Buscar" />
-    <input type="submit" value="Eliminar Oficina" />
-    <input type="submit" value="Actualizar Oficina" />
-    <input type="button" style="float:right" value="Agregar Oficina" onclick="location.href='@Url.Action("AgregarOficina", "Oficinas")'" />
+    <input type="button" style="float:right" value="Eliminar Oficina" 
+           onclick="location.href='@Url.Action("EliminarOficina", "Oficinas")'" />
+    <input type="button" style="float:right; margin-right:1%" value="Agregar Oficina" 
+           onclick="location.href='@Url.Action("AgregarOficina", "Oficinas")'" />
 }
 <br />
 <div class="jumbotron">
@@ -47,7 +48,8 @@
         {
             <tr>
                 <td>
-                    <p>@oficina.cod</p>
+                    @Html.ActionLink(@oficina.cod.ToString(), "ModificarOficina", "Oficinas", new { id = @oficina.cod }, null)
+                    @*<a style="font-size:160%" href="@Url.Action("ModificarOficina", "Oficinas")">@oficina.cod</a>*@
                 </td>
                 <td>
                     <p>@oficina.nombre</p>

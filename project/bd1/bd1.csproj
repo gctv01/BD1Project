@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Npgsql">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\PostgreSQL\Npgsql\bin\netstandard2.0\Npgsql.dll</HintPath>
@@ -242,6 +245,8 @@
     <Content Include="Views\Shared\MenuSuperiorAdm.cshtml" />
     <Content Include="Views\Shared\TextBoxOFICINA.cshtml" />
     <Content Include="Views\Oficinas\AgregarOficina.cshtml" />
+    <Content Include="Views\Oficinas\EliminarOficina.cshtml" />
+    <Content Include="Views\Oficinas\ModificarOficina.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
