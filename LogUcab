@@ -5,7 +5,7 @@
 -- Dumped from database version 10.5
 -- Dumped by pg_dump version 10.5
 
--- Started on 2018-12-12 13:25:06
+-- Started on 2018-12-12 13:30:36
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -4002,7 +4002,7 @@ ALTER TABLE ONLY public."Veh-Rut"
     ADD CONSTRAINT "PlacaT-Veh-Rut" FOREIGN KEY ("PlacaT") REFERENCES public."Terrestre"("Placa");
 
 
--- Completed on 2018-12-12 13:25:07
+-- Completed on 2018-12-12 13:30:36
 
 --
 -- PostgreSQL database dump complete
