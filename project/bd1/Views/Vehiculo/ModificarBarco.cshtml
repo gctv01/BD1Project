@@ -1,4 +1,4 @@
-﻿@model bd1.Models.Terrestre
+﻿@model bd1.Models.Barco
 
 @{
     ViewBag.Title = "Homempleado";
@@ -8,15 +8,15 @@
 
 @Html.Action("MenuSuperior");
 <div>
-    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>OFICINAS</b></p>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>OFICINAS - BARCOS</b></p>
 </div>
 <div class="jumbotron">
     <h2>Modificando Oficina</h2>
     <br />
-    @using (Html.BeginForm("ModificarTerrestre", "Vehiculo",
+    @using (Html.BeginForm("ModificarBarco", "Vehiculo",
     FormMethod.Post))
     {
-        
+
         <p>
             @Html.EditorFor(m => m.placa, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
         </p>
@@ -38,17 +38,18 @@
         <p>
             <h5>Fecha de Creacion:</h5>
 
-            @Html.TextBoxFor(model => model.fechaCreacion, new { @class = "form-control", @type = "date"})
+            @Html.TextBoxFor(model => model.fechaCreacion, new { @class = "form-control", @type = "date" })
         </p>
         <p>
-            @Html.TextBoxFor(model => model.tipo, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.nombre, new { @class = "form-control" })
         </p>
         <div>
             <input type="submit" value="Modificar" />
-            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexVehiculo", "Vehiculo")'" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexBarco", "Vehiculo")'" />
         </div>
     }
 </div>
+
 
 
 

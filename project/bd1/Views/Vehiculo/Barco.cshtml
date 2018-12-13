@@ -1,4 +1,4 @@
-﻿@model IEnumerable<bd1.Models.Terrestre>
+﻿@model IEnumerable<bd1.Models.Barco>
 
 @{
     ViewBag.Title = "Homempleado";
@@ -8,10 +8,10 @@
 
 @Html.Action("MenuSuperior");
 <div>
-    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>VEHICULOS - TERRESTRE</b></p>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>VEHICULOS - BARCOS</b></p>
 </div>
 
-@using (Html.BeginForm("BuscarVehiculo", "Vehiculo",
+@using (Html.BeginForm("BuscarOficina", "Oficinas",
            FormMethod.Post))
 {
     @*@Html.Action("TBOficina");*@
@@ -22,9 +22,9 @@
     <input type="button" style="margin-right:1%" value="Aviones"
            onclick="location.href='@Url.Action("EliminarOficina", "Oficinas")'" />
     <input type="button" style="float:right" value="Eliminar Vehiculo"
-           onclick="location.href='@Url.Action("EliminarTerrestre", "Vehiculo")'" />
+           onclick="location.href='@Url.Action("EliminarBarco", "Vehiculo")'" />
     <input type="button" style="float:right; margin-right:1%" value="Agregar Vehiculo"
-           onclick="location.href='@Url.Action("AgregarTerrestre", "Vehiculo")'" />
+           onclick="location.href='@Url.Action("AgregarBarco", "Vehiculo")'" />
 }
 <br />
 <div class="jumbotron">
@@ -35,7 +35,7 @@
                     Placa
                 </th>
                 <th>
-                    Tipo
+                    Nombre
                 </th>
                 <th>
                     Capacidad(m2)
@@ -50,29 +50,30 @@
         </thead>
 
         @foreach (var terrestre in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.ActionLink(@terrestre.placa, "ModificarTerrestre", "Vehiculo", new { id = @terrestre.placa }, null)
-                    </td>
-                    <td>
-                        <p>@terrestre.tipo</p>
-                    </td>
-                    <td>
-                        <p>@terrestre.capacidad</p>
-                    </td>
-                    <td>
-                        <p>@terrestre.peso</p>
-                    </td>
-                    <td>
-                        <p>@terrestre.fechaCreacion</p>
-                    </td>
-                </tr>
-            }
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@terrestre.placa, "ModificarBarco", "Vehiculo", new { id = @terrestre.placa }, null)
+                </td>
+                <td>
+                    <p>@terrestre.nombre</p>
+                </td>
+                <td>
+                    <p>@terrestre.capacidad</p>
+                </td>
+                <td>
+                    <p>@terrestre.peso</p>
+                </td>
+                <td>
+                    <p>@terrestre.fechaCreacion</p>
+                </td>
+            </tr>
+        }
 
     </table>
-    
+
 </div>
+
 
 
 

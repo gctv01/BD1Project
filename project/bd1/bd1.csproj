@@ -253,6 +253,10 @@
     <Content Include="Views\Vehiculo\AgregarTerrestre.cshtml" />
     <Content Include="Views\Vehiculo\EliminarTerrestre.cshtml" />
     <Content Include="Views\Vehiculo\ModificarTerrestre.cshtml" />
+    <Content Include="Views\Vehiculo\Barco.cshtml" />
+    <Content Include="Views\Vehiculo\AgregarBarco.cshtml" />
+    <Content Include="Views\Vehiculo\EliminarBarco.cshtml" />
+    <Content Include="Views\Vehiculo\ModificarBarco.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

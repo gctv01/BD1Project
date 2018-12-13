@@ -1,0 +1,29 @@
+﻿
+@model bd1.Models.Barco
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>VEHICULO - BARCOS</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Eliminando Vehiculo Barco</h2>
+    <br />
+    @using (Html.BeginForm("EliminarBarco", "Vehiculo",
+    FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.placa, new { @class = "form-control", placeholder = "Placa del Vehiculo" })
+        </p>
+        <div>
+            <input type="submit" value="Eliminar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexBarco", "Vehiculo")'" />
+        </div>
+    }
+</div>
+

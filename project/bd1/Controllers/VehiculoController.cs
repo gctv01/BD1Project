@@ -67,7 +67,68 @@ namespace bd1.Controllers
                 model.descripcion, model.serialCarroceria, model.fechaCreacion, model.tipo);
             List<Terrestre> terrestres = data.obtenerTerrestres();
 
-            return View("~/Views/Oficinas/IndexOficina.cshtml", terrestres);
+            return View("~/Views/Vehiculo/IndexVehiculo.cshtml", terrestres);
+        }
+
+        //INDEX BARCO
+        public ActionResult IndexBarco()
+        {
+            DAOBarco data = DAOBarco.getInstance();
+            List<Barco> Barcos = data.obtenerBarcos();
+            if(Barcos!=null)
+                return View("~/Views/Vehiculo/Barco.cshtml", Barcos);
+            else
+                return View("~/Views/Vehiculo/Barco.cshtml");
+        }
+        //Agregar Barco
+        public ActionResult AgregarBarco()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AgregarBarco(Barco model)
+        {
+
+            DAOBarco data = DAOBarco.getInstance();
+            data.insertarBarco(model.placa, model.serialMotor, model.capacidad, model.peso,
+                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.nombre);
+            List<Barco> Barcos = data.obtenerBarcos();
+
+            return View("~/Views/Vehiculo/Barco.cshtml", Barcos);
+        }
+        //Eliminar Barco
+        public ActionResult EliminarBarco()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EliminarBarco(Barco model)
+        {
+            //int cod = Int32.Parse(model.cod);
+            DAOBarco data = DAOBarco.getInstance();
+            data.eliminarBarco(model.placa);
+            List<Barco> Barcos = data.obtenerBarcos();
+
+            return View("~/Views/Vehiculo/Barco.cshtml", Barcos);
+        }
+        //Modificar Terrestre
+        public ActionResult ModificarBarco(string id)
+        {
+            DAOBarco data = DAOBarco.getInstance();
+            Barco BarcoEncontrado = data.buscarBarco(id);
+            DateTime date = DateTime.Parse(BarcoEncontrado.fechaCreacion);
+            ViewBag.date = date;
+            return View(BarcoEncontrado);
+        }
+        [HttpPost]
+        public ActionResult ModificarBarco(Barco model)
+        {
+            DAOBarco data = DAOBarco.getInstance();
+            data.modificarBarco(model.placa, model.serialMotor, model.capacidad, model.peso,
+                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.nombre);
+            List<Barco> Barcos = data.obtenerBarcos();
+
+            return View("~/Views/Vehiculo/Barco.cshtml", Barcos);
         }
     }
 }
