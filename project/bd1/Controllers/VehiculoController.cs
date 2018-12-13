@@ -111,13 +111,11 @@ namespace bd1.Controllers
 
             return View("~/Views/Vehiculo/Barco.cshtml", Barcos);
         }
-        //Modificar Terrestre
+        //Modificar Barco
         public ActionResult ModificarBarco(string id)
         {
             DAOBarco data = DAOBarco.getInstance();
             Barco BarcoEncontrado = data.buscarBarco(id);
-            DateTime date = DateTime.Parse(BarcoEncontrado.fechaCreacion);
-            ViewBag.date = date;
             return View(BarcoEncontrado);
         }
         [HttpPost]
@@ -129,6 +127,68 @@ namespace bd1.Controllers
             List<Barco> Barcos = data.obtenerBarcos();
 
             return View("~/Views/Vehiculo/Barco.cshtml", Barcos);
+        }
+        //INDEX AVION
+        public ActionResult IndexAvion()
+        {
+            DAOAvion data = DAOAvion.getInstance();
+            List<Avion> Aviones = data.obtenerAviones();
+            if (Aviones != null)
+                return View("~/Views/Vehiculo/Avion.cshtml", Aviones);
+            else
+                return View("~/Views/Vehiculo/Avion.cshtml");
+        }
+        //Agregar Barco
+        public ActionResult AgregarAvion()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AgregarAvion(Avion model)
+        {
+
+            DAOAvion data = DAOAvion.getInstance();
+            data.insertarAvion(model.placa, model.serialMotor, model.capacidad, model.peso,
+                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.longitud,
+                model.pesoVacio, model.envergadura, model.pesoMax, model.altura, model.anchoCabina,
+                model.capacidadCombustible, model.carreraDespegue, model.diametroFuselaje);
+            List<Avion> Aviones = data.obtenerAviones();
+
+            return View("~/Views/Vehiculo/Avion.cshtml", Aviones);
+        }
+        //Eliminar Barco
+        public ActionResult EliminarAvion()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EliminarAvion(Avion model)
+        {
+            //int cod = Int32.Parse(model.cod);
+            DAOAvion data = DAOAvion.getInstance();
+            data.eliminarAvion(model.placa);
+            List<Avion> Aviones = data.obtenerAviones();
+
+            return View("~/Views/Vehiculo/Avion.cshtml", Aviones);
+        }
+        //Modificar Barco
+        public ActionResult ModificarAvion(string id)
+        {
+            DAOAvion data = DAOAvion.getInstance();
+            Avion AvionEncontrado = data.buscarAvion(id);
+            return View(AvionEncontrado);
+        }
+        [HttpPost]
+        public ActionResult ModificarAvion(Avion model)
+        {
+            DAOAvion data = DAOAvion.getInstance();
+            data.modificarAvion(model.placa, model.serialMotor, model.capacidad, model.peso,
+                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.longitud,
+                model.pesoVacio, model.envergadura, model.pesoMax, model.altura, model.anchoCabina,
+                model.capacidadCombustible, model.carreraDespegue, model.diametroFuselaje);
+            List<Avion> Aviones = data.obtenerAviones();
+
+            return View("~/Views/Vehiculo/Avion.cshtml", Aviones);
         }
     }
 }

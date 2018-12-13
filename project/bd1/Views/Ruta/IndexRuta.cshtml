@@ -1,0 +1,66 @@
+﻿@model IEnumerable<bd1.Models.Ruta>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>RUTAS</b></p>
+</div>
+
+@using (Html.BeginForm("BuscarRuta", "Ruta",
+           FormMethod.Post))
+{
+    @*@Html.Action("TBOficina");*@
+    <input type="submit" value="Buscar" />
+    <input type="button" style="float:right" value="Eliminar Ruta"
+           onclick="location.href='@Url.Action("EliminarRuta", "Ruta")'" />
+    <input type="button" style="float:right; margin-right:1%" value="Agregar Ruta"
+           onclick="location.href='@Url.Action("AgregarRuta", "Ruta")'" />
+}
+<br />
+<div class="jumbotron">
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Oficina de Origen
+                </th>
+                <th>
+                    Oficina Destino
+                </th>
+                <th>
+                    Duracion(hr)
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var oficina in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@oficina.COD.ToString(), "ModificarRuta", "Ruta", new { id = @oficina.COD }, null)
+                </td>
+                <td>
+                    <p>@oficina.origen</p>
+                </td>
+                <td>
+                    <p>@oficina.destino</p>
+                </td>
+                <td>
+                    <p>@oficina.duracion</p>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+

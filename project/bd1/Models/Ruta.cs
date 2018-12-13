@@ -6,71 +6,67 @@ using System.Web;
 
 namespace bd1.Models
 {
-    public class Rol
+    public class Ruta
     {
         public int COD { get; set; }
-        public string Nombre { get; set; } 
+        public string origen { get; set; }
+        public string destino { get; set; }
+        public int duracion { get; set; }
     }
-
-    public class DAORol : DAO
+    public class DAORuta : DAO
     {
 
-        private static DAORol r = null;
+        private static DAORuta r = null;
 
-        public static DAORol getInstance()
+        public static DAORuta getInstance()
         {
-            if (DAORol.r != null)
+            if (DAORuta.r != null)
             {
                 return r;
             }
             else
             {
-                r = new DAORol();
+                r = new DAORuta();
                 return r;
             }
         }
 
-        public List<Rol> obtenerRol()
+        public List<Ruta> obtenerRuta()
         {
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"Nombre\", \"COD\" FROM \"Rol\"";
+            string sql = "SELECT \"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Duracion\" FROM \"Ruta\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
-            List<Rol> data = new List<Rol>();
+            List<Ruta> data = new List<Ruta>();
 
             while (dr.Read())
             {
                 System.Diagnostics.Debug.WriteLine("connection established");
-                data.Add(new Rol()
+                data.Add(new Ruta()
                 {
-                    Nombre = dr[0].ToString(),
-                    COD = Int32.Parse(dr[1].ToString())
+                    COD = Int32.Parse(dr[0].ToString()),
+                    origen = dr[1].ToString(),
+                    destino = dr[2].ToString(),
+                    duracion = Int32.Parse(dr[3].ToString()),
                 });
             }
             dr.Close();
             conn.Close();
-
-            System.Diagnostics.Debug.WriteLine("Los datos obtenidos fueron");
-            foreach (Rol p in data)
-            {
-                System.Diagnostics.Debug.WriteLine("Cod: " + p.COD + "\t nombre: " + p.Nombre);
-            }
-
             return data;
 
         }
-       
+
         //INSERTAR
-        public int insertarRol(string nombre)
+        public int insertarRuta(string origen, string destino, int duracion)
         {
-            NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
+            NpgsqlConnection conn = DAORuta.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Rol\" (\"COD\", \"Nombre\") " +
-                "VALUES ((SELECT NEXTVAL('seq')),'" + nombre + "')";
+            String sql = "INSERT INTO \"Ruta\" (\"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Duracion\") " +
+                "VALUES ((SELECT NEXTVAL('seq')),'" + origen + "', '" + destino + "', '" + duracion + "')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -85,35 +81,37 @@ namespace bd1.Models
             }
         }
         //BUSCAR A UNO
-        public Rol buscarRol(int cod)
+        public Ruta buscarRuta(int cod)
         {
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", \"Nombre\" FROM \"Rol\"" +
+            string sql = "SELECT \"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Duracion\" FROM \"Ruta\"" +
                 "WHERE \"COD\" = " + cod + "";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
-            Rol data = new Rol();
+            Ruta data = new Ruta();
 
             while (dr.Read())
             {
                 System.Diagnostics.Debug.WriteLine("connection established");
                 data.COD = Int32.Parse(dr[0].ToString());
-                data.Nombre = dr[1].ToString();
+                data.origen = dr[1].ToString();
+                data.destino = dr[2].ToString();
+                data.duracion = Int32.Parse(dr[3].ToString());
             }
             dr.Close();
             conn.Close();
             return data;
         }
         //ELIMINAR
-        public int eliminarRol(int cod)
+        public int eliminarRuta(int cod)
         {
-            NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
+            NpgsqlConnection conn = DAORuta.getInstanceDAO();
             conn.Open();
 
-            String sql = "DELETE FROM \"Rol\" WHERE \"COD\" = " + cod + "";
+            String sql = "DELETE FROM \"Ruta\" WHERE \"COD\" = " + cod + "";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
             conn.Close();
@@ -121,12 +119,13 @@ namespace bd1.Models
             return resp;
         }
         //MODIFICAR
-        public int modificarRol(int cod, string nombre)
+        public int modificarRuta(int cod, string origen, string destino, int duracion)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
 
-            String sql = "UPDATE \"Rol\" SET \"Nombre\"='" + nombre + "'" +
+            String sql = "UPDATE \"Ruta\" SET \"FK-Sucursal1\"='" + origen + "', \"FK-Sucursal2\"='" + destino + "'," +
+                            "\"Duracion\"='" + duracion + "' " +
                             "WHERE \"COD\"= " + cod + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);

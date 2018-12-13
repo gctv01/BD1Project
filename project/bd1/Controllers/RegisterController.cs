@@ -65,7 +65,7 @@ namespace bd1.Controllers
 
             DAOEmpleado data2 = DAOEmpleado.getInstance();
             data2.insertarEmpleado(ci, nombre, apellido, fechaNac, correo, nivelAca, profesion, estCivil, hijos,
-                correoEmp, horarioAsig, salario, fechaContratado, fechaFinal);
+                correoEmp, salario, fechaContratado, fechaFinal);
 
             DAOUsuario data = DAOUsuario.getInstance();
             data.insertarUsuarioE(model.username, model.contrasena, rol, ci);

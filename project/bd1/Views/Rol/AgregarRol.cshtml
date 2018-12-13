@@ -1,0 +1,34 @@
+﻿@model bd1.Models.Rol
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ROLES</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Agregando Rol</h2>
+    <br />
+    @using (Html.BeginForm("AgregarRol", "Rol",
+    FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre del Rol" })
+        </p>
+        
+        <div>
+            <input type="submit" value="Agregar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexRol", "Rol")'" />
+        </div>
+    }
+</div>
+
+
+
+
+
+

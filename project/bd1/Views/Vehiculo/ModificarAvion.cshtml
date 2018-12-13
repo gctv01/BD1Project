@@ -1,0 +1,86 @@
+﻿
+@model bd1.Models.Avion
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>OFICINAS - AVIONES</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Modificando Avion</h2>
+    <br />
+    @using (Html.BeginForm("ModificarAvion", "Vehiculo",
+    FormMethod.Post))
+    {
+        <p>
+            @Html.EditorFor(m => m.placa, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.serialMotor, new { @class = "form-control" })
+        </p>
+        <p>
+            @Html.TextBoxFor(m => m.capacidad, new { @class = "form-control" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.peso, new { @class = "form-control" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.descripcion, new { @class = "form-control" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.serialCarroceria, new { @class = "form-control" })
+        </p>
+        <p>
+            <h5>Fecha de Creacion:</h5>
+            @Html.TextBoxFor(model => model.fechaCreacion, new { @class = "form-control", @type = "date" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.longitud, new { @class = "form-control",
+                placeholder = "Longitud" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.pesoVacio, new { @class = "form-control",
+                placeholder = "Peso Vacio" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.envergadura, new { @class = "form-control",
+                placeholder = "Envergadura" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.pesoMax, new { @class = "form-control",
+                placeholder = "Peso Maximo" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.altura, new { @class = "form-control",
+                placeholder = "Altura" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.anchoCabina, new { @class = "form-control",
+                placeholder = "Ancho Cabina" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.capacidadCombustible, new { @class = "form-control",
+                placeholder = "Carrera de Despegue" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.diametroFuselaje, new { @class = "form-control",
+                placeholder = "Diametro del Fuselaje" })
+        </p>
+        <div>
+            <input type="submit" value="Modificar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexAvion", "Vehiculo")'" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+

@@ -81,10 +81,17 @@ namespace bd1.Models
                 "VALUES ((SELECT NEXTVAL('seq')),'" + nombre + "','" + capacidad + "','" + correo + "','" + almacenamiento + "'," +
                 "'1', '6316457')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
-            conn.Close();
-
-            return resp;
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch
+            {
+                conn.Close();
+                return 0;
+            }
         }
         //BUSCAR A UNO
         public Oficina buscarOficina(int cod)
@@ -144,10 +151,17 @@ namespace bd1.Models
                             "WHERE \"COD\"= " + cod + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
-            conn.Close();
-
-            return resp;
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch
+            {
+                conn.Close();
+                return 0;
+            }
         }
     }
 }

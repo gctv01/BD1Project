@@ -173,11 +173,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OficinasController.cs" />
     <Compile Include="Controllers\PaqueteController.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
+    <Compile Include="Controllers\RutaController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VehiculoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -189,6 +194,7 @@
     <Compile Include="Models\Oficina.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Rol.cs" />
+    <Compile Include="Models\Ruta.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Vehiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -257,6 +263,30 @@
     <Content Include="Views\Vehiculo\AgregarBarco.cshtml" />
     <Content Include="Views\Vehiculo\EliminarBarco.cshtml" />
     <Content Include="Views\Vehiculo\ModificarBarco.cshtml" />
+    <Content Include="Views\Vehiculo\Avion.cshtml" />
+    <Content Include="Views\Vehiculo\AgregarAvion.cshtml" />
+    <Content Include="Views\Vehiculo\EliminarAvion.cshtml" />
+    <Content Include="Views\Vehiculo\ModificarAvion.cshtml" />
+    <Content Include="Views\Cliente\IndexCliente.cshtml" />
+    <Content Include="Views\Shared\TextBoxCLIENTE.cshtml" />
+    <Content Include="Views\Cliente\AgregarCliente.cshtml" />
+    <Content Include="Views\Cliente\EliminarCliente.cshtml" />
+    <Content Include="Views\Cliente\ModificarCliente.cshtml" />
+    <Content Include="Views\Empleado\IndexEmpleado.cshtml" />
+    <Content Include="Views\Empleado\AgregarEmpleado.cshtml" />
+    <Content Include="Views\Empleado\EliminarEmpleado.cshtml" />
+    <Content Include="Views\Empleado\ModificarEmpleado.cshtml" />
+    <Content Include="Views\Rol\IndexRol.cshtml" />
+    <Content Include="Views\Rol\AgregarRol.cshtml" />
+    <Content Include="Views\Rol\EliminarRol.cshtml" />
+    <Content Include="Views\Rol\ModificarRol.cshtml" />
+    <Content Include="Views\Ruta\IndexRuta.cshtml" />
+    <Content Include="Views\Ruta\AgregarRuta.cshtml" />
+    <Content Include="Views\Usuario\IndexUsuario.cshtml" />
+    <Content Include="Views\Usuario\ModificarUsuario.cshtml" />
+    <Content Include="Views\Shared\TextBoxUSUARIO.cshtml" />
+    <Content Include="Views\Shared\SucursalDropDown.cshtml" />
+    <Content Include="Views\Ruta\EliminarRuta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

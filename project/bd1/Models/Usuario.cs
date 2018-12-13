@@ -35,12 +35,20 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Username\", \"Contrasena\", \"FK-RolU\", \"FK-ClienteU\") VALUES ((SELECT NEXTVAL('usuario_seq')),'" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
+            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-ClienteU\") VALUES ((SELECT NEXTVAL('seq')),'" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
-            conn.Close();
-
-            return resp;
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+                conn.Close();
+                return 0;
+            }
         }
 
         public int insertarUsuarioE(string username, string contrasena, string rol, int ci)
@@ -51,10 +59,18 @@ namespace bd1.Models
             String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-EmpleadoU\") " +
                 "VALUES ((SELECT NEXTVAL('seq')),'" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
-            conn.Close();
-
-            return resp;
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+                conn.Close();
+                return 0;
+            }
         }
 
         public int buscandoUsuarioC(string username, string contrasena)
@@ -124,8 +140,46 @@ namespace bd1.Models
 
 
             return compData;
+        }
+        //ELIMINAR USUARIO CLIENTE
+        public int eliminarUsuarioC(int ci)
+        {
+            NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
+            conn.Open();
 
+            String sql = "DELETE FROM \"Usuario\" WHERE \"FK-ClienteU\" = " + ci + "";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch
+            {
+                conn.Close();
+                return 0;
+            }
+        }
+        //ELIMINAR USUARIO EMPLEADO
+        public int eliminarUsuarioE(int ci)
+        {
+            NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
+            conn.Open();
 
+            String sql = "DELETE FROM \"Usuario\" WHERE \"FK-EmpleadoU\" = " + ci + "";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch
+            {
+                conn.Close();
+                return 0;
+            }
         }
     }
 

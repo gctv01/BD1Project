@@ -1,0 +1,28 @@
+﻿@model bd1.Models.Cliente
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>CLIENTES</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Eliminando Cliente</h2>
+    <br />
+    @using (Html.BeginForm("EliminarCliente", "Cliente",
+    FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.CI, new { @class = "form-control", placeholder = "Cedula del cliente" })
+        </p>
+        <div>
+            <input type="submit" value="Eliminar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexCliente", "Cliente")'" />
+        </div>
+    }
+</div>
+
