@@ -52,5 +52,22 @@ namespace bd1.Controllers
 
             return View("~/Views/Vehiculo/IndexTerrestre.cshtml", terrestres);
         }
+        //Modificar Terrestre
+        public ActionResult ModificarTerrestre(string id)
+        {
+            DAOTerrestre data = DAOTerrestre.getInstance();
+            Terrestre terrestreEncontrado = data.buscarTerrestre(id);
+            return View(terrestreEncontrado);
+        }
+        [HttpPost]
+        public ActionResult ModificarTerrestre(Terrestre model)
+        {
+            DAOTerrestre data = DAOTerrestre.getInstance();
+            data.modificarTerrestre(model.placa, model.serialMotor, model.capacidad, model.peso,
+                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.tipo);
+            List<Terrestre> terrestres = data.obtenerTerrestres();
+
+            return View("~/Views/Oficinas/IndexOficina.cshtml", terrestres);
+        }
     }
 }

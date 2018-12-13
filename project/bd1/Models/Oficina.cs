@@ -76,7 +76,7 @@ namespace bd1.Models
             conn.Open();
 
             String sql = "INSERT INTO \"Sucursal\" (\"COD\", \"Nombre\", \"Capacidad\", \"Correo\" ,\"Almacenamiento\", \"FK-LugarS\", \"FK-EmpleadoS\") " +
-                "VALUES ((SELECT NEXTVAL('TipoPaq')),'" + nombre + "','" + capacidad + "','" + correo + "','" + almacenamiento + "'," +
+                "VALUES ((SELECT NEXTVAL('seq')),'" + nombre + "','" + capacidad + "','" + correo + "','" + almacenamiento + "'," +
                 "'1', '6316457')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE

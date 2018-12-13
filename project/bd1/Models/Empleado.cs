@@ -50,10 +50,10 @@ namespace bd1.Models
 
             String sql = "INSERT INTO \"Empleado\" (\"CI\", \"Nombre\", \"Apellido\", \"FechaNac\", " +
                 " \"Correo\", \"NivelAca\", \"Profesion\", \"EstadoCivil\", \"CantHijos\", \"CorreoEmpresa\", " +
-                " \"HorarioAsig\", \"SalarioAsig\", \"FechaContratado\", \"FechaFinal\") " +
+                " \"SalarioAsig\", \"FechaContratado\", \"FechaFinal\") " +
                 "VALUES (" + ci + ",'" + nombre + "','" + apellido + "',TO_DATE('" + fechaNac + "', 'YYYY-MM-DD'), " +
                 " '"+ correo + "', '" + nivelAca + "', '" + profesion + "','" + estCivil + "', '" + cantHijos + "', " +
-                " '" + correoEmp + "', '" + horarioAsig + "', '" + salarioAsig + "', TO_DATE('" + fechaContratado + "', 'YYYY-MM-DD')," +
+                " '" + correoEmp + "', '" + salarioAsig + "', TO_DATE('" + fechaContratado + "', 'YYYY-MM-DD')," +
                 "  TO_DATE('" + fechaFinal + "', 'YYYY-MM-DD'))";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE

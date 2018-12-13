@@ -119,5 +119,55 @@ namespace bd1.Models
 
             return resp;
         }
+        //MODIFICAR
+        public int modificarTerrestre(string placa, int serialMotor, int capacidad, int peso, string descripcion,
+            int serialCarroceria, string fechaCreacion, string tipo)
+        {
+            NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
+            conn.Open();
+
+            String sql = "UPDATE \"Terrestre\" SET \"SerialMotor\"='" + serialMotor + "', \"Capacidad\"='" + capacidad + "', " +
+                            "\"Peso\"='" + peso + "' ,\"Descripcion\"='" + descripcion + "'," +
+                            "\"SerialCarroceria\"='" + serialCarroceria + "', \"FechaCreacion\"='" + fechaCreacion + "'," +
+                            "\"Tipo\"='" + tipo + "'";
+           
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+            conn.Close();
+
+            return resp;
+        }
+        //BUSCAR A UNO
+        public Terrestre buscarTerrestre(string placa)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", " +
+                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Tipo\"" +
+                "FROM \"Terrestre\" WHERE \"Placa\"='"+ placa +"'";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Terrestre data = new Terrestre();
+
+            while (dr.Read())
+            {
+                data.placa = dr[0].ToString();
+                data.serialMotor = Int32.Parse(dr[1].ToString());
+                data.capacidad = Int32.Parse(dr[2].ToString());
+                data.peso = Int32.Parse(dr[3].ToString());
+                data.descripcion = dr[4].ToString();
+                data.serialCarroceria = Int32.Parse(dr[5].ToString());
+                data.fechaCreacion = dr[6].ToString();
+                data.tipo = dr[7].ToString();
+
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+
+        }
     }
 }

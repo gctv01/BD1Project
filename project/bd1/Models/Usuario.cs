@@ -48,8 +48,8 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Username\", \"Contrasena\", \"FK-RolU\", \"FK-EmpleadoU\") " +
-                "VALUES ((SELECT NEXTVAL('usuario_seq')),'" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
+            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-EmpleadoU\") " +
+                "VALUES ((SELECT NEXTVAL('seq')),'" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
             conn.Close();
@@ -95,8 +95,8 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            string sql = "SELECT \"Username\", \"Contrasena\", \"FK-EmpleadoU\" " +
-                        "FROM \"Usuario\" WHERE \"Username\" = '" + username + "' AND" +
+            string sql = "SELECT \"Nombre\", \"Contrasena\", \"FK-EmpleadoU\" " +
+                        "FROM \"Usuario\" WHERE \"Nombre\" = '" + username + "' AND" +
                         "\"FK-ClienteU\" is NULL";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();           
