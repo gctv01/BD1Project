@@ -287,6 +287,7 @@
     <Content Include="Views\Shared\TextBoxUSUARIO.cshtml" />
     <Content Include="Views\Shared\SucursalDropDown.cshtml" />
     <Content Include="Views\Ruta\EliminarRuta.cshtml" />
+    <Content Include="Views\Ruta\ModificarRuta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

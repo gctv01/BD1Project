@@ -59,10 +59,44 @@ namespace bd1.Controllers
             DAORuta data = DAORuta.getInstance();
             data.eliminarRuta(model.COD);
             List<Ruta> Rutas = data.obtenerRuta();
-
+            foreach (var item in Rutas)
+            {
+                OficinaDAO data2 = OficinaDAO.getInstance();
+                Oficina ofic = data2.buscarOficina(Int32.Parse(item.origen));
+                item.origen = ofic.nombre;
+                data2 = OficinaDAO.getInstance();
+                ofic = data2.buscarOficina(Int32.Parse(item.destino));
+                item.destino = ofic.nombre;
+            }
             return View("~/Views/Ruta/IndexRuta.cshtml", Rutas);
         }
-
+        //Modificando Rol
+        public ActionResult ModificarRuta(string id)
+        {
+            int cod2 = Int32.Parse(id);
+            DAORuta data = DAORuta.getInstance();
+            Ruta RutaEncontrada = data.buscarRuta(cod2);
+            return View(RutaEncontrada);
+        }
+        [HttpPost]
+        public ActionResult ModificarRuta(Ruta model, string SucursalOrigen, string SucursalDestino)
+        {
+            int origen = Int32.Parse(SucursalOrigen);
+            int destino = Int32.Parse(SucursalDestino);
+            DAORuta data = DAORuta.getInstance();
+            data.modificarRuta(model.COD, model.origen, origen, destino);
+            List<Ruta> Rutas = data.obtenerRuta();
+            foreach (var item in Rutas)
+            {
+                OficinaDAO data2 = OficinaDAO.getInstance();
+                Oficina ofic = data2.buscarOficina(Int32.Parse(item.origen));
+                item.origen = ofic.nombre;
+                data2 = OficinaDAO.getInstance();
+                ofic = data2.buscarOficina(Int32.Parse(item.destino));
+                item.destino = ofic.nombre;
+            }
+            return View("~/Views/Ruta/IndexRuta.cshtml", Rutas);
+        }
 
         public PartialViewResult Sucursal()
         {
