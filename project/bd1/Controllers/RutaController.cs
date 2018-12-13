@@ -81,10 +81,8 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult ModificarRuta(Ruta model, string SucursalOrigen, string SucursalDestino)
         {
-            int origen = Int32.Parse(SucursalOrigen);
-            int destino = Int32.Parse(SucursalDestino);
             DAORuta data = DAORuta.getInstance();
-            data.modificarRuta(model.COD, model.origen, origen, destino);
+            data.modificarRuta(model.COD, SucursalOrigen, SucursalDestino, model.duracion);
             List<Ruta> Rutas = data.obtenerRuta();
             foreach (var item in Rutas)
             {
