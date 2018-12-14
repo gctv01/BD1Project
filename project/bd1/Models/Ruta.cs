@@ -36,7 +36,12 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Duracion\" FROM \"Ruta\"";
+            string sql = "SELECT \"COD\", " +
+	                    "(SELECT \"Nombre\" FROM \"Sucursal\" s " +
+                        "INNER JOIN \"Ruta\" r ON r.\"FK-Sucursal1\" = s.\"COD\") as \"Sucursal_Origen\", " +
+	                    "(SELECT \"Nombre\" FROM \"Sucursal\" s "+
+                        "INNER JOIN \"Ruta\" r ON r.\"FK-Sucursal2\" = s.\"COD\") as \"Sucursal_Destino\", "+
+	                    "\"Duracion\" FROM \"Ruta\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 

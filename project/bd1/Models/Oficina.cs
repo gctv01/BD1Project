@@ -87,8 +87,9 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 conn.Close();
                 return 0;
             }

@@ -71,7 +71,7 @@ namespace bd1.Models
         }
         public List<Empleado> obtenerEmpleado()
         {
-
+            List<Empleado> data = null;
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
             string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\", \"FechaNac\", " +
@@ -79,32 +79,35 @@ namespace bd1.Models
                 " \"SalarioAsig\", \"FechaContratado\", \"FechaFinal\"" +
                 "FROM \"Empleado\"" +
                 "Order by \"CI\"";
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            List<Empleado> data = new List<Empleado>();
-
-            while (dr.Read())
+            try
             {
-                System.Diagnostics.Debug.WriteLine("connection established");
-                data.Add(new Empleado()
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+
+                while (dr.Read())
                 {
-                    CI = Int32.Parse(dr[0].ToString()),
-                    Nombre = dr[1].ToString(),
-                    Apellido = dr[2].ToString(),
-                    //fechaNac = dr[3].ToString(),
-                    correo = dr[4].ToString(),
-                    nivelAca = dr[5].ToString(),
-                    profesion = dr[6].ToString(),
-                    estCivil = dr[7].ToString(),
-                    cantHijos = dr[8].ToString(),
-                    correoEmp = dr[9].ToString(),
-                    salarioAsig = Int32.Parse(dr[10].ToString()),
-                    //fechaContratado = dr[11].ToString(),
-                    //fechaFinal = dr[12].ToString(),
-                });
-            }
-            dr.Close();
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Empleado()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        Apellido = dr[2].ToString(),
+                        fechaNac = dr[3].ToString(),
+                        correo = dr[4].ToString(),
+                        nivelAca = dr[5].ToString(),
+                        profesion = dr[6].ToString(),
+                        estCivil = dr[7].ToString(),
+                        cantHijos = dr[8].ToString(),
+                        correoEmp = dr[9].ToString(),
+                        salarioAsig = Int32.Parse(dr[10].ToString()),
+                        fechaContratado = dr[11].ToString(),
+                        fechaFinal = dr[12].ToString()
+                    });
+                }
+                dr.Close();
+            } catch(Exception e) { conn.Close();}
             conn.Close();
             return data;
 
