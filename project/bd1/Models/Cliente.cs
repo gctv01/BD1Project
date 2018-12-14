@@ -53,6 +53,7 @@ namespace bd1.Models
             }
             catch(Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 conn.Close();
                 return 0;
             }

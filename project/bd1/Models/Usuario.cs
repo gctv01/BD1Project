@@ -56,8 +56,8 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-EmpleadoU\") " +
-                "VALUES ((SELECT NEXTVAL('seq')),'" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
+            String sql = "INSERT INTO \"Usuario\" (\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-EmpleadoU\") " +
+                "VALUES ('" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
