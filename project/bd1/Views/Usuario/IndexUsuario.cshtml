@@ -26,22 +26,28 @@
                     Codigo
                 </th>
                 <th>
-                    Nombre
+                    Nombre de Usuario
+                </th>
+                <th>
+                    Rol
                 </th>
             </tr>
         </thead>
 
         @foreach (var oficina in Model)
         {
-            <tr>
-                <td>
-                    @Html.ActionLink(@oficina.username.ToString(), "ModificarUsuario", "Usuario", new { id = @oficina.username }, null)
-                    @*<a style="font-size:160%" href="@Url.Action("ModificarOficina", "Oficinas")">@oficina.cod</a>*@
-                </td>
-                @*<td>
-                    <p>@oficina.Nombre</p>
-                </td>*@
-            </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(@oficina.cod.ToString(), "ModificarUsuario", "Usuario", new { id = @oficina.cod }, null)
+                @*<a style="font-size:160%" href="@Url.Action("ModificarOficina", "Oficinas")">@oficina.cod</a>*@
+            </td>
+            <td>
+                <p>@oficina.username</p>
+            </td>
+            <td>
+                <p>@oficina.Rol</p>
+            </td>
+        </tr>
         }
 
     </table>

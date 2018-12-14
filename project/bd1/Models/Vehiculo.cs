@@ -405,7 +405,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch(Exception e)
             {
                 conn.Close();
                 return 0;
@@ -436,7 +436,7 @@ namespace bd1.Models
                     descripcion = dr[4].ToString(),
                     serialCarroceria = Int32.Parse(dr[5].ToString()),
                     fechaCreacion = dr[6].ToString(),
-                    tipo = dr[7].ToString(),
+                    tipo = dr[7].ToString()
 
                 });
             }

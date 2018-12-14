@@ -62,48 +62,52 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 conn.Close();
                 return 0;
             }
         }
         public List<Empleado> obtenerEmpleado()
         {
-
+            List<Empleado> data = null;
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\", \"FechaNac\", " +
+            string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\", TO_CHAR(\"FechaNac\",'YYYY-MM-DD'), " +
                 " \"Correo\", \"NivelAca\", \"Profesion\", \"EstadoCivil\", \"CantHijos\", \"CorreoEmpresa\", " +
-                " \"SalarioAsig\", \"FechaContratado\", \"FechaFinal\"" +
+                " \"SalarioAsig\", TO_CHAR(\"FechaContratado\",'YYYY-MM-DD'), TO_CHAR(\"FechaFinal\",'YYYY-MM-DD') " +
                 "FROM \"Empleado\"" +
                 "Order by \"CI\"";
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            List<Empleado> data = new List<Empleado>();
-
-            while (dr.Read())
+            try
             {
-                System.Diagnostics.Debug.WriteLine("connection established");
-                data.Add(new Empleado()
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+
+                while (dr.Read())
                 {
-                    CI = Int32.Parse(dr[0].ToString()),
-                    Nombre = dr[1].ToString(),
-                    Apellido = dr[2].ToString(),
-                    //fechaNac = dr[3].ToString(),
-                    correo = dr[4].ToString(),
-                    nivelAca = dr[5].ToString(),
-                    profesion = dr[6].ToString(),
-                    estCivil = dr[7].ToString(),
-                    cantHijos = dr[8].ToString(),
-                    correoEmp = dr[9].ToString(),
-                    salarioAsig = Int32.Parse(dr[10].ToString()),
-                    //fechaContratado = dr[11].ToString(),
-                    //fechaFinal = dr[12].ToString(),
-                });
-            }
-            dr.Close();
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Empleado()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        Apellido = dr[2].ToString(),
+                        fechaNac = dr[3].ToString(),
+                        correo = dr[4].ToString(),
+                        nivelAca = dr[5].ToString(),
+                        profesion = dr[6].ToString(),
+                        estCivil = dr[7].ToString(),
+                        cantHijos = dr[8].ToString(),
+                        correoEmp = dr[9].ToString(),
+                        salarioAsig = Int32.Parse(dr[10].ToString()),
+                        fechaContratado = dr[11].ToString(),
+                        fechaFinal = dr[12].ToString()
+                    });
+                }
+                dr.Close();
+            } catch(Exception e) { conn.Close();}
             conn.Close();
             return data;
 

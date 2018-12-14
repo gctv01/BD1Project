@@ -242,7 +242,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Prueba\PruebaTabla.cshtml" />
     <Content Include="Views\Register\Registro.cshtml" />
-    <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Cliente.cshtml" />
     <Content Include="Views\Shared\rolDropdown.cshtml" />
     <Content Include="Views\Shared\formCliente.cshtml" />

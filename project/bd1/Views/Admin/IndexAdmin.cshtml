@@ -7,43 +7,7 @@
 
     @Html.Action("MenuSuperior", "Admin"); 
     <div>
-        <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>Bienvenido (nombre de usuario). Estatus de Oficinas</b></p>
+        <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>Bienvenido.</b></p>
     </div>
-    <div>
-        <p style="background-color: lightgray; color: black; padding: 15px; margin-right: 75%;">Búsqueda por número de oficina</p>
-    </div>
-    @using (Html.BeginForm("Index", "Home",
-               FormMethod.Post))
-    {
-        <p>
-            @*@Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", placeholder = "Num Oficina" })*@
-        </p>
-        <input type="submit" value="Buscar" />
-    }
-    <br />
-    <style>
-        table, th, td {
-            border: 1px solid black;
-        }
-
-        table {
-            width: 100%;
-        }
-
-        th {
-            height: 50px;
-            background-color: lightgray;
-        }
-    </style>
-    <div>
-        <table>
-            <tr style="padding: 10px">
-                <th><b>Num</b></th>
-                <th><b>Num de paquetes</b></th>
-                <th><b>Localización</b></th>
-                <th><b>¿Operativo?</b></th>
-            </tr>
-        </table>
-    </div>
-
+    
 
