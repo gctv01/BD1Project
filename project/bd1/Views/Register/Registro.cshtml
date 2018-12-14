@@ -26,13 +26,14 @@
             @Html.PasswordFor(model => model.contrasena, new { @class = "form-control", placeholder = "Contraseña" })
         </p>
         @*<p>
-                @Html.PasswordFor(model => model., new { @class = "form-control", placeholder = "Verificar contraseña" })
-        </p>*@
+                    @Html.PasswordFor(model => model., new { @class = "form-control", placeholder = "Verificar contraseña" })
+            </p>*@
         @Html.Action("Rol");
 
         if (ID == "RegistroC")
         {
             @Html.Action("Cliente");
+            @Html.Action("LugarDD");
             <div>
                 <input type="submit" value="RegistroC" />
                 <input type="button" value="Regresar" onclick="location.href='@Url.Action("Index", "Home")'" />
@@ -42,6 +43,8 @@
         {
 
             @Html.Action("Empleado");
+            @Html.Action("HorarioDD");
+            @Html.Action("OficinaEmpDD");
             <div>
                 <input type="submit" value="RegistroE" />
                 <input type="button" value="Regresar" onclick="location.href='@Url.Action("Index", "Home")'" />
@@ -57,7 +60,7 @@
             <p>
                 @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", placeholder = "Teléfono" })
                 </p>*@
-       
+
     }
 
-    </div>
+</div>

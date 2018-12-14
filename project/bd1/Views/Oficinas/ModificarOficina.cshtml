@@ -15,22 +15,23 @@
     <br />
     @using (Html.BeginForm("ModificarOficinaPOST", "Oficinas",
     FormMethod.Post))
-    {  
+    {
         <p>
-            @Html.EditorFor(m => m.cod, new { htmlAttributes = new { @readonly = "readonly", @class= "form-control" } })
+            @Html.EditorFor(m => m.cod, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
         </p>
         <p>
             @Html.TextBoxFor(m => m.nombre, new { @class = "form-control" })
         </p>
         <p>
-            @Html.TextBoxFor(model => model.capacidad, new { @class = "form-control"})
+            @Html.TextBoxFor(model => model.capacidad, new { @class = "form-control" })
         </p>
         <p>
-            @Html.TextBoxFor(m => m.correo, new { @class = "form-control"})
+            @Html.TextBoxFor(m => m.correo, new { @class = "form-control" })
         </p>
         <p>
-            @Html.TextBoxFor(model => model.almacenamiento, new { @class = "form-control"})
+            @Html.TextBoxFor(model => model.almacenamiento, new { @class = "form-control" })
         </p>
+        @Html.Action("LugarDD");
         <div>
             <input type="submit" value="Modificar" />
             <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexOficina", "Oficinas")'" />

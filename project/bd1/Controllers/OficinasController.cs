@@ -44,11 +44,11 @@ namespace bd1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AgregarOficina(Oficina model)
+        public ActionResult AgregarOficina(Oficina model, string lugar)
         {
-
+            int codlugar = Int32.Parse(lugar);
             OficinaDAO data = OficinaDAO.getInstance();
-            data.insertarOficina(model.nombre, model.capacidad, model.correo, model.almacenamiento);
+            data.insertarOficina(model.nombre, model.capacidad, model.correo, model.almacenamiento, codlugar);
             List<Oficina> oficinas = data.obtenerOficinas();
 
             return View("~/Views/Oficinas/IndexOficina.cshtml", oficinas);
@@ -78,11 +78,11 @@ namespace bd1.Controllers
             return View(oficinaEncontrada);
         }
         [HttpPost]
-        public ActionResult ModificarOficinaPOST(Oficina model)
+        public ActionResult ModificarOficinaPOST(Oficina model, string lugar)
         {
-
+            int codlugar = Int32.Parse(lugar);
             OficinaDAO data = OficinaDAO.getInstance();
-            data.modificarOficina(model.cod, model.nombre, model.capacidad, model.correo, model.almacenamiento);
+            data.modificarOficina(model.cod, model.nombre, model.capacidad, model.correo, model.almacenamiento, codlugar);
             List<Oficina> oficinas = data.obtenerOficinas();
 
             return View("~/Views/Oficinas/IndexOficina.cshtml", oficinas);
@@ -95,6 +95,11 @@ namespace bd1.Controllers
         {
             return PartialView("TextBoxOFICINA");
         }
-             
+        public PartialViewResult LugarDD()
+        {
+            DAOLugar data = DAOLugar.getInstance();
+            List<Lugar> Lugares = data.obtenerLugar();
+            return PartialView("LugarDropDown", Lugares);
+        }
     }
 }

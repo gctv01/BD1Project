@@ -1,5 +1,0 @@
-insert into "Zona" ("COD", "Nombre", "TamanoDep", "Descripcion", "Dimension", "CapacidadEmp", "FK-SucursalZ") values (1, 'A1', 5, 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 11, 11, 1);
-insert into "Zona" ("COD", "Nombre", "TamanoDep", "Descripcion", "Dimension", "CapacidadEmp", "FK-SucursalZ") values (2, 'B2', 9, 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 5, 11, 2);
-insert into "Zona" ("COD", "Nombre", "TamanoDep", "Descripcion", "Dimension", "CapacidadEmp", "FK-SucursalZ") values (3, 'C3', 11, 'Fusce consequat. Nulla nisl. Nunc nisl.', 9, 6, 3);
-insert into "Zona" ("COD", "Nombre", "TamanoDep", "Descripcion", "Dimension", "CapacidadEmp", "FK-SucursalZ") values (4, 'D4', 5, 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 9, 10, 4);
-insert into "Zona" ("COD", "Nombre", "TamanoDep", "Descripcion", "Dimension", "CapacidadEmp", "FK-SucursalZ") values (5, 'E5', 9, 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 5, 7, 5);

@@ -1,5 +1,0 @@
-insert into "Efectivo" ("COD", "Descripcion", "Moneda", "FK-ClienteE") values (1, 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 'BsS', 1);
-insert into "Efectivo" ("COD", "Descripcion", "Moneda", "FK-ClienteE") values (2, 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 'Dolares', 2);
-insert into "Efectivo" ("COD", "Descripcion", "Moneda", "FK-ClienteE") values (3, 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 'Dolares', 3);
-insert into "Efectivo" ("COD", "Descripcion", "Moneda", "FK-ClienteE") values (4, 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 'BsS', 4);
-insert into "Efectivo" ("COD", "Descripcion", "Moneda", "FK-ClienteE") values (5, 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 'Dolares', 5);

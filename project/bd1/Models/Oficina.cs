@@ -72,14 +72,14 @@ namespace bd1.Models
 
         }
         //INSERTAR
-        public int insertarOficina(string nombre, int capacidad, string correo, int almacenamiento)
+        public int insertarOficina(string nombre, int capacidad, string correo, int almacenamiento, int lugar)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Sucursal\" (\"COD\", \"Nombre\", \"Capacidad\", \"Correo\" ,\"Almacenamiento\", \"FK-LugarS\", \"FK-EmpleadoS\") " +
-                "VALUES ((SELECT NEXTVAL('seq')),'" + nombre + "','" + capacidad + "','" + correo + "','" + almacenamiento + "'," +
-                "'1', '6316457')";
+            String sql = "INSERT INTO \"Sucursal\" (\"COD\", \"Nombre\", \"Capacidad\", \"Correo\" ,\"Almacenamiento\", \"FK-LugarS\") " +
+                "VALUES ((SELECT NEXTVAL('seq')),'" + nombre + "','" + capacidad + "','" + correo + "','" + almacenamiento + "', " +
+                "'" + lugar + "')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -142,13 +142,14 @@ namespace bd1.Models
             return resp;
         }
         //MODIFICAR
-        public int modificarOficina(int cod,string nombre, int capacidad, string correo, int almacenamiento)
+        public int modificarOficina(int cod,string nombre, int capacidad, string correo, int almacenamiento, int lugar)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
 
             String sql = "UPDATE \"Sucursal\" SET \"Nombre\"='" + nombre + "', \"Capacidad\"='" + capacidad + "', " +
-                            "\"Correo\"='" + correo + "' ,\"Almacenamiento\"='" + almacenamiento + "'" +
+                            "\"Correo\"='" + correo + "' ,\"Almacenamiento\"='" + almacenamiento + "' " +
+                            "\"FK-LugarS\"='" + lugar + "'" +
                             "WHERE \"COD\"= " + cod + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);

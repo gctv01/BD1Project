@@ -49,6 +49,7 @@
         <p>
             @Html.TextBoxFor(model => model.Trabajo, new { @class = "form-control" })
         </p>
+        @Html.Action("LugarDD");
         <div>
             <input type="submit" value="Modificar" />
             <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexCliente", "Cliente")'" />

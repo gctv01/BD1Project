@@ -27,8 +27,9 @@
         @*<p>
                 @Html.PasswordFor(model => model., new { @class = "form-control", placeholder = "Verificar contraseña" })
             </p>*@
-        @Html.Action("Rol");
         @Html.Action("Empleado");
+        @Html.Action("Rol");
+        @Html.Action("OficinaEmpDD");
         <div>
             <input type="submit" value="Registrar" />
             <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEmpleado", "Empleado")'" />

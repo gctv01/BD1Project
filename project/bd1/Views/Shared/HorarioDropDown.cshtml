@@ -1,0 +1,15 @@
+﻿model IEnumerable<bd1.Models.Lugar>
+
+<p>
+    <h4>Ubicacion: </h4>
+    <select name="lugar" id="lugar">
+        @foreach (var item in Model)
+        {
+            <option value="@item.cod">
+                @item.nombre
+            </option>
+        }
+    </select>
+</p>
+
+

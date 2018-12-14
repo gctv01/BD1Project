@@ -13,27 +13,28 @@
 <div class="jumbotron">
     <h2>Agregando Oficina</h2>
     <br />
-        @using (Html.BeginForm("AgregarOficina", "Oficinas",
-        FormMethod.Post))
-        {
-            <p>
-                @Html.TextBoxFor(m => m.nombre, new { @class = "form-control", placeholder = "Nombre de la Oficina" })
-            </p>
-            <p>
-                @Html.TextBoxFor(model => model.capacidad, new { @class = "form-control", placeholder = "Capacidad" })
-            </p>
-            <p>
-                @Html.TextBoxFor(m => m.correo, new { @class = "form-control", placeholder = "Correo" })
-            </p>
-            <p>
-                @Html.TextBoxFor(model => model.almacenamiento, new { @class = "form-control", placeholder = "Almacenamiento" })
-            </p>
-            <div>
-                <input type="submit" value="Agregar" />
-                <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexOficina", "Oficinas")'" />
-            </div>
-        }
-    </div>
+    @using (Html.BeginForm("AgregarOficina", "Oficinas",
+    FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.nombre, new { @class = "form-control", placeholder = "Nombre de la Oficina" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.capacidad, new { @class = "form-control", placeholder = "Capacidad" })
+        </p>
+        <p>
+            @Html.TextBoxFor(m => m.correo, new { @class = "form-control", placeholder = "Correo" })
+        </p>
+        <p>
+            @Html.TextBoxFor(model => model.almacenamiento, new { @class = "form-control", placeholder = "Almacenamiento" })
+        </p>
+        @Html.Action("LugarDD");
+        <div>
+            <input type="submit" value="Agregar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexOficina", "Oficinas")'" />
+        </div>
+    }
+</div>
 
 
 

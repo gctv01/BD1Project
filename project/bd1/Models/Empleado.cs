@@ -43,18 +43,19 @@ namespace bd1.Models
         }
         public int insertarEmpleado(int ci, string nombre, string apellido, string fechaNac, 
             string correo, string nivelAca, string profesion, string estCivil, int cantHijos, 
-            string correoEmp, int salarioAsig, string fechaContratado, string fechaFinal)
+            string correoEmp, int salarioAsig, string fechaContratado, string fechaFinal, int sucursal,
+            string horario)
         {
             NpgsqlConnection conn = DAOEmpleado.getInstanceDAO();
             conn.Open();
 
             String sql = "INSERT INTO \"Empleado\" (\"CI\", \"Nombre\", \"Apellido\", \"FechaNac\", " +
                 " \"Correo\", \"NivelAca\", \"Profesion\", \"EstadoCivil\", \"CantHijos\", \"CorreoEmpresa\", " +
-                " \"SalarioAsig\", \"FechaContratado\", \"FechaFinal\") " +
+                " \"SalarioAsig\", \"FechaContratado\", \"FechaFinal\", \"FK-GastosE\", \"FK-SucursalEmp\", \"FK-HorariosEmp\") " +
                 "VALUES (" + ci + ",'" + nombre + "','" + apellido + "',TO_DATE('" + fechaNac + "', 'YYYY-MM-DD'), " +
                 " '"+ correo + "', '" + nivelAca + "', '" + profesion + "','" + estCivil + "', '" + cantHijos + "', " +
                 " '" + correoEmp + "', '" + salarioAsig + "', TO_DATE('" + fechaContratado + "', 'YYYY-MM-DD')," +
-                "  TO_DATE('" + fechaFinal + "', 'YYYY-MM-DD'))";
+                " TO_DATE('" + fechaFinal + "', 'YYYY-MM-DD'), 4, '" + sucursal + "', TO_TIME('" + horario + "', 'YYYY-MM-DD')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {

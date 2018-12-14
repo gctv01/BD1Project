@@ -36,14 +36,14 @@ namespace bd1.Models
         //INSERTAR
 
         public int insertarCliente(int ci, string nombre, string apellido, string fechaNac, string estCivil, 
-            string trabajo)
+            string trabajo, int lugar)
         {
             NpgsqlConnection conn = DAOCliente.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Cliente\" (\"CI\", \"Nombre\", \"Apellido\", \"FechaNac\" ,\"EstadoCivil\",\"Trabajo\") " +
+            String sql = "INSERT INTO \"Cliente\" (\"CI\", \"Nombre\", \"Apellido\", \"FechaNac\" ,\"EstadoCivil\",\"Trabajo\",\"FK-LugarC\") " +
                 "VALUES (" + ci + ",'" + nombre + "','" + apellido + "',TO_DATE('" + fechaNac + "', 'YYYY-MM-DD'),'"
-                + estCivil + "','" + trabajo + "')";
+                + estCivil + "','" + trabajo + "','" + lugar + "')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -138,14 +138,14 @@ namespace bd1.Models
         }
         //MODIFICAR
         public int modificarCliente(int ci, string nombre, string apellido, string fechaNac, string estCivil,
-            string trabajo)
+            string trabajo, int lugar)
         {
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
 
             String sql = "UPDATE \"Cliente\" SET \"Nombre\"='" + nombre + "', \"Apellido\"='" + apellido + "', " +
-                            "\"FechaNac\"= TO_DATE('" + fechaNac + "', 'YYYY-MM-DD') ,\"EstadoCivil\"='" + estCivil + "'," +
-                            "\"Trabajo\"='" + trabajo + "'" +
+                            "\"FechaNac\"= TO_DATE('" + fechaNac + "', 'YYYY-MM-DD') ,\"EstadoCivil\"='" + estCivil + "', " +
+                            "\"Trabajo\"='" + trabajo + "', \"FK-LugarC\"='" + lugar + "'" +
                             "WHERE \"CI\"= " + ci + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);

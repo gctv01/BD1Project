@@ -187,9 +187,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Horario.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\DAO.cs" />
     <Compile Include="Models\Empleado.cs" />
+    <Compile Include="Models\Lugar.cs" />
     <Compile Include="Models\Modelo.cs" />
     <Compile Include="Models\Oficina.cs" />
     <Compile Include="Models\Persona.cs" />
@@ -287,9 +289,14 @@
     <Content Include="Views\Shared\SucursalDropDown.cshtml" />
     <Content Include="Views\Ruta\EliminarRuta.cshtml" />
     <Content Include="Views\Ruta\ModificarRuta.cshtml" />
+    <Content Include="Views\Shared\EmpleadoDropDown.cshtml" />
+    <Content Include="Views\Shared\LugarDropDown.cshtml" />
+    <Content Include="Views\Shared\HorarioDropDown.cshtml" />
+    <Content Include="Views\Shared\SucursarlEmpleado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Horario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

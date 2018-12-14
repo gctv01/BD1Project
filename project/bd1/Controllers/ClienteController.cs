@@ -23,11 +23,12 @@ namespace bd1.Controllers
         }
         [HttpPost]
         public ActionResult AgregarCliente(Usuario model, string rol, string ciS, string nombre, string apellido,
-                                string fechaNac, string estCivil, string trabajo)
-        {
+                                string fechaNac, string estCivil, string trabajo, string lugar)
+        {   
+            int codlugar = Int32.Parse(lugar);
             int ci = Int32.Parse(ciS);
             DAOCliente data = DAOCliente.getInstance();
-            data.insertarCliente(ci, nombre, apellido, fechaNac, estCivil, trabajo);
+            data.insertarCliente(ci, nombre, apellido, fechaNac, estCivil, trabajo, codlugar);
             List<Cliente> Clientes = data.obtenerClientes();
             DAOUsuario data2 = DAOUsuario.getInstance();
             data2.insertarUsuarioC(model.username, model.contrasena, rol, ci);
@@ -59,11 +60,11 @@ namespace bd1.Controllers
             return View(ClienteEncontrado);
         }
         [HttpPost]
-        public ActionResult ModificarCliente(Cliente model, string estCivil)
+        public ActionResult ModificarCliente(Cliente model, string estCivil, string lugar)
         {
-
+            int codlugar = Int32.Parse(lugar);
             DAOCliente data = DAOCliente.getInstance();
-            data.modificarCliente(model.CI, model.Nombre, model.Apellido, model.fechaNac, estCivil, model.Trabajo);
+            data.modificarCliente(model.CI, model.Nombre, model.Apellido, model.fechaNac, estCivil, model.Trabajo, codlugar);
             List<Cliente> Clientes = data.obtenerClientes();
 
             return View("~/Views/Cliente/IndexCliente.cshtml", Clientes);
@@ -86,6 +87,12 @@ namespace bd1.Controllers
         public PartialViewResult Cliente()
         {
             return PartialView("formCliente");
+        }
+        public PartialViewResult LugarDD()
+        {
+            DAOLugar data = DAOLugar.getInstance();
+            List<Lugar> Lugares = data.obtenerLugar();
+            return PartialView("LugarDropDown", Lugares);
         }
     }
 }

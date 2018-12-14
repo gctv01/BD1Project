@@ -24,10 +24,11 @@
             @Html.PasswordFor(model => model.contrasena, new { @class = "form-control", placeholder = "Contraseña" })
         </p>
         @*<p>
-            @Html.PasswordFor(model => model., new { @class = "form-control", placeholder = "Verificar contraseña" })
-        </p>*@
+                @Html.PasswordFor(model => model., new { @class = "form-control", placeholder = "Verificar contraseña" })
+            </p>*@
         @Html.Action("Rol");
         @Html.Action("Cliente");
+        @Html.Action("LugarDD");
         <div>
             <input type="submit" value="Registrar" />
             <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexCliente", "Cliente")'" />

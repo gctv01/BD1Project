@@ -24,15 +24,17 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult AgregarEmpleado(Usuario model, string rol, string ciS, string nombre, 
             string apellido, string fechaNac, string correo, string nivelAca, string profesion, string estCivil,
-            string ScantHijos, string correoEmp, string salarioAsigS, string fechaContratado, string fechaFinal)
+            string ScantHijos, string correoEmp, string salarioAsigS, string fechaContratado, string fechaFinal,
+            string sucursal, string horario)
         {
+            int codSucursal = Int32.Parse(sucursal);
             int ci = Int32.Parse(ciS);
             int cantHijos = Int32.Parse(ScantHijos);
             int salarioAsig = Int32.Parse(salarioAsigS);
             DAOEmpleado data = DAOEmpleado.getInstance();
             data.insertarEmpleado(ci,  nombre,
              apellido,  fechaNac,  correo,  nivelAca,  profesion,  estCivil,
-             cantHijos,  correoEmp, salarioAsig,  fechaContratado, fechaFinal);
+             cantHijos,  correoEmp, salarioAsig,  fechaContratado, fechaFinal, codSucursal, horario);
             List<Empleado> Empleados = data.obtenerEmpleado();
             DAOUsuario data2 = DAOUsuario.getInstance();
             data2.insertarUsuarioE(model.username, model.contrasena, rol, ci);
@@ -91,7 +93,18 @@ namespace bd1.Controllers
             List<Rol> roles = data.obtenerRol();
             return PartialView("rolDropdown", roles);
         }
-
+        public PartialViewResult OficinaEmpDD()
+        {
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> Oficinas = data.obtenerOficinas();
+            return PartialView("SucursalEmpleado", Oficinas);
+        }
+        public PartialViewResult HorarioDD()
+        {
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> Oficinas = data.obtenerOficinas();
+            return PartialView("HorarioDropDown", Oficinas);
+        }
         public PartialViewResult Empleado()
         {
             return PartialView("formEmpleado");

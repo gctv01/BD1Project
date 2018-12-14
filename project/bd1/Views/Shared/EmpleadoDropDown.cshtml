@@ -1,0 +1,14 @@
+﻿@model IEnumerable<bd1.Models.Empleado>
+
+<p>
+    <h4>Empleado Encargado: </h4>
+    <select name="empleadoE" id="empleadoE">
+        @foreach (var item in Model)
+        {
+            <option value="@item.CI">
+                @item.Nombre
+            </option>
+        }
+    </select>
+</p>
+
