@@ -54,12 +54,12 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult RegistroE(Usuario model, string rol, string ciS, string nombre, string apellido,
                     string fechaNac, string correo, string nivelAca, string profesion, string estCivil, 
-                    string cantHijos, string correoEmp, string horarioAsig, string salarioAsig, 
+                    string ScantHijos, string correoEmp, string horarioAsig, string salarioAsigS, 
                     string fechaContratado, string fechaFinal)
         {
 
-            int salario = Int32.Parse(salarioAsig);
-            int hijos = Int32.Parse(cantHijos);
+            int salario = Int32.Parse(salarioAsigS);
+            int hijos = Int32.Parse(ScantHijos);
             int ci = Int32.Parse(ciS);
             correoEmp = correoEmp + "@LogUCAB.com";
 

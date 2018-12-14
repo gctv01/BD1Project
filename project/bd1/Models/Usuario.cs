@@ -29,13 +29,14 @@ namespace bd1.Models
                 return u;
             }
         }
-
+        //INSERTAR USUARIO CLIENTE
         public int insertarUsuarioC(string username, string contrasena, string rol, int ci)
         {
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-ClienteU\") VALUES ((SELECT NEXTVAL('seq')),'" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
+            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-ClienteU\")"+
+                "VALUES ((SELECT NEXTVAL('seq')),'" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -50,7 +51,7 @@ namespace bd1.Models
                 return 0;
             }
         }
-
+        //INSERTAR USUARIO EMPLEADO
         public int insertarUsuarioE(string username, string contrasena, string rol, int ci)
         {
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
@@ -72,7 +73,7 @@ namespace bd1.Models
                 return 0;
             }
         }
-
+        //INSERTAR USUARIO CLIENTE
         public int buscandoUsuarioC(string username, string contrasena)
         {
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
