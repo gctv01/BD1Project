@@ -333,3 +333,11 @@ insert into "Ruta" ("COD", "CODSucursal1", "CODSucursal2", "Costo") values (332,
 insert into "Ruta" ("COD", "CODSucursal1", "CODSucursal2", "Costo") values (333, 333, 335, 6189);
 insert into "Ruta" ("COD", "CODSucursal1", "CODSucursal2", "Costo") values (334, 334, 335, 6289);
 
+insert into "Ruta" ("COD", "CODSucursal1", "CODSucursal2", "Costo", "FK-Ruta") values (335, 335, 30, 6000, 1);
+insert into "Ruta" ("COD", "CODSucursal1", "CODSucursal2", "Costo", "FK-Ruta") values (336, 335, 31, 6100, 2);
+insert into "Ruta" ("COD", "CODSucursal1", "CODSucursal2", "Costo", "FK-Ruta") values (337, 335, 32, 6200, 3);
+insert into "Ruta" ("COD", "CODSucursal1", "CODSucursal2", "Costo", "FK-Ruta") values (338, 335, 33, 6300, 4);
+insert into "Ruta" ("COD", "CODSucursal1", "CODSucursal2", "Costo", "FK-Ruta") values (339, 335, 34, 6400, 5);
+
+
+
