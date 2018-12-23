@@ -132,14 +132,10 @@ namespace bd1.Models
             conn.Open();
             string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\", \"FechaNac\", " +
                 " \"Correo\", \"NivelAca\", \"Profesion\", \"EstadoCivil\", \"CantHijos\", \"CorreoEmpresa\", " +
-                " \"SalarioAsig\", \"FechaContratado\", t.\"Numero\" " +
-                "FROM \"Empleado\" e, \"Telefono\" t " +
-                "WHERE t.\"FK-Empleado\" = e.\"CI\" AND e.\"CI\" = " + cod +" ;";
-            //SELECT "CI", "Nombre", "Apellido", "FechaNac",
-            //"Correo", "NivelAca", "Profesion", "EstadoCivil", "CantHijos", "CorreoEmpresa",
-            //"SalarioAsig", "FechaContratado", t."Numero"
-            //FROM "Empleado" e, "Telefono" t
-            //WHERE t."FK-Empleado" = e."CI" AND e."CI" = 3
+                " \"SalarioAsig\", \"FechaContratado\" " +
+                "FROM \"Empleado\" " +
+                "WHERE \"CI\" = " + cod + ";";
+
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -160,7 +156,7 @@ namespace bd1.Models
                 data.correoEmp = dr[9].ToString();
                 data.salarioAsig = Int32.Parse(dr[10].ToString());
                 data.fechaContratado = dr[11].ToString();
-                data.telefono = dr[12].ToString();
+                //data.telefono = dr[12].ToString();
             }
             dr.Close();
             conn.Close();
@@ -201,7 +197,6 @@ namespace bd1.Models
                             "\"Profesion\"='" + profesion + "',\"EstadoCivil\"='" + estCivil + "', \"CantHijos\"='" + cantHijos + "'," +
                             "\"CorreoEmpresa\"='" + correoEmp + "', \"SalarioAsig\"='" + salarioAsig + "'," +
                             "\"FechaContratado\"= TO_DATE('" + fechaContratado + "', 'YYYY-MM-DD')," +
-                            "\"FechaFinal\"= TO_DATE('" + fechaFinal + "', 'YYYY-MM-DD') " +
                             " WHERE \"CI\"= " + ci + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);

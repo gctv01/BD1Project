@@ -16,6 +16,27 @@ namespace bd1.Controllers
             List<Empleado> Empleados = data.obtenerEmpleado();
             return View(Empleados);
         }
+        [HttpPost]
+        public ActionResult BuscarEmpleado(string cliente)
+        {
+            if (cliente != "")
+            {
+                int cod = Int32.Parse(cliente);
+                DAOEmpleado data = DAOEmpleado.getInstance();
+                Empleado empleadoEncontrado = data.buscarEmpleado(cod);
+                List<Empleado> Empleados = new List<Empleado>();
+                Empleados.Add(empleadoEncontrado);
+
+                return View("~/Views/Empleado/IndexEmpleado.cshtml", Empleados);
+            }
+            else
+            {
+                DAOEmpleado data = DAOEmpleado.getInstance();
+                List<Empleado> Empleados = data.obtenerEmpleado();
+
+                return View("~/Views/Empleado/IndexEmpleado.cshtml", Empleados);
+            }
+        }
         //Agregar
         public ActionResult AgregarEmpleado()
         {
@@ -57,10 +78,12 @@ namespace bd1.Controllers
         public ActionResult EliminarEmpleado(Empleado model)
         {
             //int cod = Int32.Parse(model.cod);
-            DAOEmpleado data = DAOEmpleado.getInstance();
-            data.eliminarEmpleado(model.CI);           
             DAOTelefono data3 = DAOTelefono.getInstance();
             data3.eliminarTelefonoEmp(model.CI);
+
+            DAOEmpleado data = DAOEmpleado.getInstance();
+            data.eliminarEmpleado(model.CI);           
+            
             DAOUsuario data2 = DAOUsuario.getInstance();
             data2.eliminarUsuarioE(model.CI);
             List<Empleado> Empleados = data.obtenerEmpleado();
