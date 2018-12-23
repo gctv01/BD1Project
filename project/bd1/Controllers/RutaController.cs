@@ -14,15 +14,15 @@ namespace bd1.Controllers
         {
             DAORuta data = DAORuta.getInstance();
             List<Ruta> Rutas = data.obtenerRuta();
-            /*foreach (var item in Rutas)
-            {   
+            foreach (var item in Rutas)
+            {
                 OficinaDAO data2 = OficinaDAO.getInstance();
                 Oficina ofic = data2.buscarOficina(Int32.Parse(item.origen));
                 item.origen = ofic.nombre;
                 data2 = OficinaDAO.getInstance();
                 ofic = data2.buscarOficina(Int32.Parse(item.destino));
                 item.destino = ofic.nombre;
-            }*/
+            }
             return View(Rutas);
         }
         public ActionResult AgregarRuta()
@@ -35,7 +35,7 @@ namespace bd1.Controllers
             DAORuta data = DAORuta.getInstance();
             data.insertarRuta(SucursalOrigen, SucursalDestino, model.duracion);
             List<Ruta> Rutas = data.obtenerRuta();
-            /*foreach (var item in Rutas)
+            foreach (var item in Rutas)
             {
                 OficinaDAO data2 = OficinaDAO.getInstance();
                 Oficina ofic = data2.buscarOficina(Int32.Parse(item.origen));
@@ -43,7 +43,7 @@ namespace bd1.Controllers
                 data2 = OficinaDAO.getInstance();
                 ofic = data2.buscarOficina(Int32.Parse(item.destino));
                 item.destino = ofic.nombre;
-            }*/
+            }
             return View("~/Views/Ruta/IndexRuta.cshtml", Rutas);
         }
         //Eliminar Ruta
@@ -59,7 +59,7 @@ namespace bd1.Controllers
             DAORuta data = DAORuta.getInstance();
             data.eliminarRuta(model.COD);
             List<Ruta> Rutas = data.obtenerRuta();
-            /*foreach (var item in Rutas)
+            foreach (var item in Rutas)
             {
                 OficinaDAO data2 = OficinaDAO.getInstance();
                 Oficina ofic = data2.buscarOficina(Int32.Parse(item.origen));
@@ -67,7 +67,7 @@ namespace bd1.Controllers
                 data2 = OficinaDAO.getInstance();
                 ofic = data2.buscarOficina(Int32.Parse(item.destino));
                 item.destino = ofic.nombre;
-            }*/
+            }
             return View("~/Views/Ruta/IndexRuta.cshtml", Rutas);
         }
         //Modificando Rol
@@ -84,7 +84,7 @@ namespace bd1.Controllers
             DAORuta data = DAORuta.getInstance();
             data.modificarRuta(model.COD, SucursalOrigen, SucursalDestino, model.duracion);
             List<Ruta> Rutas = data.obtenerRuta();
-            /*foreach (var item in Rutas)
+            foreach (var item in Rutas)
             {
                 OficinaDAO data2 = OficinaDAO.getInstance();
                 Oficina ofic = data2.buscarOficina(Int32.Parse(item.origen));
@@ -92,7 +92,7 @@ namespace bd1.Controllers
                 data2 = OficinaDAO.getInstance();
                 ofic = data2.buscarOficina(Int32.Parse(item.destino));
                 item.destino = ofic.nombre;
-            }*/
+            }
             return View("~/Views/Ruta/IndexRuta.cshtml", Rutas);
         }
 

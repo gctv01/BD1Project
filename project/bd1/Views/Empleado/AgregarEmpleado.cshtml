@@ -29,7 +29,8 @@
             </p>*@
         @Html.Action("Empleado");
         @Html.Action("Rol");
-        @Html.Action("OficinaEmpDD");
+        @Html.Action("OficinaEmpDD", "Empleado");
+        @Html.Action("HorarioDD", "Empleado");
         <div>
             <input type="submit" value="Registrar" />
             <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEmpleado", "Empleado")'" />

@@ -147,9 +147,9 @@ namespace bd1.Models
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
 
-            String sql = "UPDATE \"Sucursal\" SET \"Nombre\"='" + nombre + "', \"Capacidad\"='" + capacidad + "', " +
-                            "\"Correo\"='" + correo + "' ,\"Almacenamiento\"='" + almacenamiento + "' " +
-                            "\"FK-LugarS\"='" + lugar + "'" +
+            String sql = "UPDATE \"Sucursal\" SET \"Nombre\"= '" + nombre + "', \"Capacidad\"= " + capacidad + ", " +
+                            "\"Correo\"= '" + correo + "' , \"Almacenamiento\"= " + almacenamiento + ", " +
+                            " \"FK-LugarS\"= " + lugar + "" +
                             "WHERE \"COD\"= " + cod + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -159,7 +159,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch(Exception e)
             {
                 conn.Close();
                 return 0;

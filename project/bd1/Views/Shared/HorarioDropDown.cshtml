@@ -1,15 +1,14 @@
-﻿model IEnumerable<bd1.Models.Lugar>
+﻿@model IEnumerable<bd1.Models.Horario>
 
 <p>
-    <h4>Ubicacion: </h4>
-    <select name="lugar" id="lugar">
+    <h4>Horario: </h4>
+    <select name="horarioI" id="horarioI">
         @foreach (var item in Model)
         {
-            <option value="@item.cod">
-                @item.nombre
-            </option>
+        <option value="@item.cod">
+            @item.horarioInicio - @item.horarioFin
+        </option>
         }
     </select>
 </p>
-
 

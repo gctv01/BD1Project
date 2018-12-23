@@ -36,12 +36,7 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", " +
-	                    "(SELECT \"Nombre\" FROM \"Sucursal\" s " +
-                        "INNER JOIN \"Ruta\" r ON r.\"FK-Sucursal1\" = s.\"COD\") as \"Sucursal_Origen\", " +
-	                    "(SELECT \"Nombre\" FROM \"Sucursal\" s "+
-                        "INNER JOIN \"Ruta\" r ON r.\"FK-Sucursal2\" = s.\"COD\") as \"Sucursal_Destino\", "+
-	                    "\"Duracion\" FROM \"Ruta\"";
+            string sql = "SELECT \"COD\", \"FK-Sucursal1\", \"Fk-Sucursal2\", \"Costo\" FROM \"Ruta\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -55,13 +50,13 @@ namespace bd1.Models
                     COD = Int32.Parse(dr[0].ToString()),
                     origen = dr[1].ToString(),
                     destino = dr[2].ToString(),
-                    duracion = Int32.Parse(dr[3].ToString()),
+                    duracion = Int32.Parse(dr[3].ToString())
                 });
             }
-            dr.Close();
-            conn.Close();
-            return data;
 
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return data;          
         }
 
         //INSERTAR
@@ -70,7 +65,7 @@ namespace bd1.Models
             NpgsqlConnection conn = DAORuta.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Ruta\" (\"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Duracion\") " +
+            String sql = "INSERT INTO \"Ruta\" (\"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Costo\") " +
                 "VALUES ((SELECT NEXTVAL('seq')),'" + origen + "', '" + destino + "', '" + duracion + "')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
@@ -91,7 +86,7 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Duracion\" FROM \"Ruta\"" +
+            string sql = "SELECT \"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Costo\" FROM \"Ruta\"" +
                 "WHERE \"COD\" = " + cod + "";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();

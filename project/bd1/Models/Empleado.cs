@@ -21,8 +21,12 @@ namespace bd1.Models
         public string horarioAsig { get; set; }
         public int salarioAsig { get; set; }
         public string fechaContratado { get; set; }
-        public string fechaFinal { get; set; }
-
+        //Atributos relacionados con otras tablas
+        public string gastos { get; set; }
+        public string horario { get; set; }
+        public string perteneceOficina { get; set; }
+        public string comandaOficina { get; set; }
+        public string telefono { get; set; }
     }
     public class DAOEmpleado : DAO
     {
@@ -43,19 +47,20 @@ namespace bd1.Models
         }
         public int insertarEmpleado(int ci, string nombre, string apellido, string fechaNac, 
             string correo, string nivelAca, string profesion, string estCivil, int cantHijos, 
-            string correoEmp, int salarioAsig, string fechaContratado, string fechaFinal, int sucursal,
-            string horario)
+            string correoEmp, int salarioAsig, string fechaContratado, int sucursal,
+            string horarioI)
         {
             NpgsqlConnection conn = DAOEmpleado.getInstanceDAO();
             conn.Open();
+            int fkgastos = 4;
 
             String sql = "INSERT INTO \"Empleado\" (\"CI\", \"Nombre\", \"Apellido\", \"FechaNac\", " +
                 " \"Correo\", \"NivelAca\", \"Profesion\", \"EstadoCivil\", \"CantHijos\", \"CorreoEmpresa\", " +
-                " \"SalarioAsig\", \"FechaContratado\", \"FechaFinal\", \"FK-GastosE\", \"FK-SucursalEmp\", \"FK-HorariosEmp\") " +
-                "VALUES (" + ci + ",'" + nombre + "','" + apellido + "',TO_DATE('" + fechaNac + "', 'YYYY-MM-DD'), " +
-                " '"+ correo + "', '" + nivelAca + "', '" + profesion + "','" + estCivil + "', '" + cantHijos + "', " +
-                " '" + correoEmp + "', '" + salarioAsig + "', TO_DATE('" + fechaContratado + "', 'YYYY-MM-DD')," +
-                " TO_DATE('" + fechaFinal + "', 'YYYY-MM-DD'), 4, '" + sucursal + "', TO_TIME('" + horario + "', 'YYYY-MM-DD')";
+                " \"SalarioAsig\", \"FechaContratado\", \"FK-GastosE\", \"FK-SucursalEmp\", \"FK-HorarioEmp\") " +
+                " VALUES (" + ci + ",'" + nombre + "','" + apellido + "',TO_DATE('" + fechaNac + "', 'YYYY-MM-DD'), " +
+                " '"+ correo + "', '" + nivelAca + "', '" + profesion + "','" + estCivil + "', " + cantHijos + ", " +
+                " '" + correoEmp + "', " + salarioAsig + ", TO_DATE('" + fechaContratado + "', 'YYYY-MM-DD'), " +
+                " " + fkgastos + ", " + sucursal + "," + horarioI + ");";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -77,9 +82,13 @@ namespace bd1.Models
             conn.Open();
             string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\", TO_CHAR(\"FechaNac\",'YYYY-MM-DD'), " +
                 " \"Correo\", \"NivelAca\", \"Profesion\", \"EstadoCivil\", \"CantHijos\", \"CorreoEmpresa\", " +
-                " \"SalarioAsig\", TO_CHAR(\"FechaContratado\",'YYYY-MM-DD'), TO_CHAR(\"FechaFinal\",'YYYY-MM-DD') " +
+                " \"SalarioAsig\", TO_CHAR(\"FechaContratado\",'YYYY-MM-DD') " +
                 "FROM \"Empleado\"" +
                 "Order by \"CI\"";
+            //CONSULTA PARA MOSTRAR EL EMPLEADO CON SU SUCURSAL
+            //Select e."Nombre", e."Apellido", s."Nombre"
+            //From "Empleado" e, "Sucursal" s
+            //Where "FK-SucursalEmp" = s."COD"
             try
             {
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -104,14 +113,15 @@ namespace bd1.Models
                         correoEmp = dr[9].ToString(),
                         salarioAsig = Int32.Parse(dr[10].ToString()),
                         fechaContratado = dr[11].ToString(),
-                        fechaFinal = dr[12].ToString()
                     });
                 }
                 dr.Close();
-            } catch(Exception e) { conn.Close();}
+            }catch(Exception e)
+            {
+                conn.Close();
+            }
             conn.Close();
             return data;
-
         }
 
         //BUSCAR A UNO
@@ -122,9 +132,14 @@ namespace bd1.Models
             conn.Open();
             string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\", \"FechaNac\", " +
                 " \"Correo\", \"NivelAca\", \"Profesion\", \"EstadoCivil\", \"CantHijos\", \"CorreoEmpresa\", " +
-                " \"SalarioAsig\", \"FechaContratado\", \"FechaFinal\"" +
-                "FROM \"Empleado\"" +
-                "WHERE \"CI\" = " + cod + "";
+                " \"SalarioAsig\", \"FechaContratado\", t.\"Numero\" " +
+                "FROM \"Empleado\" e, \"Telefono\" t " +
+                "WHERE t.\"FK-Empleado\" = e.\"CI\" AND e.\"CI\" = " + cod +" ;";
+            //SELECT "CI", "Nombre", "Apellido", "FechaNac",
+            //"Correo", "NivelAca", "Profesion", "EstadoCivil", "CantHijos", "CorreoEmpresa",
+            //"SalarioAsig", "FechaContratado", t."Numero"
+            //FROM "Empleado" e, "Telefono" t
+            //WHERE t."FK-Empleado" = e."CI" AND e."CI" = 3
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -145,7 +160,7 @@ namespace bd1.Models
                 data.correoEmp = dr[9].ToString();
                 data.salarioAsig = Int32.Parse(dr[10].ToString());
                 data.fechaContratado = dr[11].ToString();
-                data.fechaFinal = dr[12].ToString();
+                data.telefono = dr[12].ToString();
             }
             dr.Close();
             conn.Close();
@@ -166,7 +181,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
                 conn.Close();
                 return 0;

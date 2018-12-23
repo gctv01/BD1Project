@@ -44,23 +44,23 @@
             </tr>
         </thead>
 
-        @foreach (var oficina in Model)
+        @foreach (var empleado in Model)
         {
         <tr>
             <td>
-                @Html.ActionLink(@oficina.CI.ToString(), "ModificarEmpleado", "Empleado", new { id = @oficina.CI }, null)
+                @Html.ActionLink(empleado.CI.ToString(), "ModificarEmpleado", "Empleado", new { id = empleado.CI }, null)
             </td>
             <td>
-                <p>@oficina.Nombre</p>
+                <p>@empleado.Nombre</p>
             </td>
             <td>
-                <p>@oficina.Apellido</p>
+                <p>@empleado.Apellido</p>
             </td>
             <td>
-                <p>@oficina.salarioAsig</p>
+                <p>@empleado.salarioAsig</p>
             </td>
             <td>
-                <p>@oficina.fechaNac</p>
+                <p>@empleado.fechaNac</p>
             </td>
         </tr>
         }

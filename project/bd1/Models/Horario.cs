@@ -10,7 +10,7 @@ namespace bd1.Models
     {
         public int cod { get; set; }
         public string horarioInicio { get; set; }
-        public string horarioIFin { get; set; }
+        public string horarioFin { get; set; }
     }
     public class DAOHorario : DAO
     {
@@ -34,7 +34,7 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", \"HorarioInicio\", \"HorarioFin\" " +
+            string sql = "SELECT \"COD\", \"HorarioInicio\", \"HorarioFinal\" " +
                 "FROM \"Horario\"" +
                 "Order by \"COD\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -49,7 +49,7 @@ namespace bd1.Models
                 {
                     cod = Int32.Parse(dr[0].ToString()),
                     horarioInicio = dr[1].ToString(),
-                    horarioIFin = dr[2].ToString(),
+                    horarioFin = dr[2].ToString(),
 
 
                 });
@@ -100,7 +100,7 @@ namespace bd1.Models
                 System.Diagnostics.Debug.WriteLine("connection established");
                 data.cod = Int32.Parse(dr[0].ToString());
                 data.horarioInicio = dr[1].ToString();
-                data.horarioIFin = dr[3].ToString();
+                data.horarioFin = dr[3].ToString();
             }
             dr.Close();
             conn.Close();

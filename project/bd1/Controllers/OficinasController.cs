@@ -65,6 +65,8 @@ namespace bd1.Controllers
             //int cod = Int32.Parse(model.cod);
             OficinaDAO data = OficinaDAO.getInstance();
             data.eliminarOficina(model.cod);
+            DAOTelefono data3 = DAOTelefono.getInstance();
+            data3.eliminarTelefonoOfic(model.cod);
             List<Oficina> oficinas = data.obtenerOficinas();
 
             return View("~/Views/Oficinas/IndexOficina.cshtml", oficinas);

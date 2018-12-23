@@ -123,36 +123,6 @@ namespace bd1.Models
                 return 0;
             }
         }
-        //MODIFICAR
-        public int modificarLugar(int ci, string nombre, string apellido, string fechaNac,
-            string correo, string nivelAca, string profesion, string estCivil, int cantHijos,
-            string correoEmp, int salarioAsig, string fechaContratado, string fechaFinal)
-        {
-            NpgsqlConnection conn = DAO.getInstanceDAO();
-            conn.Open();
-
-            String sql = "UPDATE \"Empleado\" SET \"Nombre\"='" + nombre + "', \"Apellido\"='" + apellido + "', " +
-                            "\"FechaNac\"= TO_DATE('" + fechaNac + "', 'YYYY-MM-DD')," +
-                            "\"Correo\"='" + correo + "', \"NivelAca\"='" + nivelAca + "'," +
-                            "\"Profesion\"='" + profesion + "',\"EstadoCivil\"='" + estCivil + "', \"CantHijos\"='" + cantHijos + "'," +
-                            "\"CorreoEmpresa\"='" + correoEmp + "', \"SalarioAsig\"='" + salarioAsig + "'," +
-                            "\"FechaContratado\"= TO_DATE('" + fechaContratado + "', 'YYYY-MM-DD')," +
-                            "\"FechaFinal\"= TO_DATE('" + fechaFinal + "', 'YYYY-MM-DD') " +
-                            " WHERE \"CI\"= " + ci + "";
-
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            try
-            {
-                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
-                conn.Close();
-                return resp;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e.ToString());
-                conn.Close();
-                return 0;
-            }
-        }
+        
     }
 }

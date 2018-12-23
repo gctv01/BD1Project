@@ -27,15 +27,28 @@ namespace bd1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AgregarTerrestre(Terrestre model)
+        public ActionResult AgregarTerrestre(Terrestre model, string modeloVeh, string sucursal)
         {
-
+            int fkModelo = Int32.Parse(modeloVeh);
+            int fkSucursal = Int32.Parse(sucursal);
             DAOTerrestre data = DAOTerrestre.getInstance();
             data.insertarTerrestres(model.placa, model.serialMotor, model.capacidad, model.peso,
-                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.tipo);
+                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.tipo, fkSucursal, fkModelo);
             List<Terrestre> terrestres = data.obtenerTerrestres();
 
             return View("~/Views/Vehiculo/IndexVehiculo.cshtml", terrestres);
+        }
+        public PartialViewResult OficinaEmpDD()
+        {
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> Oficinas = data.obtenerOficinas();
+            return PartialView("SucursalEmpleado", Oficinas);
+        }
+        public PartialViewResult ModeloVehDD()
+        {
+            DAOModelo data = DAOModelo.getInstance();
+            List<ModeloVehiculo> ModeloVehiculos = data.obtenerModeloVehiculo();
+            return PartialView("ModeloVehiculoDropDown", ModeloVehiculos);
         }
         //Eliminar Terrestre
         public ActionResult EliminarTerrestre()
@@ -50,7 +63,7 @@ namespace bd1.Controllers
             data.eliminarTerrestre(model.placa);
             List<Terrestre> terrestres = data.obtenerTerrestres();
 
-            return View("~/Views/Vehiculo/IndexTerrestre.cshtml", terrestres);
+            return View("~/Views/Vehiculo/IndexVehiculo.cshtml", terrestres);
         }
         //Modificar Terrestre
         public ActionResult ModificarTerrestre(string id)

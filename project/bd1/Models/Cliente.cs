@@ -130,7 +130,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch(Exception e)
             {
                 conn.Close();
                 return 0;

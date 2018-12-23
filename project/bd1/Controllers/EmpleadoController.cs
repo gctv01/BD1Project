@@ -23,21 +23,28 @@ namespace bd1.Controllers
         }
         [HttpPost]
         public ActionResult AgregarEmpleado(Usuario model, string rol, string ciS, string nombre, 
-            string apellido, string fechaNac, string correo, string nivelAca, string profesion, string estCivil,
-            string ScantHijos, string correoEmp, string salarioAsigS, string fechaContratado, string fechaFinal,
-            string sucursal, string horario)
+            string apellido, string fechaNac, string telefono, string correo, string nivelAca, string profesion, string estCivil,
+            string ScantHijos, string correoEmp, string salarioAsigS, string fechaContratado,
+            string sucursal, string horarioI)
         {
             int codSucursal = Int32.Parse(sucursal);
             int ci = Int32.Parse(ciS);
             int cantHijos = Int32.Parse(ScantHijos);
             int salarioAsig = Int32.Parse(salarioAsigS);
+            int tlfn = Int32.Parse(telefono);
+
             DAOEmpleado data = DAOEmpleado.getInstance();
             data.insertarEmpleado(ci,  nombre,
              apellido,  fechaNac,  correo,  nivelAca,  profesion,  estCivil,
-             cantHijos,  correoEmp, salarioAsig,  fechaContratado, fechaFinal, codSucursal, horario);
-            List<Empleado> Empleados = data.obtenerEmpleado();
+             cantHijos,  correoEmp, salarioAsig,  fechaContratado, codSucursal, horarioI);
+
+            DAOTelefono data3 = DAOTelefono.getInstance();
+            data3.insertarTelefonoEmp(tlfn, ci); 
+
             DAOUsuario data2 = DAOUsuario.getInstance();
             data2.insertarUsuarioE(model.username, model.contrasena, rol, ci);
+
+            List<Empleado> Empleados = data.obtenerEmpleado();
             return View("~/Views/Empleado/IndexEmpleado.cshtml", Empleados);
         }
         //Eliminar Empleado
@@ -51,10 +58,12 @@ namespace bd1.Controllers
         {
             //int cod = Int32.Parse(model.cod);
             DAOEmpleado data = DAOEmpleado.getInstance();
-            data.eliminarEmpleado(model.CI);
-            List<Empleado> Empleados = data.obtenerEmpleado();
+            data.eliminarEmpleado(model.CI);           
+            DAOTelefono data3 = DAOTelefono.getInstance();
+            data3.eliminarTelefonoEmp(model.CI);
             DAOUsuario data2 = DAOUsuario.getInstance();
             data2.eliminarUsuarioE(model.CI);
+            List<Empleado> Empleados = data.obtenerEmpleado();
             return View("~/Views/Empleado/IndexEmpleado.cshtml", Empleados);
         }
         //Modificando Empleado
@@ -74,7 +83,7 @@ namespace bd1.Controllers
             DAOEmpleado data = DAOEmpleado.getInstance();
             data.modificarEmpleado(ci, model.Nombre,
              model.Apellido, model.fechaNac, model.correo, model.nivelAca, model.profesion, estCivil,
-             cantHijos, model.correoEmp, salarioAsig, model.fechaContratado, model.fechaFinal);
+             cantHijos, model.correoEmp, salarioAsig, model.fechaContratado, model.telefono);
             List<Empleado> Empleados = data.obtenerEmpleado();
 
             return View("~/Views/Empleado/IndexEmpleado.cshtml", Empleados);
@@ -101,9 +110,9 @@ namespace bd1.Controllers
         }
         public PartialViewResult HorarioDD()
         {
-            OficinaDAO data = OficinaDAO.getInstance();
-            List<Oficina> Oficinas = data.obtenerOficinas();
-            return PartialView("HorarioDropDown", Oficinas);
+            DAOHorario data = DAOHorario.getInstance();
+            List<Horario> Horarios = data.obtenerHorarios();
+            return PartialView("HorarioDropDown", Horarios);
         }
         public PartialViewResult Empleado()
         {

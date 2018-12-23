@@ -389,15 +389,17 @@ namespace bd1.Models
             }
         }
         public int insertarTerrestres(string placa, int serialMotor, int capacidad, int peso, string descripcion,
-            int serialCarroceria, string fechaCreacion, string tipo)
+            int serialCarroceria, string fechaCreacion, string tipo, int fkSucursal, int fkModelo)
         {
             NpgsqlConnection conn = DAOTerrestre.getInstanceDAO();
             conn.Open();
 
             String sql = "INSERT INTO \"Terrestre\" (\"Placa\", \"SerialMotor\", \"Capacidad\", " +
-                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Tipo\") " +
+                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Tipo\", " +
+                " \"FK-SucursalT\", \"FK-ModeloT\") " +
                 "VALUES ('" + placa +"','" + serialMotor + "','" + capacidad + "','" + peso + "'," +
-                "'" + descripcion + "','" + serialCarroceria + "',TO_DATE('" + fechaCreacion + "', 'YYYY-MM-DD'), '" + tipo + "')";
+                "'" + descripcion + "','" + serialCarroceria + "',TO_DATE('" + fechaCreacion + "', 'YYYY-MM-DD'), '" + tipo + "'," +
+                " " + fkSucursal + ", " + fkModelo + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {

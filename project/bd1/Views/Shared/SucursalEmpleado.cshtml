@@ -1,0 +1,16 @@
+﻿@model IEnumerable<bd1.Models.Oficina>
+
+<p>
+    <h4>Sucursal: </h4>
+    <select name="sucursal" id="sucursal">
+        @foreach (var item in Model)
+        {
+            <option value="@item.cod">
+                @item.nombre
+            </option>
+        }
+    </select>
+</p>
+
+
+

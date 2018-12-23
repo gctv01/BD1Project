@@ -53,20 +53,24 @@ namespace bd1.Controllers
         }
         [HttpPost]
         public ActionResult RegistroE(Usuario model, string rol, string ciS, string nombre, string apellido,
-                    string fechaNac, string correo, string nivelAca, string profesion, string estCivil, 
-                    string ScantHijos, string correoEmp, string horarioAsig, string salarioAsigS, 
-                    string fechaContratado, string fechaFinal, string sucursal, string horario)
+                    string fechaNac, string telefono, string correo, string nivelAca, string profesion, string estCivil, 
+                    string ScantHijos, string correoEmp, string salarioAsigS, 
+                    string fechaContratado, string fechaFinal, string sucursal, string horarioI)
         {
 
             int salario = Int32.Parse(salarioAsigS);
             int hijos = Int32.Parse(ScantHijos);
             int ci = Int32.Parse(ciS);
+            int tlfn = Int32.Parse(telefono);
             int codSucursal = Int32.Parse(sucursal);
             correoEmp = correoEmp + "@LogUCAB.com";
 
             DAOEmpleado data2 = DAOEmpleado.getInstance();
             data2.insertarEmpleado(ci, nombre, apellido, fechaNac, correo, nivelAca, profesion, estCivil, hijos,
-                correoEmp, salario, fechaContratado, fechaFinal, codSucursal, horario);
+                correoEmp, salario, fechaContratado, codSucursal, horarioI);
+
+            DAOTelefono data3 = DAOTelefono.getInstance();
+            data3.insertarTelefonoEmp(tlfn, ci);
 
             DAOUsuario data = DAOUsuario.getInstance();
             data.insertarUsuarioE(model.username, model.contrasena, rol, ci);
@@ -79,11 +83,11 @@ namespace bd1.Controllers
             List<Lugar> Lugares = data.obtenerLugar();
             return PartialView("LugarDropDown", Lugares);
         }
-        public PartialViewResult OficinaDD()
+        public PartialViewResult OficinaEmpDD()
         {
             OficinaDAO data = OficinaDAO.getInstance();
             List<Oficina> Oficinas = data.obtenerOficinas();
-            return PartialView("SucursalDropDown", Oficinas);
+            return PartialView("SucursalEmpleado", Oficinas);
         }
         public PartialViewResult HorarioDD()
         {

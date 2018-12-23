@@ -192,11 +192,12 @@
     <Compile Include="Models\DAO.cs" />
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\Lugar.cs" />
-    <Compile Include="Models\Modelo.cs" />
+    <Compile Include="Models\ModeloVehiculo.cs" />
     <Compile Include="Models\Oficina.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Ruta.cs" />
+    <Compile Include="Models\Telefono.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Vehiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -292,7 +293,8 @@
     <Content Include="Views\Shared\EmpleadoDropDown.cshtml" />
     <Content Include="Views\Shared\LugarDropDown.cshtml" />
     <Content Include="Views\Shared\HorarioDropDown.cshtml" />
-    <Content Include="Views\Shared\SucursarlEmpleado.cshtml" />
+    <Content Include="Views\Shared\SucursalEmpleado.cshtml" />
+    <Content Include="Views\Shared\ModeloVehiculoDropDown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
