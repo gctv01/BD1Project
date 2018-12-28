@@ -1,0 +1,36 @@
+﻿@model bd1.Models.ModeloPaquete
+@{
+    ViewBag.Title = "EditarOficina";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditarOficina</h2>
+
+<div class="jumbotron">
+    @using (Html.BeginForm("Detalles oficina", "Home",
+                FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.Numguia, new { @class = "form-control", placeholder = "NumOficina" })
+        </p>
+
+
+        <p>
+            @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", placeholder = "Localizacion" })
+        </p>
+        <p>
+            @Html.TextBoxFor(m => m.Destino, new { @class = "form-control", placeholder = "Operativo?" })
+        </p>
+
+
+        <div>
+            <input type="submit" name="Modificar_oficina" value="Modificar oficina" />
+
+            <input type="submit" name="Eliminar_oficina" value="Eliminar Oficina" />
+
+            <input type="submit" name="Crear_oficina" value="Crear nueva oficina (si el numero de oficina introducido no existía previamente)" />
+
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("HomeAdmin", "Home")'" />
+        </div>
+    }
+</div>

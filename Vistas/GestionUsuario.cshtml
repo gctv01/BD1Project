@@ -1,0 +1,54 @@
+﻿@model bd1.Models.ModeloPaquete
+@{
+    ViewBag.Title = "GestionUsuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<ul class="hola">
+    <li>@Html.ActionLink("Home", "Homempleado", "Home")</li>
+    <li>@Html.ActionLink("Envíos", "Menuenvios", "Home")</li>
+    <li>@Html.ActionLink("Vehículos", "Contact", "Home")</li>
+    <li>@Html.ActionLink("Pagos", "Contact", "Home")</li>
+    <li>@Html.ActionLink("Admin", "Contact", "Home")</li>
+</ul>
+<p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px; text-align: center;">Gestión de Usuarios <p />
+<div class="jumbotron">
+    @using (Html.BeginForm("Enviarpaquete", "Home",
+                FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.Numguia, new { @class = "form-control", placeholder = "Cédula Usuario" })
+        </p>
+
+
+        <p>
+            @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", placeholder = "Salario" })
+        </p>
+        <p>
+            @Html.TextBoxFor(m => m.Destino, new { @class = "form-control", placeholder = "Horario" })
+        </p>
+        <fieldset>
+            <p><b>Rol de Usuario</b></p>
+            <p>
+                @Html.RadioButtonFor(m => m.Tipo, "Cliente", new { id = "tipo" })
+                @Html.Label("tipo", "Cliente")
+            </p>
+            <p>
+                @Html.RadioButtonFor(m => m.Tipo, "Empleado")
+                @Html.Label("tipo", "Empleado")
+            </p>
+           
+        </fieldset>
+        
+
+        <div>
+            <input type="submit" name="Modificar_usuario" value="Modificar Usuario" />
+
+            <input type="submit" name="Eliminar_usuario" value="Eliminar Usuario">
+
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("Menuenvios", "Home")'" />
+        </div>
+    }
+</div>

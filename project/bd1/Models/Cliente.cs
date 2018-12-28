@@ -14,6 +14,7 @@ namespace bd1.Models
         public string fechaNac { get; set; }
         public string EstadoCivil { get; set; }
         public string Trabajo { get; set; }
+        public int telefono { get; set; }
     }
 
     public class DAOCliente : DAO

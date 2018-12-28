@@ -104,7 +104,7 @@ namespace bd1.Models
             }
         }
         //INSERTAR Telefono de Cliente
-        public int insertarTelefonoCli(int cod, int numero, int fkC)
+        public int insertarTelefonoCli(int numero, int fkC)
         {
             NpgsqlConnection conn = DAOTelefono.getInstanceDAO();
             conn.Open();
@@ -125,7 +125,7 @@ namespace bd1.Models
             }
         }
         //INSERTAR Telefono de Taller
-        public int insertarTelefonoTaller(int cod, int numero, int fkT)
+        public int insertarTelefonoTaller(int numero, int fkT)
         {
             NpgsqlConnection conn = DAOTelefono.getInstanceDAO();
             conn.Open();

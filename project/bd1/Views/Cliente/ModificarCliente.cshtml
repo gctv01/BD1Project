@@ -30,6 +30,9 @@
             @Html.TextBoxFor(model => model.fechaNac, new { @class = "form-control", @type = "date" })
         </p>
         <p>
+            @Html.TextBoxFor(model => model.telefono, new { @class = "form-control", placeholder = "Telefono" })
+        </p>
+        <p>
             <select name="estCivil" id="estCivil">
                 <option value="Soltero">
                     Soltero/a

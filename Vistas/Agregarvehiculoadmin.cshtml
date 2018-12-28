@@ -1,0 +1,58 @@
+﻿@model bd1.Models.ModeloPaquete
+@{
+    ViewBag.Title = "Agregarvehiculoadmin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<ul class="hola">
+    <li>@Html.ActionLink("Home", "Homempleado", "Home")</li>
+    <li>@Html.ActionLink("Envíos", "Menuenvios", "Home")</li>
+    <li>@Html.ActionLink("Vehículos", "Pantallavehiculosadmin", "Home")</li>
+    <li>@Html.ActionLink("Pagos", "Contact", "Home")</li>
+    <li>@Html.ActionLink("Admin", "Menuadmin", "Home")</li>
+</ul>
+<p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px; text-align: center;">Agregar Vehículo <p />
+<div class="jumbotron">
+    @using (Html.BeginForm("Enviarpaquete", "Home",
+                FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.Numguia, new { @class = "form-control", placeholder = "Oficina" })
+        </p>
+
+
+        <p>
+            @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", placeholder = "Modelo" })
+        </p>
+        <p>
+            @Html.TextBoxFor(m => m.Destino, new { @class = "form-control", placeholder = "Placa o Serial" })
+        </p>
+        <fieldset>
+            <p><b>Tipo de Vehículo</b></p>
+            <p>
+                @Html.RadioButtonFor(m => m.Tipo, "Cliente", new { id = "tipo" })
+                @Html.Label("tipo", "Terrestre")
+            </p>
+            <p>
+                @Html.RadioButtonFor(m => m.Tipo, "Empleado")
+                @Html.Label("tipo", "Aéreo")
+            </p>
+            <p>
+                @Html.RadioButtonFor(m => m.Tipo, "Empleado")
+                @Html.Label("tipo", "Marítimo")
+            </p>
+
+        </fieldset>
+
+
+        <div>
+            <input type="submit" value="Agregar" />
+
+            
+
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("Pantallavehiculosadmin", "Home")'" />
+        </div>
+    }
+</div>
+<br />

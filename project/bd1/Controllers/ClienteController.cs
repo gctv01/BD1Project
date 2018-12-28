@@ -16,6 +16,27 @@ namespace bd1.Controllers
             List<Cliente> Clientes = data.obtenerClientes();
             return View(Clientes);
         }
+        [HttpPost]
+        public ActionResult BuscarCliente(string cliente)
+        {
+            if (cliente != "")
+            {
+                int cod = Int32.Parse(cliente);
+                DAOCliente data = DAOCliente.getInstance();
+                Cliente oficinaEncontrada = data.buscarCliente(cod);
+                List<Cliente> oficinas = new List<Cliente>();
+                oficinas.Add(oficinaEncontrada);
+
+                return View("~/Views/Cliente/IndexCliente.cshtml", oficinas);
+            }
+            else
+            {
+                DAOCliente data = DAOCliente.getInstance();
+                List<Cliente> oficinas = data.obtenerClientes();
+
+                return View("~/Views/Cliente/IndexCliente.cshtml", oficinas);
+            }
+        }
         //Agregar
         public ActionResult AgregarCliente()
         {
@@ -23,12 +44,15 @@ namespace bd1.Controllers
         }
         [HttpPost]
         public ActionResult AgregarCliente(Usuario model, string rol, string ciS, string nombre, string apellido,
-                                string fechaNac, string estCivil, string trabajo, string lugar)
+                                string fechaNac, string telefono, string estCivil, string trabajo, string lugar)
         {   
             int codlugar = Int32.Parse(lugar);
             int ci = Int32.Parse(ciS);
+            int tlfn = Int32.Parse(telefono);
             DAOCliente data = DAOCliente.getInstance();
             data.insertarCliente(ci, nombre, apellido, fechaNac, estCivil, trabajo, codlugar);
+            DAOTelefono data3 = DAOTelefono.getInstance();
+            data3.insertarTelefonoCli(tlfn, ci);
             List<Cliente> Clientes = data.obtenerClientes();
             DAOUsuario data2 = DAOUsuario.getInstance();
             data2.insertarUsuarioC(model.username, model.contrasena, rol, ci);
@@ -44,11 +68,14 @@ namespace bd1.Controllers
         public ActionResult EliminarCliente(Cliente model)
         {
             //int cod = Int32.Parse(model.cod);
+            DAOTelefono data3 = DAOTelefono.getInstance();
+            data3.eliminarTelefonoCli(model.CI);
+            DAOUsuario data2 = DAOUsuario.getInstance();
+            data2.eliminarUsuarioC(model.CI);
             DAOCliente data = DAOCliente.getInstance();
             data.eliminarCliente(model.CI);
             List<Cliente> Clientes = data.obtenerClientes();
-            DAOUsuario data2 = DAOUsuario.getInstance();
-            data2.eliminarUsuarioC(model.CI);
+            
             return View("~/Views/Cliente/IndexCliente.cshtml", Clientes);
         }
         //Modificando Cliente
@@ -63,6 +90,8 @@ namespace bd1.Controllers
         public ActionResult ModificarCliente(Cliente model, string estCivil, string lugar)
         {
             int codlugar = Int32.Parse(lugar);
+            DAOTelefono data3 = DAOTelefono.getInstance();
+            data3.modificarTelefonoCli(model.CI, model.telefono);
             DAOCliente data = DAOCliente.getInstance();
             data.modificarCliente(model.CI, model.Nombre, model.Apellido, model.fechaNac, estCivil, model.Trabajo, codlugar);
             List<Cliente> Clientes = data.obtenerClientes();

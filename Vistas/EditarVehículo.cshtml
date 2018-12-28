@@ -1,0 +1,47 @@
+﻿@model bd1.Models.ModeloPaquete
+@{
+    ViewBag.Title = "EditarVehículo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+
+<ul class="hola">
+    <li>@Html.ActionLink("Home", "Homempleado", "Home")</li>
+    <li>@Html.ActionLink("Envíos", "Menuenvios", "Home")</li>
+    <li>@Html.ActionLink("Vehículos", "Contact", "Home")</li>
+    <li>@Html.ActionLink("Pagos", "Contact", "Home")</li>
+    <li>@Html.ActionLink("Admin", "Contact", "Home")</li>
+</ul>
+<p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px; text-align: center;">Gestión de Vehículos <p />
+<div class="jumbotron">
+    @using (Html.BeginForm("Enviarpaquete", "Home",
+                FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.Numguia, new { @class = "form-control", placeholder = "Placa" })
+        </p>
+
+
+        <p>
+            @Html.TextBoxFor(m => m.Peso, new { @class = "form-control", placeholder = "Localización" })
+        </p>
+        <p>
+            @Html.TextBoxFor(m => m.Destino, new { @class = "form-control", placeholder = "Operativo?" })
+        </p>
+
+
+
+        <div>
+            <input type="submit" name="Modificar_vehículo" value="Cambiar Vehículo" />
+
+            <input type="submit" name="Eliminar_vehiulo" value="Eliminar Vehículo">
+
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("Pantallavehiculosadmin", "Home")'" />
+        </div>
+    }
+</div>
+

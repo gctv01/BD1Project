@@ -1,0 +1,43 @@
+﻿@model IEnumerable<bd1.Models.Cliente>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>REPORTES</b></p>
+</div>
+
+@*@using (Html.BeginForm("BuscarCliente", "Cliente",
+           FormMethod.Post))
+{
+    <input type="submit" value="Buscar" />
+    <input type="button" style="float:right" value="Eliminar Cliente"
+           onclick="location.href='@Url.Action("EliminarCliente", "Cliente")'" />
+    <input type="button" style="float:right; margin-right:1%" value="Agregar Cliente"
+           onclick="location.href='@Url.Action("AgregarCliente", "Cliente")'" />
+}*@
+<br />
+<div class="jumbotron">
+    <ul>
+        <li style="margin-right:15%">@Html.ActionLink("Oficina que recibe mas paquetes", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Ingresos y Egresos por Oficina", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Peso promedio de los paquete que se envian por Oficina", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Mes del ano en el que se realizan mas envios", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Ruta mas utilizada", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Listado de Empleado con las Inasistencias", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Listado de Inasistencia indicando el horario asignado al Empleado", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Listado de paquetes con todos los cambios de estatus indicando las fechas de cambio.", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Promedio de estancia de paquetes por zona", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Sucursales de Puertos y Aeropuertos", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Histórico de revisión de la flota indicando taller, falla y duración de la revisión", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Total de gastos generados por revisión de flotas por mes y por sucursal.", "IndexReporte", "Reporte")</li>
+    </ul>
+</div>
+
+
+
+

@@ -36,7 +36,7 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", \"FK-Sucursal1\", \"Fk-Sucursal2\", \"Costo\" FROM \"Ruta\"";
+            string sql = "SELECT \"COD\", \"CODSucursal1\", \"CODSucursal2\", \"Costo\" FROM \"Ruta\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -54,7 +54,6 @@ namespace bd1.Models
                 });
             }
 
-                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
                 conn.Close();
                 return data;          
         }
@@ -65,7 +64,7 @@ namespace bd1.Models
             NpgsqlConnection conn = DAORuta.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Ruta\" (\"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Costo\") " +
+            String sql = "INSERT INTO \"Ruta\" (\"COD\", \"CODSucursal1\", \"CODSucursal2\", \"Costo\") " +
                 "VALUES ((SELECT NEXTVAL('seq')),'" + origen + "', '" + destino + "', '" + duracion + "')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
@@ -74,7 +73,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
                 conn.Close();
                 return 0;
