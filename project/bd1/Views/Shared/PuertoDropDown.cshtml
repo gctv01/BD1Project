@@ -1,0 +1,15 @@
+﻿@model IEnumerable<bd1.Models.Puerto>
+
+<p>
+    <h4>Puerto: </h4>
+    <select name="puerto" id="puerto">
+        @foreach (var item in Model)
+        {
+            <option value="@item.cod">
+                De @item.fkSucursal
+            </option>
+        }
+    </select>
+</p>
+
+

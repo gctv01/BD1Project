@@ -2,10 +2,19 @@
     background-color: snow;
     display: inline-flex;
     list-style: none;
-    padding: 25px;
+    padding: 10px;
     width: 100%;
     text-decoration: underline;
     
+}
+
+.chao {
+    background-color: snow;
+    display: inline-flex;
+    list-style: none;
+    padding: 25px;
+    width: 100%;
+    text-decoration: underline;
 }
 
 .foot{

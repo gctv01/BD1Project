@@ -175,6 +175,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\EnviarPaqueteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OficinasController.cs" />
     <Compile Include="Controllers\PaqueteController.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Aeropuerto.cs" />
     <Compile Include="Models\Horario.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\DAO.cs" />
@@ -196,6 +198,7 @@
     <Compile Include="Models\ModeloVehiculo.cs" />
     <Compile Include="Models\Oficina.cs" />
     <Compile Include="Models\Persona.cs" />
+    <Compile Include="Models\Puerto.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Ruta.cs" />
     <Compile Include="Models\Telefono.cs" />
@@ -297,6 +300,9 @@
     <Content Include="Views\Shared\SucursalEmpleado.cshtml" />
     <Content Include="Views\Shared\ModeloVehiculoDropDown.cshtml" />
     <Content Include="Views\Reporte\IndexReporte.cshtml" />
+    <Content Include="Views\Shared\AeropuertoDropDown.cshtml" />
+    <Content Include="Views\Shared\PuertoDropDown.cshtml" />
+    <Content Include="Views\EnviarPaquete\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

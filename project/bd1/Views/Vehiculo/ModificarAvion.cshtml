@@ -71,6 +71,8 @@
             @Html.TextBoxFor(model => model.diametroFuselaje, new { @class = "form-control",
                 placeholder = "Diametro del Fuselaje" })
         </p>
+        @Html.Action("ModeloVehDD", "Vehiculo");
+        @Html.Action("AeropuertoDD", "Vehiculo");
         <div>
             <input type="submit" value="Modificar" />
             <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexAvion", "Vehiculo")'" />

@@ -54,6 +54,8 @@
             @Html.TextBoxFor(model => model.nombre, new { @class = "form-control",
                 placeholder = "Nombre" })
         </p>
+        @Html.Action("ModeloVehDD", "Vehiculo");
+        @Html.Action("PuertoDD", "Vehiculo");
         <div>
             <input type="submit" value="Agregar" />
             <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexBarco", "Vehiculo")'" />

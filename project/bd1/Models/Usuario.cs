@@ -74,7 +74,7 @@ namespace bd1.Models
                 return 0;
             }
         }
-        //INSERTAR USUARIO CLIENTE
+        //Buscando USUARIO CLIENTE
         public int buscandoUsuarioC(string username, string contrasena)
         {
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
@@ -108,6 +108,8 @@ namespace bd1.Models
             return compData;
 
         }
+
+        //Buscando USUARIO EMPLEADO
         public int buscandoUsuarioE(string username, string contrasena)
         {
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
@@ -143,6 +145,7 @@ namespace bd1.Models
 
             return compData;
         }
+        
         //ELIMINAR USUARIO CLIENTE
         public int eliminarUsuarioC(int ci)
         {
@@ -229,8 +232,9 @@ namespace bd1.Models
             while (dr.Read())
             {
                 System.Diagnostics.Debug.WriteLine("connection established");
-                data.username = dr[0].ToString();
-                data.contrasena = dr[1].ToString();
+                data.cod = Int32.Parse(dr[0].ToString());
+                data.username = dr[1].ToString();
+                data.contrasena = dr[2].ToString();
             }
             dr.Close();
             conn.Close();
@@ -253,7 +257,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
                 conn.Close();
                 return 0;

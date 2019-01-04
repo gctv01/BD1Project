@@ -70,7 +70,7 @@ namespace bd1.Controllers
             }
             return View("~/Views/Ruta/IndexRuta.cshtml", Rutas);
         }
-        //Modificando Rol
+        //Modificando Ruta
         public ActionResult ModificarRuta(string id)
         {
             int cod2 = Int32.Parse(id);
@@ -96,11 +96,13 @@ namespace bd1.Controllers
             return View("~/Views/Ruta/IndexRuta.cshtml", Rutas);
         }
 
-        public PartialViewResult Sucursal()
+        public PartialViewResult Sucursal(string id)
         {
+
             OficinaDAO data = OficinaDAO.getInstance();
             List<Oficina> Sucursales = data.obtenerOficinas();
             return PartialView("SucursalDropDown", Sucursales);
+           
         }
         public PartialViewResult MenuSuperior()
         {

@@ -38,15 +38,17 @@ namespace bd1.Models
             }
         }
         public int insertarBarco(string placa, int serialMotor, int capacidad, int peso, string descripcion,
-            int serialCarroceria, string fechaCreacion, string nombre)
+            int serialCarroceria, string fechaCreacion, string nombre, int fkModelo, int fkPuerto)
         {
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
 
             String sql = "INSERT INTO \"Barco\" (\"Placa\", \"SerialMotor\", \"Capacidad\", " +
-                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Nombre\") " +
+                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Nombre\", " +
+                "\"FK-ModeloB\", \"FK-PuertoB\" ) " +
                 "VALUES ('" + placa + "','" + serialMotor + "','" + capacidad + "','" + peso + "'," +
-                "'" + descripcion + "','" + serialCarroceria + "',TO_DATE('" + fechaCreacion + "', 'YYYY-MM-DD'), '" + nombre + "')";
+                "'" + descripcion + "','" + serialCarroceria + "',TO_DATE('" + fechaCreacion + "', 'YYYY-MM-DD'), '" + nombre + "', " +
+                ""+ fkModelo +", "+ fkPuerto +")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -54,7 +56,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
                 conn.Close();
                 return 0;
@@ -111,7 +113,7 @@ namespace bd1.Models
         }
         //MODIFICAR Barco
         public int modificarBarco(string placa, int serialMotor, int capacidad, int peso, string descripcion,
-            int serialCarroceria, string fechaCreacion, string nombre)
+            int serialCarroceria, string fechaCreacion, string nombre, int fkModelo, int fkPuerto)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
@@ -119,7 +121,7 @@ namespace bd1.Models
             String sql = "UPDATE \"Barco\" SET \"SerialMotor\"='" + serialMotor + "', \"Capacidad\"='" + capacidad + "', " +
                             "\"Peso\"='" + peso + "' ,\"Descripcion\"='" + descripcion + "'," +
                             "\"SerialCarroceria\"='" + serialCarroceria + "', \"FechaCreacion\"= TO_DATE('" + fechaCreacion + "', 'YYYY-MM-DD')," +
-                            "\"Nombre\"='" + nombre + "'" +
+                            "\"Nombre\"='" + nombre + "', \"FK-ModeloB\" = "+ fkModelo +", \"FK-PuertoB\" = "+ fkPuerto +" " +
                             "WHERE \"Placa\"='" + placa + "'";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -129,7 +131,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
                 conn.Close();
                 return 0;
@@ -199,7 +201,8 @@ namespace bd1.Models
         }
         public int insertarAvion(string placa, int serialMotor, int capacidad, int peso, string descripcion,
             int serialCarroceria, string fechaCreacion, int longitud, int pesoVacio, int envergadura, 
-            int pesoMax, int altura, int anchoCabina, int capacidadCombustible, int carreraDespegue, int diametroFuselaje)
+            int pesoMax, int altura, int anchoCabina, int capacidadCombustible, int carreraDespegue, int diametroFuselaje, 
+            int fkModelo, int fkAeropuerto)
         {
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
@@ -207,12 +210,12 @@ namespace bd1.Models
             String sql = "INSERT INTO \"Avion\" (\"Placa\", \"SerialMotor\", \"Capacidad\", " +
                 "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Longitud\"," +
                 "\"PesoVacio\",\"Envergadura\",\"PesoMax\",\"Altura\", \"AnchoCabina\",\"CapacidadCombustible\"," +
-                "\"CarreraDespegue\", \"DiametroFuselaje\") " +
+                "\"CarreraDespegue\", \"DiametroFuselaje\", \"FK-ModeloA\",\"FK-Aeropuerto\") " +
                 "VALUES ('" + placa + "','" + serialMotor + "','" + capacidad + "','" + peso + "'," +
                 "'" + descripcion + "','" + serialCarroceria + "',TO_DATE('" + fechaCreacion + "', 'YYYY-MM-DD'), " +
                 "'" + longitud + "','" + pesoVacio + "', '" + envergadura + "', '" + pesoMax + "'," +
                 "'" + altura + "','" + anchoCabina + "','" + capacidadCombustible + "','" + carreraDespegue + "'," +
-                "'" + diametroFuselaje + "')";
+                "'" + diametroFuselaje + "', " + fkModelo + ", " + fkAeropuerto + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -220,7 +223,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
                 conn.Close();
                 return 0;
@@ -285,7 +288,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
                 conn.Close();
                 return 0;
@@ -294,7 +297,8 @@ namespace bd1.Models
         //MODIFICAR Avion
         public int modificarAvion(string placa, int serialMotor, int capacidad, int peso, string descripcion,
             int serialCarroceria, string fechaCreacion, int longitud, int pesoVacio, int envergadura,
-            int pesoMax, int altura, int anchoCabina, int capacidadCombustible, int carreraDespegue, int diametroFuselaje)
+            int pesoMax, int altura, int anchoCabina, int capacidadCombustible, int carreraDespegue, int diametroFuselaje, 
+            int fkModelo, int fkAeropuerto)
         {
             NpgsqlConnection conn = DAOAvion.getInstanceDAO();
             conn.Open();
@@ -305,7 +309,8 @@ namespace bd1.Models
             "\"Longitud\"='" + longitud + "',\"PesoVacio\"='" + pesoVacio + "'," +
             "\"Envergadura\"='" + envergadura + "',\"PesoMax\"='" + pesoMax + "'," +
             "\"CapacidadCombustible\"='" + capacidadCombustible + "',\"CarreraDespegue\"='" + carreraDespegue + "'," +
-            "\"DiametroFuselaje\"='" + diametroFuselaje + "'" +
+            "\"DiametroFuselaje\"='" + diametroFuselaje + "', \"FK-ModeloA\"=" + fkModelo + ", " +
+            "\"FK-Aeropuerto\"=" + fkAeropuerto + " " +
             "WHERE \"Placa\"='" + placa + "'";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -315,7 +320,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
                 conn.Close();
                 return 0;

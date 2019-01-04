@@ -99,15 +99,22 @@ namespace bd1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AgregarBarco(Barco model)
+        public ActionResult AgregarBarco(Barco model, string modeloVeh, string puerto)
         {
-
+            int fkM = Int32.Parse(modeloVeh);
+            int fkP= Int32.Parse(puerto);
             DAOBarco data = DAOBarco.getInstance();
             data.insertarBarco(model.placa, model.serialMotor, model.capacidad, model.peso,
-                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.nombre);
+                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.nombre, fkM, fkP);
             List<Barco> Barcos = data.obtenerBarcos();
 
             return View("~/Views/Vehiculo/Barco.cshtml", Barcos);
+        }
+        public PartialViewResult PuertoDD()
+        {
+            DAOPuerto data = DAOPuerto.getInstance();
+            List<Puerto> puertos = data.obtenerPuertos();
+            return PartialView("PuertoDropDown", puertos);
         }
         //Eliminar Barco
         public ActionResult EliminarBarco()
@@ -132,11 +139,13 @@ namespace bd1.Controllers
             return View(BarcoEncontrado);
         }
         [HttpPost]
-        public ActionResult ModificarBarco(Barco model)
+        public ActionResult ModificarBarco(Barco model, string modeloVeh, string puerto)
         {
+            int fkM = Int32.Parse(modeloVeh);
+            int fkP = Int32.Parse(puerto);
             DAOBarco data = DAOBarco.getInstance();
             data.modificarBarco(model.placa, model.serialMotor, model.capacidad, model.peso,
-                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.nombre);
+                model.descripcion, model.serialCarroceria, model.fechaCreacion, model.nombre, fkM, fkP);
             List<Barco> Barcos = data.obtenerBarcos();
 
             return View("~/Views/Vehiculo/Barco.cshtml", Barcos);
@@ -151,25 +160,32 @@ namespace bd1.Controllers
             else
                 return View("~/Views/Vehiculo/Avion.cshtml");
         }
-        //Agregar Barco
+        //Agregar Avion
         public ActionResult AgregarAvion()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult AgregarAvion(Avion model)
+        public ActionResult AgregarAvion(Avion model, string modeloVeh, string AeroP)
         {
-
+            int fkM = Int32.Parse(modeloVeh);
+            int fkA = Int32.Parse(AeroP);
             DAOAvion data = DAOAvion.getInstance();
             data.insertarAvion(model.placa, model.serialMotor, model.capacidad, model.peso,
                 model.descripcion, model.serialCarroceria, model.fechaCreacion, model.longitud,
                 model.pesoVacio, model.envergadura, model.pesoMax, model.altura, model.anchoCabina,
-                model.capacidadCombustible, model.carreraDespegue, model.diametroFuselaje);
+                model.capacidadCombustible, model.carreraDespegue, model.diametroFuselaje, fkM, fkA);
             List<Avion> Aviones = data.obtenerAviones();
 
             return View("~/Views/Vehiculo/Avion.cshtml", Aviones);
         }
-        //Eliminar Barco
+        public PartialViewResult AeropuertoDD()
+        {
+            DAOAeropuerto data = DAOAeropuerto.getInstance();
+            List<Aeropuerto> aeropuertos = data.obtenerAeropuerto();
+            return PartialView("AeropuertoDropDown", aeropuertos);
+        }
+        //Eliminar Avion
         public ActionResult EliminarAvion()
         {
             return View();
@@ -184,7 +200,7 @@ namespace bd1.Controllers
 
             return View("~/Views/Vehiculo/Avion.cshtml", Aviones);
         }
-        //Modificar Barco
+        //Modificar Avion
         public ActionResult ModificarAvion(string id)
         {
             DAOAvion data = DAOAvion.getInstance();
@@ -192,13 +208,15 @@ namespace bd1.Controllers
             return View(AvionEncontrado);
         }
         [HttpPost]
-        public ActionResult ModificarAvion(Avion model)
+        public ActionResult ModificarAvion(Avion model, string modeloVeh, string AeroP)
         {
+            int fkM = Int32.Parse(modeloVeh);
+            int fkA = Int32.Parse(AeroP);
             DAOAvion data = DAOAvion.getInstance();
             data.modificarAvion(model.placa, model.serialMotor, model.capacidad, model.peso,
                 model.descripcion, model.serialCarroceria, model.fechaCreacion, model.longitud,
                 model.pesoVacio, model.envergadura, model.pesoMax, model.altura, model.anchoCabina,
-                model.capacidadCombustible, model.carreraDespegue, model.diametroFuselaje);
+                model.capacidadCombustible, model.carreraDespegue, model.diametroFuselaje, fkM, fkA);
             List<Avion> Aviones = data.obtenerAviones();
 
             return View("~/Views/Vehiculo/Avion.cshtml", Aviones);

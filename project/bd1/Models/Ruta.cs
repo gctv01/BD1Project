@@ -36,7 +36,8 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", \"CODSucursal1\", \"CODSucursal2\", \"Costo\" FROM \"Ruta\"";
+            string sql = "SELECT \"COD\", \"CODSucursal1\", \"CODSucursal2\", \"Costo\" FROM \"Ruta\"" +
+                " Order by \"COD\";";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -85,7 +86,7 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", \"FK-Sucursal1\", \"FK-Sucursal2\", \"Costo\" FROM \"Ruta\"" +
+            string sql = "SELECT \"COD\", \"CODSucursal1\", \"CODSucursal2\", \"Costo\" FROM \"Ruta\"" +
                 "WHERE \"COD\" = " + cod + "";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -123,8 +124,8 @@ namespace bd1.Models
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
 
-            String sql = "UPDATE \"Ruta\" SET \"FK-Sucursal1\"='" + origen + "', \"FK-Sucursal2\"='" + destino + "'," +
-                            "\"Duracion\"='" + duracion + "' " +
+            String sql = "UPDATE \"Ruta\" SET \"CODSucursal1\"='" + origen + "', \"CODSucursal2\"='" + destino + "'," +
+                            "\"Costo\"='" + duracion + "' " +
                             "WHERE \"COD\"= " + cod + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -134,7 +135,7 @@ namespace bd1.Models
                 conn.Close();
                 return resp;
             }
-            catch
+            catch (Exception e)
             {
                 conn.Close();
                 return 0;
