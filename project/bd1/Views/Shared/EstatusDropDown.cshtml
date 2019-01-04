@@ -1,0 +1,13 @@
+﻿@model IEnumerable<bd1.Models.Envio>
+
+<p>
+    <h4>Estado: </h4>
+    <select name="estatus" id="estatus">
+        @foreach (var item in Model)
+        {
+            <option value="@item.fkEstatusE">
+                @item.NombreEstatusE
+            </option>
+        }
+    </select>
+</p>

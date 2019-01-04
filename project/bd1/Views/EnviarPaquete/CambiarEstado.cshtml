@@ -1,0 +1,35 @@
+﻿@model bd1.Models.Envio
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ENVIOS - CAMBIO DE ESTADO</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Cambiando estado del envio</h2>
+    <br />
+    @using (Html.BeginForm("CambiarEstado", "EnviarPaquete",
+    FormMethod.Post))
+    {
+        <p>
+            @Html.EditorFor(m => m.cod, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        @Html.Action("EstatusDD", "EnviarPaquete");
+        <div>
+            <input type="submit" value="Cambiar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEnvio", "EnviarPaquete")'" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+

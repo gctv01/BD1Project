@@ -190,6 +190,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Aeropuerto.cs" />
+    <Compile Include="Models\Envio.cs" />
     <Compile Include="Models\Horario.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\DAO.cs" />
@@ -197,6 +198,8 @@
     <Compile Include="Models\Lugar.cs" />
     <Compile Include="Models\ModeloVehiculo.cs" />
     <Compile Include="Models\Oficina.cs" />
+    <Compile Include="Models\Pago.cs" />
+    <Compile Include="Models\Paquete.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Puerto.cs" />
     <Compile Include="Models\Rol.cs" />
@@ -302,7 +305,11 @@
     <Content Include="Views\Reporte\IndexReporte.cshtml" />
     <Content Include="Views\Shared\AeropuertoDropDown.cshtml" />
     <Content Include="Views\Shared\PuertoDropDown.cshtml" />
-    <Content Include="Views\EnviarPaquete\Index.cshtml" />
+    <Content Include="Views\EnviarPaquete\IndexEnvio.cshtml" />
+    <Content Include="Views\EnviarPaquete\CambiarEstado.cshtml" />
+    <Content Include="Views\Shared\EstatusDropDown.cshtml" />
+    <Content Include="Views\EnviarPaquete\EliminarEnvio.cshtml" />
+    <Content Include="Views\Shared\TextBoxENVIO.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

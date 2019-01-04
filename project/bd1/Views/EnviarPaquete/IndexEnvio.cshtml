@@ -1,0 +1,73 @@
+﻿@model IEnumerable<bd1.Models.Envio>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("MenuSuperior");
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ENVIOS</b></p>
+</div>
+
+@using (Html.BeginForm("BuscarEnvio", "EnviarPaquete",
+           FormMethod.Post))
+{
+    @Html.Action("TBEnvio");
+    <input type="submit" value="Buscar" />
+    <input type="button" style="float:right" value="Eliminar Envio"
+           onclick="location.href='@Url.Action("eliminarEnvio", "EnviarPaquete")'" />
+    <input type="button" style="float:right; margin-right:1%" value="Nuevo Envio"
+           onclick="location.href='@Url.Action("nuevoEnvio", "EnviarPaquete")'" />
+}
+<br />
+<div class="jumbotron">
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Fecha Inicio
+                </th>
+                <th>
+                    Fecha Llegada
+                </th>
+                <th>
+                    Monto
+                </th>
+                <th>
+                    Estado del envio
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var envio in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(envio.cod.ToString(), "ModificarEmpleado", "Empleado", new { id = envio.cod }, null)
+                </td>
+                <td>
+                    <p>@envio.fechaInicio</p>
+                </td>
+                <td>
+                    <p>@envio.fechaLlegada</p>
+                </td>
+                <td>
+                    <p>@envio.monto</p>
+                </td>
+                <td>
+                    @Html.ActionLink(envio.NombreEstatusE.ToString(), "CambiarEstado", "EnviarPaquete", new { id = envio.cod }, null)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+
+

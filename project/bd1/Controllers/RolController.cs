@@ -56,7 +56,6 @@ namespace bd1.Controllers
         //Eliminar Rol
         public ActionResult EliminarRol()
         {
-
             return View();
         }
         [HttpPost]

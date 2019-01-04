@@ -1,0 +1,28 @@
+﻿@model bd1.Models.Envio
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ENVIOS</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Eliminando Envio</h2>
+    <br />
+    @using (Html.BeginForm("EliminarEnvio", "EnviarPaquete",
+    FormMethod.Post))
+    {
+        <p>
+            @Html.TextBoxFor(m => m.cod, new { @class = "form-control", placeholder = "Codigo del envio" })
+        </p>
+        <div>
+            <input type="submit" value="Eliminar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEnvio", "EnviarPaquete")'" />
+        </div>
+    }
+</div>
+
+
+
