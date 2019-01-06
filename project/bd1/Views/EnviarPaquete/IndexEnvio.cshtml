@@ -48,7 +48,7 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(envio.cod.ToString(), "ModificarEmpleado", "Empleado", new { id = envio.cod }, null)
+                    @Html.ActionLink(envio.cod.ToString(), "DetallesEnvio", "EnviarPaquete", new { id = envio.cod }, null)
                 </td>
                 <td>
                     <p>@envio.fechaInicio</p>

@@ -1,0 +1,54 @@
+﻿@model bd1.Models.Vehiculo
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>DETALLES DEL ENVIO</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Informacion del Vehiculo</h2>
+    <br />
+    @using (Html.BeginForm("RegresoDetallesEnvio", "EnviarPaquete",
+    FormMethod.Post))
+    {
+        @Html.Action("EnvioDetalleTB", "EnviarPaquete")
+        <p>
+            Placa:
+            @Html.EditorFor(m => m.placa, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Serial Motor:
+            @Html.EditorFor(m => m.serialMotor, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Capacidad:
+            @Html.EditorFor(m => m.capacidad, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Peso:
+            @Html.EditorFor(m => m.peso, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Descripcion:
+            @Html.EditorFor(m => m.peso, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Serial Carroceria:
+            @Html.EditorFor(m => m.serialCarroceria, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Fecha Creacion:
+            @Html.EditorFor(m => m.fechaCreacion, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Modelo:
+            @Html.EditorFor(m => m.modelo, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <div>
+            <input type="submit" value="Regresar" />
+        </div>
+    }
+</div>
+

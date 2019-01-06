@@ -69,6 +69,72 @@ namespace bd1.Controllers
             List<Envio> envios = data.obtenerEnvio();
             return View("~/Views/EnviarPaquete/IndexEnvio.cshtml", envios);
         }
+        //DETALLES DEL ENVIO
+        public ActionResult DetallesEnvio(string id)
+        {
+            int cod = Int32.Parse(id);
+            DAOEnvio data = DAOEnvio.getInstance();
+            Envio detalles = data.detallesEnvio(cod);
+            List<Envio> envios = new List<Envio>();
+            envios.Add(detalles);
+            return View(envios);
+        }
+        public PartialViewResult EnvioDetalleTB(Envio m, string id)
+        {
+            int cod = m.cod;
+            if (cod == 0)
+            {
+                cod = Int32.Parse(id);
+            }
+            DAOEnvio data = DAOEnvio.getInstance();
+            Envio envio = data.buscarEnvio(cod);
+            return PartialView("EnvioDetalleTextBox", envio);
+        }
+        public ActionResult DetallePaquete(string id2)
+        {
+            int cod = Int32.Parse(id2);
+            DAOPaquete data = DAOPaquete.getInstance();
+            Paquete paquete = data.buscarPaquete(cod);
+            return View(paquete);
+        }
+        public ActionResult DetallePago(string id2)
+        {
+            int cod = Int32.Parse(id2);
+            DAOPago data = DAOPago.getInstance();
+            Pago pago = data.buscarPago(cod);
+            return View(pago);
+        }
+        public ActionResult DetalleRuta(string id2)
+        {
+            int cod = Int32.Parse(id2);
+            DAORuta data = DAORuta.getInstance();
+            Ruta ruta = data.buscarRuta(cod);
+            return View(ruta);
+        }
+        public ActionResult DetalleVehiculo(string id2)
+        {
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            Vehiculo veh = data.buscarDetalleTerrestre(id2);
+            if(veh.placa == null)
+            {
+                veh = data.buscarDetalleBarco(id2);
+            }
+            if (veh.placa == null)
+            {
+                veh = data.buscarDetalleAvion(id2);
+            }
+            return View(veh);
+        }
+        [HttpPost]
+        public ActionResult RegresoDetallesEnvio(Envio m)
+        {
+            //int cod = Int32.Parse(m.cod);
+            DAOEnvio data = DAOEnvio.getInstance();
+            Envio detalles = data.detallesEnvio(m.cod);
+            List<Envio> envios = new List<Envio>();
+            envios.Add(detalles);
+            return View("~/Views/EnviarPaquete/DetallesEnvio.cshtml", envios);
+        }
         //Eliminar Envio
         public ActionResult EliminarEnvio()
         {

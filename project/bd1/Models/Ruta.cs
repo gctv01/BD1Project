@@ -11,7 +11,7 @@ namespace bd1.Models
         public int COD { get; set; }
         public string origen { get; set; }
         public string destino { get; set; }
-        public int duracion { get; set; }
+        public int costo { get; set; }
     }
     public class DAORuta : DAO
     {
@@ -51,7 +51,7 @@ namespace bd1.Models
                     COD = Int32.Parse(dr[0].ToString()),
                     origen = dr[1].ToString(),
                     destino = dr[2].ToString(),
-                    duracion = Int32.Parse(dr[3].ToString())
+                    costo = Int32.Parse(dr[3].ToString())
                 });
             }
 
@@ -86,8 +86,9 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", \"CODSucursal1\", \"CODSucursal2\", \"Costo\" FROM \"Ruta\"" +
-                "WHERE \"COD\" = " + cod + "";
+            string sql = "SELECT r.\"COD\", s.\"Nombre\", s2.\"Nombre\", r.\"Costo\" " +
+                            "FROM \"Ruta\" r, \"Sucursal\" s, \"Sucursal\" s2  " +
+                            "WHERE r.\"COD\" = " + cod + " and r.\"CODSucursal1\"=s.\"COD\" and r.\"CODSucursal2\"=s2.\"COD\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -99,7 +100,7 @@ namespace bd1.Models
                 data.COD = Int32.Parse(dr[0].ToString());
                 data.origen = dr[1].ToString();
                 data.destino = dr[2].ToString();
-                data.duracion = Int32.Parse(dr[3].ToString());
+                data.costo = Int32.Parse(dr[3].ToString());
             }
             dr.Close();
             conn.Close();

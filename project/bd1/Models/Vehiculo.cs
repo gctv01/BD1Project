@@ -14,10 +14,119 @@ namespace bd1.Models
         public int peso { get; set; }
         public string descripcion { get; set; }
         public int serialCarroceria { get; set; }
-        public string fechaCreacion { get; set; }       
+        public string fechaCreacion { get; set; }
+        public string modelo { get; set; }        
     }
-    //BARCOS
-    public class Barco : Vehiculo
+    public class DAOVehiculo : DAO
+    {
+        private static DAOVehiculo c = null;
+
+        public static DAOVehiculo getInstance()
+        {
+            if (DAOVehiculo.c != null)
+            {
+                return c;
+            }
+            else
+            {
+                c = new DAOVehiculo();
+                return c;
+            }
+        }
+        //BUSCAR A UNO PARA DETALLE DE LOS ENVIOS
+        //Terrestre
+        public Vehiculo buscarDetalleTerrestre(string placa)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", \"Peso\", \"Descripcion\", " +
+                        "\"SerialCarroceria\", to_char(\"FechaCreacion\", 'DD-MM-YYYY'), ma.\"Nombre\"||', '|| mo.\"Nombre\"  " +
+                        "FROM \"Terrestre\" t, \"Modelo\" mo, \"Marca\" ma " +
+                        "WHERE \"Placa\"='" + placa + "' and \"FK-ModeloT\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Vehiculo data = new Vehiculo();
+
+            while (dr.Read())
+            {
+                data.placa = dr[0].ToString();
+                data.serialMotor = Int32.Parse(dr[1].ToString());
+                data.capacidad = Int32.Parse(dr[2].ToString());
+                data.peso = Int32.Parse(dr[3].ToString());
+                data.descripcion = dr[4].ToString();
+                data.serialCarroceria = Int32.Parse(dr[5].ToString());
+                data.fechaCreacion = dr[6].ToString();
+                data.modelo = dr[7].ToString();
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
+        //Barco
+        public Vehiculo buscarDetalleBarco(string placa)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", \"Peso\", \"Descripcion\", " +
+                        "\"SerialCarroceria\", to_char(\"FechaCreacion\", 'DD-MM-YYYY'), ma.\"Nombre\"||', '|| mo.\"Nombre\"  " +
+                        "FROM \"Barco\" t, \"Modelo\" mo, \"Marca\" ma " +
+                        "WHERE \"Placa\"='" + placa + "' and \"FK-ModeloB\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Vehiculo data = new Vehiculo();
+
+            while (dr.Read())
+            {
+                data.placa = dr[0].ToString();
+                data.serialMotor = Int32.Parse(dr[1].ToString());
+                data.capacidad = Int32.Parse(dr[2].ToString());
+                data.peso = Int32.Parse(dr[3].ToString());
+                data.descripcion = dr[4].ToString();
+                data.serialCarroceria = Int32.Parse(dr[5].ToString());
+                data.fechaCreacion = dr[6].ToString();
+                data.modelo = dr[7].ToString();
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
+        //Avion
+        public Vehiculo buscarDetalleAvion(string placa)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", \"Peso\", \"Descripcion\", " +
+                        "\"SerialCarroceria\", to_char(\"FechaCreacion\", 'DD-MM-YYYY'), ma.\"Nombre\"||', '|| mo.\"Nombre\"  " +
+                        "FROM \"Avion\" t, \"Modelo\" mo, \"Marca\" ma " +
+                        "WHERE \"Placa\"='" + placa + "' and \"FK-ModeloA\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Vehiculo data = new Vehiculo();
+
+            while (dr.Read())
+            {
+                data.placa = dr[0].ToString();
+                data.serialMotor = Int32.Parse(dr[1].ToString());
+                data.capacidad = Int32.Parse(dr[2].ToString());
+                data.peso = Int32.Parse(dr[3].ToString());
+                data.descripcion = dr[4].ToString();
+                data.serialCarroceria = Int32.Parse(dr[5].ToString());
+                data.fechaCreacion = dr[6].ToString();
+                data.modelo = dr[7].ToString();
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
+    }
+        //BARCOS
+        public class Barco : Vehiculo
     {
         public string nombre { get; set; }
     }
@@ -491,7 +600,7 @@ namespace bd1.Models
                 return 0;
             }
         }
-        //BUSCAR A UNO
+        //BUSCAR A UNO Terrestre
         public Terrestre buscarTerrestre(string placa)
         {
 
@@ -522,6 +631,6 @@ namespace bd1.Models
 
             return data;
 
-        }
+        }        
     }
 }

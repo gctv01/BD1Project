@@ -33,7 +33,7 @@ namespace bd1.Controllers
         public ActionResult AgregarRuta(Ruta model, string SucursalOrigen, string SucursalDestino)
         {
             DAORuta data = DAORuta.getInstance();
-            data.insertarRuta(SucursalOrigen, SucursalDestino, model.duracion);
+            data.insertarRuta(SucursalOrigen, SucursalDestino, model.costo);
             List<Ruta> Rutas = data.obtenerRuta();
             foreach (var item in Rutas)
             {
@@ -82,7 +82,7 @@ namespace bd1.Controllers
         public ActionResult ModificarRuta(Ruta model, string SucursalOrigen, string SucursalDestino)
         {
             DAORuta data = DAORuta.getInstance();
-            data.modificarRuta(model.COD, SucursalOrigen, SucursalDestino, model.duracion);
+            data.modificarRuta(model.COD, SucursalOrigen, SucursalDestino, model.costo);
             List<Ruta> Rutas = data.obtenerRuta();
             foreach (var item in Rutas)
             {

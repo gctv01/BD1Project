@@ -310,6 +310,12 @@
     <Content Include="Views\Shared\EstatusDropDown.cshtml" />
     <Content Include="Views\EnviarPaquete\EliminarEnvio.cshtml" />
     <Content Include="Views\Shared\TextBoxENVIO.cshtml" />
+    <Content Include="Views\EnviarPaquete\DetallesEnvio.cshtml" />
+    <Content Include="Views\Shared\EnvioDetalleTextBox.cshtml" />
+    <Content Include="Views\EnviarPaquete\DetallePaquete.cshtml" />
+    <Content Include="Views\EnviarPaquete\DetallePago.cshtml" />
+    <Content Include="Views\EnviarPaquete\DetalleRuta.cshtml" />
+    <Content Include="Views\EnviarPaquete\DetalleVehiculo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

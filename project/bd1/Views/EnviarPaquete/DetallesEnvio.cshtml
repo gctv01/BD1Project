@@ -1,0 +1,96 @@
+﻿@model IEnumerable<bd1.Models.Envio>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>DETALLES DEL ENVIO</b></p>
+</div>
+<div class="jumbotron">
+    @Html.Action("EnvioDetalleTB", "EnviarPaquete")
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Empleado que realizo el envio
+                </th>
+                <th>
+                    Paquete
+                </th>
+                <th>
+                    Pago
+                </th>
+                <th>
+                    Vehiculo
+                </th>
+                <th>
+                    Ruta
+                </th>
+                <th>
+                    Cliente Remitente
+                </th>
+                <th>
+                    Cliente Destinatario
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var envio in Model)
+        {
+            <tr>
+                <td>
+                    <p>@envio.NombreEmpleadoE</p>
+                </td>
+                <td>
+                    @Html.ActionLink(envio.codPaquete.ToString(), "DetallePaquete", "EnviarPaquete", new { id2 = envio.codPaquete, id=envio.cod}, null)
+                </td>
+                <td>
+                    @Html.ActionLink(envio.codPago.ToString(), "DetallePago", "EnviarPaquete", new { id2 = envio.codPago, id = envio.cod }, null)
+                </td>
+                <td>
+                    @if (@envio.codVehiculo == "-")
+                    {
+                        <p>@envio.codVehiculo</p>
+                    }
+                    else
+                    {
+                        @Html.ActionLink(envio.codVehiculo.ToString(), "DetalleVehiculo", "EnviarPaquete", new { id2 = envio.codVehiculo, id = envio.cod}, null)
+                    }
+                </td>
+                <td>
+                    @if (@envio.codVehiculo == "-")
+                    {
+                        <p>@envio.codRuta</p>
+                    }
+                    else
+                    {
+                        @Html.ActionLink(envio.codRuta.ToString(), "DetalleRuta", "EnviarPaquete", new { id = envio.codRuta, id2 = envio.cod }, null)
+                    }
+                    
+                </td>
+                <td>
+                    <p>@envio.nombreClienteO</p>
+                </td>
+                <td>
+                    <p>@envio.nombreClienteD</p>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEnvio", "EnviarPaquete")'" />
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

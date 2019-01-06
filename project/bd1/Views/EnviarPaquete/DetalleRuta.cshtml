@@ -1,0 +1,46 @@
+﻿@model bd1.Models.Ruta
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>DETALLES DEL ENVIO</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Informacion de la Ruta</h2>
+    <br />
+    @using (Html.BeginForm("RegresoDetallesEnvio", "EnviarPaquete",
+    FormMethod.Post))
+    {
+        @Html.Action("EnvioDetalleTB", "EnviarPaquete")
+        <p>
+            Codigo de la Ruta:
+            @Html.EditorFor(m => m.COD, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Sucursal Origen:
+            @Html.EditorFor(m => m.origen, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Sucursal Destino:
+            @Html.EditorFor(m => m.destino, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Costo:
+            @Html.EditorFor(m => m.costo, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <div>
+            <input type="submit" value="Regresar" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+
+

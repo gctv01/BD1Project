@@ -1,0 +1,58 @@
+﻿@model bd1.Models.Paquete
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>DETALLES DEL ENVIO</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Informacion del Paquete</h2>
+    <br />
+    @using (Html.BeginForm("RegresoDetallesEnvio", "EnviarPaquete",
+    FormMethod.Post))
+    {
+        @Html.Action("EnvioDetalleTB", "EnviarPaquete")
+        <p>
+            Codigo del paquete:
+            @Html.EditorFor(m => m.cod, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Peso del Paquete (Kg):
+            @Html.EditorFor(m => m.peso, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Volumen del paquete (m3):
+            @Html.EditorFor(m => m.volumen, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Tipo:
+            @Html.EditorFor(m => m.ClasificacionTipoPaquete, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Esta o estuvo en la Sucursal:
+            @Html.EditorFor(m => m.NombreSucursal, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Cliente Remitente:
+            @Html.EditorFor(m => m.NombreClienteEnvia, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Cliente Destinatario:
+            @Html.EditorFor(m => m.NombreClienteRecibe, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <div>
+            <input type="submit" value="Regresar" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+

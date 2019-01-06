@@ -81,8 +81,11 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\" FROM \"Paquete\"" +
-                "WHERE \"COD\" = " + cod + "";
+            string sql = "SELECT p.\"COD\", p.\"Peso\", p.\"Volumen\", tp.\"Clasificacion\", s.\"Nombre\", " +
+                          "c1.\"Nombre\", c2.\"Nombre\" " +
+                          "FROM \"Paquete\" p, \"TipoPaquete\" tp, \"Cliente\" c1, \"Cliente\" c2, \"Sucursal\" s " +
+                          "WHERE p.\"FK-TipoPaquete\"= tp.\"COD\" and p.\"FK-Sucursal\"=s.\"COD\" and " +
+                          "p.\"FK-Cliente1\"=c1.\"CI\" and p.\"FK-Cliente2\"=c2.\"CI\" and p.\"COD\" = " + cod + "";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -92,6 +95,12 @@ namespace bd1.Models
             {
                 System.Diagnostics.Debug.WriteLine("connection established");
                 data.cod = Int32.Parse(dr[0].ToString());
+                data.peso = Int32.Parse(dr[1].ToString());
+                data.volumen = Int32.Parse(dr[2].ToString());
+                data.ClasificacionTipoPaquete = dr[3].ToString();
+                data.NombreSucursal = dr[4].ToString();
+                data.NombreClienteEnvia = dr[5].ToString();
+                data.NombreClienteRecibe = dr[6].ToString();
             }
             dr.Close();
             conn.Close();
