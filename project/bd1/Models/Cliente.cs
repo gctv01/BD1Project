@@ -66,7 +66,7 @@ namespace bd1.Models
             conn.Open();
             string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\" " +
                 "FROM \"Cliente\"" +
-                "Order by \"CI\"";
+                "Order by \"Nombre\", \"Apellido\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 

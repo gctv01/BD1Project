@@ -126,7 +126,7 @@ namespace bd1.Models
         }
     }
         //BARCOS
-        public class Barco : Vehiculo
+    public class Barco : Vehiculo
     {
         public string nombre { get; set; }
     }
@@ -179,8 +179,9 @@ namespace bd1.Models
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
             string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", " +
-                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Nombre\"" +
-                "FROM \"Barco\" ";
+                "\"Peso\", \"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", b.\"Nombre\", mo.\"Nombre\"||', '||ma.\"Nombre\" " +
+                "FROM \"Barco\" b, \"Modelo\" mo, \"Marca\" ma " +
+                "WHERE b.\"FK-ModeloB\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" ";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -199,6 +200,7 @@ namespace bd1.Models
                     serialCarroceria = Int32.Parse(dr[5].ToString()),
                     fechaCreacion = dr[6].ToString(),
                     nombre = dr[7].ToString(),
+                    modelo = dr[8].ToString(),
 
                 });
             }
@@ -348,8 +350,9 @@ namespace bd1.Models
             string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", " +
                 "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Longitud\"," +
                 "\"PesoVacio\",\"Envergadura\",\"PesoMax\",\"Altura\", \"AnchoCabina\",\"CapacidadCombustible\"," +
-                "\"CarreraDespegue\", \"DiametroFuselaje\" "+
-                "FROM \"Avion\" ";
+                "\"CarreraDespegue\", \"DiametroFuselaje\", mo.\"Nombre\"||', '||ma.\"Nombre\"  " +
+                "FROM \"Avion\" a, \"Modelo\" mo, \"Marca\" ma " +
+                "WHERE a.\"FK-ModeloA\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" ";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -376,6 +379,7 @@ namespace bd1.Models
                     capacidadCombustible = Int32.Parse(dr[13].ToString()),
                     carreraDespegue = Int32.Parse(dr[14].ToString()),
                     diametroFuselaje = Int32.Parse(dr[15].ToString()),
+                    modelo = dr[16].ToString(),
                 });
             }
             dr.Close();
@@ -533,8 +537,9 @@ namespace bd1.Models
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
             string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", " +
-                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Tipo\"" +
-                "FROM \"Terrestre\" ";
+                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Tipo\", mo.\"Nombre\"||', '||ma.\"Nombre\" " +
+                "FROM \"Terrestre\" a, \"Modelo\" mo, \"Marca\" ma " +
+                "WHERE a.\"FK-ModeloT\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" ";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -552,8 +557,8 @@ namespace bd1.Models
                     descripcion = dr[4].ToString(),
                     serialCarroceria = Int32.Parse(dr[5].ToString()),
                     fechaCreacion = dr[6].ToString(),
-                    tipo = dr[7].ToString()
-
+                    tipo = dr[7].ToString(),
+                    modelo = dr[8].ToString(),
                 });
             }
             dr.Close();

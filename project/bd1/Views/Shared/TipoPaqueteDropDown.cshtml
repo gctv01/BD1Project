@@ -1,0 +1,15 @@
+﻿@model IEnumerable<bd1.Models.Paquete>
+
+<p>
+    <h4>Clasificacion del Paquete: </h4>
+    <select name="tipoPaquete" id="tipoPaquete">
+        @foreach (var item in Model)
+        {
+            <option value="@item.fkTipoPaquete">
+                @item.ClasificacionTipoPaquete
+            </option>
+        }
+    </select>
+</p>
+
+

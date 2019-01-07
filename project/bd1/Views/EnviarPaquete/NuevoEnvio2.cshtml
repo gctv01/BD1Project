@@ -1,0 +1,57 @@
+﻿@model bd1.Models.Paquete
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ENVIANDO PAQUETE</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Informacion del Paquete</h2>
+    <br />
+    @using (Html.BeginForm("nuevoEnvio2", "EnviarPaquete",
+    FormMethod.Post))
+    {
+        @Html.Action("NuevoEnvioTB", "EnviarPaquete")
+        @Html.Action("ClientePaqueteDD");
+        <br />
+        <p>
+            Peso (Kg):
+            @Html.TextBoxFor(m => m.peso, new { @class = "form-control", placeholder = "Peso del paquete" })
+        </p>
+        <p>
+            Volumen (m3):
+            @Html.TextBoxFor(m => m.volumen, new { @class = "form-control", placeholder = "Volumen del paquete" })
+        </p>
+        @Html.Action("TipoPaqueteDD");
+        @Html.Action("SucursalDD");
+        <p> 
+            Transporte:
+            <select name="transporte" id="transporte">
+                <option value="Avion">
+                    Avion
+                </option>
+                <option value="Barco">
+                    Barco
+                </option>
+                <option value="Terrestre">
+                    Terrestre
+                </option>
+            </select>
+        </p>
+
+        <div>
+            <input type="submit" value="Siguiente" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+

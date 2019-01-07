@@ -48,7 +48,14 @@
                     @Html.ActionLink(envio.codPaquete.ToString(), "DetallePaquete", "EnviarPaquete", new { id2 = envio.codPaquete, id=envio.cod}, null)
                 </td>
                 <td>
-                    @Html.ActionLink(envio.codPago.ToString(), "DetallePago", "EnviarPaquete", new { id2 = envio.codPago, id = envio.cod }, null)
+                    @if (@envio.codPago == 0)
+                    {
+                        <p> No pago </p>
+                    }
+                    else
+                    {
+                        @Html.ActionLink(envio.codPago.ToString(), "DetallePago", "EnviarPaquete", new { id2 = envio.codPago, id = envio.cod }, null)
+                    }
                 </td>
                 <td>
                     @if (@envio.codVehiculo == "-")
@@ -67,7 +74,7 @@
                     }
                     else
                     {
-                        @Html.ActionLink(envio.codRuta.ToString(), "DetalleRuta", "EnviarPaquete", new { id = envio.codRuta, id2 = envio.cod }, null)
+                        @Html.ActionLink(envio.codRuta.ToString(), "DetalleRuta", "EnviarPaquete", new { id2 = envio.codRuta, id = envio.cod }, null)
                     }
                     
                 </td>

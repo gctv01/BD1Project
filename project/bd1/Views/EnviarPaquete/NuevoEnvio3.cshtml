@@ -1,0 +1,55 @@
+﻿@model bd1.Models.Envio
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ENVIANDO PAQUETE</b></p>
+</div>
+<div class="jumbotron">
+    @{
+        string transporte = ViewBag.transporte;
+    }
+    <h2>Informacion del Traslado</h2>
+    <br />
+    @using (Html.BeginForm("nuevoEnvio3", "EnviarPaquete",
+    FormMethod.Post))
+    {
+        @Html.Action("NuevoEnvioTB", "EnviarPaquete")
+        @Html.Action("RutaDD", "EnviarPaquete")
+        <div>           
+            <input type="button" value="Agregar Ruta Combinada" onclick="location.href='@Url.Action("AgregarRuta", "Ruta")'" />
+        </div>
+        if (transporte == "Terrestre")
+        {
+            @Html.Action("TerrestreDD", "EnviarPaquete")
+        }
+        if (transporte == "Barco")
+        {
+            @Html.Action("BarcoDD", "EnviarPaquete")
+        }
+        if (transporte == "Avion")
+        {
+            @Html.Action("AvionDD", "EnviarPaquete")
+        }
+        <p>
+            Duracion (dias):
+            @Html.TextBoxFor(model => model.duracionVR, new { @class = "form-control" })
+        </p>
+        <div>
+            <input type="submit" value="Siguiente" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+
+

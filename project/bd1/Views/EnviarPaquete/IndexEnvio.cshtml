@@ -6,7 +6,7 @@
 }
 
 
-@Html.Action("MenuSuperior");
+@Html.Action("MenuSuperior", "EnviarPaquete");
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ENVIOS</b></p>
 </div>
@@ -14,7 +14,7 @@
 @using (Html.BeginForm("BuscarEnvio", "EnviarPaquete",
            FormMethod.Post))
 {
-    @Html.Action("TBEnvio");
+    @Html.Action("TBEnvio", "EnviarPaquete");
     <input type="submit" value="Buscar" />
     <input type="button" style="float:right" value="Eliminar Envio"
            onclick="location.href='@Url.Action("eliminarEnvio", "EnviarPaquete")'" />
@@ -57,7 +57,14 @@
                     <p>@envio.fechaLlegada</p>
                 </td>
                 <td>
-                    <p>@envio.monto</p>
+                    @if (envio.codPago == 0)
+                    {
+                        @Html.ActionLink(envio.monto.ToString(), "PagoEnvio", "Pago", new { id = envio.cod, id2 = envio.monto }, null)
+                    }
+                    else
+                    {
+                        @envio.monto
+                    }
                 </td>
                 <td>
                     @Html.ActionLink(envio.NombreEstatusE.ToString(), "CambiarEstado", "EnviarPaquete", new { id = envio.cod }, null)

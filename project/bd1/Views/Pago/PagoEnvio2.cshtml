@@ -1,0 +1,103 @@
+﻿@model bd1.Models.Pago
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>REGISTRANDO PAGO</b></p>
+</div>
+<div class="jumbotron">
+    @{
+        string metodoPago = ViewBag.mP;
+        string metodoPago2 = ViewBag.mP2;
+        string metodoPago3 = ViewBag.mP3;
+        string metodoPago4 = ViewBag.mP4;
+    }
+    <h2>Pago</h2>
+    <br />
+    @using (Html.BeginForm("pagoEnvio2", "Pago",
+    FormMethod.Post))
+    {
+        <p>
+            Codigo del Pago:
+            @Html.EditorFor(m => m.cod, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+        </p>
+        <p>
+            Monto a pagar:
+            @Html.EditorFor(m => m.montoTotal, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+            @ViewBag.Error
+        </p>
+        @Html.Action("ClienteMetodoPagoDD", "Pago")
+        if (metodoPago == "efectivo")
+        {
+            @Html.Action("EfectivoFORM", "Pago")
+        }
+        if (metodoPago == "cheque")
+        {
+            @Html.Action("ChequeFORM", "Pago")
+        }
+        if (metodoPago == "transferencia")
+        {
+            @Html.Action("TransferenciaFORM", "Pago")
+        }
+        if (metodoPago == "tarjeta")
+        {
+            @Html.Action("TarjetaFORM", "Pago")
+        }
+        if ((metodoPago != "efectivo") && (metodoPago2 == "efectivo"))
+        {
+            @Html.Action("EfectivoFORM", "Pago")
+        }
+        if ((metodoPago != "cheque") && (metodoPago2 == "cheque"))
+        {
+            @Html.Action("ChequeFORM", "Pago")
+        }
+        if ((metodoPago != "transferencia") && (metodoPago2 == "transferencia"))
+        {
+            @Html.Action("TransferenciaFORM", "Pago")
+        }
+        if ((metodoPago != "tarjeta") && (metodoPago2 == "tarjeta"))
+        {
+            @Html.Action("TarjetaFORM", "Pago")
+        }
+        if ((metodoPago != "efectivo") && (metodoPago2 != "efectivo") && (metodoPago3 == "efectivo"))
+        {
+            @Html.Action("EfectivoFORM", "Pago")
+        }
+        if ((metodoPago != "cheque") && (metodoPago2 != "cheque") && (metodoPago3 == "cheque"))
+        {
+            @Html.Action("ChequeFORM", "Pago")
+        }
+        if ((metodoPago != "transferencia") && (metodoPago2 != "transferencia") && (metodoPago3 == "transferencia"))
+        {
+            @Html.Action("TransferenciaFORM", "Pago")
+        }
+        if ((metodoPago != "tarjeta") && (metodoPago2 != "tarjeta") && (metodoPago3 == "tarjeta"))
+        {
+            @Html.Action("TarjetaFORM", "Pago")
+        }
+        if ((metodoPago != "efectivo") && (metodoPago2 != "efectivo") && (metodoPago3 != "efectivo") && (metodoPago4 == "efectivo"))
+        {
+            @Html.Action("EfectivoFORM", "Pago")
+        }
+        if ((metodoPago != "cheque") && (metodoPago2 != "cheque") && (metodoPago3 != "cheque") && (metodoPago4 == "cheque"))
+        {
+            @Html.Action("ChequeFORM", "Pago")
+        }
+        if ((metodoPago != "transferencia") && (metodoPago2 != "transferencia") && (metodoPago3 != "transferencia") && (metodoPago4 == "transferencia"))
+        {
+            @Html.Action("TransferenciaFORM", "Pago")
+        }
+        if ((metodoPago != "tarjeta") && (metodoPago2 != "tarjeta") && (metodoPago3 != "tarjeta") && (metodoPago4 == "tarjeta"))
+        {
+            @Html.Action("TarjetaFORM", "Pago")
+        }
+        <div>
+            <input type="submit" value="Finalizar Pago" />
+        </div>
+    }
+</div>
+
