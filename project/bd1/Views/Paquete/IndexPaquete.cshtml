@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Action("MenuSuperior");
+@Html.Action("MenuSuperior", new { viewba = ViewBag.name });
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>PAQUETES</b></p>
 </div>

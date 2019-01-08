@@ -1,4 +1,10 @@
-﻿<div class="hola">
+﻿
+@{
+    string name = ViewBag.name;
+
+}
+<p> Bienvenido de nuevo, @ViewBag.name <a href='@Url.Action("Index", "Home")'>Cerrar sesión</a> </p>
+<div class="hola">
     <ul class="hola">
         <li style="margin-right:8%">@Html.ActionLink("Home", "IndexAdmin", "Admin")</li>
         <li style="margin-right:8%">@Html.ActionLink("Oficinas", "IndexOficina", "Oficinas")</li>

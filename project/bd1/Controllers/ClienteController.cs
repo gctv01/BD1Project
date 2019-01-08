@@ -12,6 +12,7 @@ namespace bd1.Controllers
         // GET: Cliente
         public ActionResult IndexCliente()
         {
+          
             DAOCliente data = DAOCliente.getInstance();
             List<Cliente> Clientes = data.obtenerClientes();
             return View(Clientes);
@@ -98,8 +99,9 @@ namespace bd1.Controllers
 
             return View("~/Views/Cliente/IndexCliente.cshtml", Clientes);
         }
-        public PartialViewResult MenuSuperior()
+        public PartialViewResult MenuSuperior(string viewba)
         {
+            ViewBag.name = viewba;
             return PartialView("MenuSuperiorAdm");
         }
         public PartialViewResult TBCliente()

@@ -36,8 +36,8 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Usuario\" (\"COD\" ,\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-ClienteU\")"+
-                "VALUES ((SELECT NEXTVAL('seq')),'" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
+            String sql = "INSERT INTO \"Usuario\" (\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-ClienteU\")"+
+                "VALUES ('" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -47,10 +47,13 @@ namespace bd1.Models
             }
             catch (Exception e)
             {
+                System.Diagnostics.TextWriterTraceListener writer = new System.Diagnostics.TextWriterTraceListener(System.Console.Out);
+                System.Diagnostics.Debug.Listeners.Add(writer);
                 System.Diagnostics.Debug.WriteLine(e.ToString());
                 conn.Close();
                 return 0;
             }
+            
         }
         //INSERTAR USUARIO EMPLEADO
         public int insertarUsuarioE(string username, string contrasena, string rol, int ci)
@@ -69,6 +72,8 @@ namespace bd1.Models
             }
             catch(Exception e)
             {
+                System.Diagnostics.TextWriterTraceListener writer = new System.Diagnostics.TextWriterTraceListener(System.Console.Out);
+                System.Diagnostics.Debug.Listeners.Add(writer);
                 System.Diagnostics.Debug.WriteLine(e.ToString());
                 conn.Close();
                 return 0;
@@ -80,8 +85,8 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            string sql = "SELECT \"Username\", \"Contrasena\", \"FK-ClienteU\" " +
-                        "FROM \"Usuario\" WHERE \"Username\" = '" + username + "' AND " +
+            string sql = "SELECT \"Nombre\", \"Contrasena\", \"FK-ClienteU\" " +
+                        "FROM \"Usuario\" WHERE \"Nombre\" = '" + username + "' AND " +
                         "\"FK-EmpleadoU\" is NULL";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -90,7 +95,8 @@ namespace bd1.Models
                 while (dr.Read())
                 {
                     System.Diagnostics.Debug.WriteLine("connection established");
- 
+                    System.Diagnostics.TextWriterTraceListener writer = new System.Diagnostics.TextWriterTraceListener(System.Console.Out);
+                    System.Diagnostics.Debug.Listeners.Add(writer);
                     if (String.Equals(dr[1].ToString(), contrasena)){
                         compData = 1;
                     }

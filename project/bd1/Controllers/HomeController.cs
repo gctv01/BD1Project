@@ -11,6 +11,7 @@ namespace bd1.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.name = null;
             return View();
         }
         
@@ -32,7 +33,9 @@ namespace bd1.Controllers
                 int redireccion = data.buscandoUsuarioE(model.username, model.contrasena);
                 if (redireccion == 1)
                 {
+                    ViewBag.name = model.username;
                     return View("~/Views/Admin/IndexAdmin.cshtml");
+                    
                 }
                 else
                 {
@@ -47,10 +50,15 @@ namespace bd1.Controllers
                     int redireccion = data.buscandoUsuarioC(model.username, model.contrasena);
                     if(redireccion == 1)
                     {
-                        return View("~/Views/Home/Cliente.cshtml");
+                    ViewBag.name = model.username;
+                   
+                    
+                        return View("~/Views/Cliente/IndexCliente.cshtml");
                     }
                     else
                     {
+                    ViewBag.name = null;
+                    
                         ViewBag.Message = "No existe el usuario, pruebe nuevamente";
                         return View("~/Views/Home/Index.cshtml");
                     }

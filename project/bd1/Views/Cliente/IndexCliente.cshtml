@@ -1,12 +1,18 @@
 ﻿@model IEnumerable<bd1.Models.Cliente>
 
+
 @{
-    ViewBag.Title = "Homempleado";
+    ViewBag.Title = "HomeCliente";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    string name = ViewBag.name;
+    
+}
 
-@Html.Action("MenuSuperior");
+
+@Html.Action("MenuSuperior", "Cliente", new { viewba = ViewBag.name});
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>CLIENTES</b></p>
 </div>
@@ -14,7 +20,7 @@
 @using (Html.BeginForm("BuscarCliente", "Cliente",
            FormMethod.Post))
 {
-    @Html.Action("TBCliente");
+    @Html.Action("TBCliente", "Cliente");
     <input type="submit" value="Buscar" />
     <input type="button" style="float:right" value="Eliminar Cliente"
            onclick="location.href='@Url.Action("EliminarCliente", "Cliente")'" />
@@ -38,21 +44,7 @@
             </tr>
         </thead>
 
-        @foreach (var oficina in Model)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(@oficina.CI.ToString(), "ModificarCliente", "Cliente", new { id = @oficina.CI }, null)
-                </td>
-                <td>
-                    <p>@oficina.Nombre</p>
-                </td>
-                <td>
-                    <p>@oficina.Apellido</p>
-                </td>
-                
-            </tr>
-        }
+
 
     </table>
 </div>

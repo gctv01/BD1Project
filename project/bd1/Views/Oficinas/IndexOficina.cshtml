@@ -5,8 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    string name = ViewBag.name;
 
-@Html.Action("MenuSuperior");
+}
+
+@Html.Action("MenuSuperior", "Cliente", new { viewba = ViewBag.name });
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>OFICINAS</b></p>
 </div>
@@ -16,9 +20,9 @@
 {
     @Html.Action("TBOficina");
     <input type="submit" value="Buscar" />
-    <input type="button" style="float:right" value="Eliminar Oficina" 
+    <input type="button" style="float:right" value="Eliminar Oficina"
            onclick="location.href='@Url.Action("EliminarOficina", "Oficinas")'" />
-    <input type="button" style="float:right; margin-right:1%" value="Agregar Oficina" 
+    <input type="button" style="float:right; margin-right:1%" value="Agregar Oficina"
            onclick="location.href='@Url.Action("AgregarOficina", "Oficinas")'" />
 }
 <br />
