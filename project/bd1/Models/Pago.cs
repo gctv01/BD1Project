@@ -34,13 +34,13 @@ namespace bd1.Models
             }
         }
         //INSERTAR PAGO
-        public int insertarPago(int montoTotal, string fecha, string pagoD, int fkEnvio)
+        public int insertarPago(double montoTotal, string fecha, string pagoD, int fkEnvio)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
-
+            int montoT = Convert.ToInt32(montoTotal);
             String sql = "INSERT INTO \"Pago\" (\"COD\", \"MontoTotal\", \"Fecha\", \"PagoDest\", \"FK-EnvioP\") " +
-                "VALUES ((SELECT NEXTVAL('seq')), " + montoTotal + ", TO_DATE('" + fecha + "', 'YYYY-MM-DD'), " +
+                "VALUES ((SELECT NEXTVAL('seq')), " + montoT + ", TO_DATE('" + fecha + "', 'YYYY-MM-DD'), " +
                 "'" + pagoD + "', " + fkEnvio + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try

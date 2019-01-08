@@ -11,7 +11,7 @@ namespace bd1.Models
         public int cod { get; set; }
         public string fechaInicio { get; set; }
         public string fechaLlegada { get; set; }
-        public int monto { get; set; }
+        public double monto { get; set; }
         public string NombreEmpleadoE { get; set; }
         public int fkEmpleadoE { get; set; }
         public string NombreEstatusE { get; set; }
@@ -69,12 +69,12 @@ namespace bd1.Models
             }
         }
         //Ingresar monto y fecha estimada del envio
-        public int actualizarEnvio(int cod, int monto, string fechaEstimada)
+        public int actualizarEnvio(int cod, double monto, string fechaEstimada)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
-
-            String sql = "UPDATE \"Envio\" SET \"Monto\"=" + monto + ", \"FechaLlegada\"= TO_DATE('"+ fechaEstimada + "', 'YYYY-MM-DD')" +
+            int montoT = Convert.ToInt32(monto);
+            String sql = "UPDATE \"Envio\" SET \"Monto\"=" + montoT + ", \"FechaLlegada\"= TO_DATE('"+ fechaEstimada + "', 'YYYY-MM-DD')" +
                             "WHERE \"COD\"= " + cod + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);

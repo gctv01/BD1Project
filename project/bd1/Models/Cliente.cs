@@ -15,6 +15,7 @@ namespace bd1.Models
         public string EstadoCivil { get; set; }
         public string Trabajo { get; set; }
         public int telefono { get; set; }
+        public int cantEnvios { get; set; }
     }
 
     public class DAOCliente : DAO
@@ -94,8 +95,8 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\", \"FechaNac\" ,\"EstadoCivil\",\"Trabajo\"" +
-                "FROM \"Cliente\"" +
+            string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\", \"FechaNac\" ,\"EstadoCivil\",\"Trabajo\" " +
+                "FROM \"Cliente\" " +
                 "WHERE \"CI\" = " + cod + "";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -111,6 +112,56 @@ namespace bd1.Models
                 data.fechaNac = dr[3].ToString();
                 data.EstadoCivil = dr[4].ToString();
                 data.Trabajo = dr[5].ToString();
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+
+        }
+        //BUSCANDO Cliente del paquete a enviar
+        public Cliente buscarClienteEnvio(int codP)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"CI\" " +
+                            "FROM \"Cliente\", \"Paquete\" p " +
+                            "WHERE p.\"COD\" = " + codP + " and \"FK-Cliente1\"=\"CI\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Cliente data = new Cliente();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.CI = Int32.Parse(dr[0].ToString());
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+
+        }
+        //BUSCANDO L-VIP
+        public Cliente buscarLVIP (int ci)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT c.\"CI\", COUNT(p.\"COD\") " +
+                            "FROM \"Cliente\" c, \"Paquete\" p " +
+                            "WHERE c.\"CI\" = " + ci + " and c.\"CI\"=p.\"FK-Cliente1\" " +
+                            "Group by c.\"CI\";";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Cliente data = new Cliente();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.CI = Int32.Parse(dr[0].ToString());
+                data.cantEnvios = Int32.Parse(dr[1].ToString());
             }
             dr.Close();
             conn.Close();

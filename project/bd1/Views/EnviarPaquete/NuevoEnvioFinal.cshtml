@@ -18,8 +18,10 @@
         @Html.Action("NuevoEnvioTB", "EnviarPaquete")
         <br />
         <p>
-            Monto del Envio:
+            Monto del Envio: 
+            <h6>@ViewBag.LVIP</h6>
             @Html.EditorFor(m => m.monto, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+
         </p>
         <p>
             Fecha estimada de entrega:

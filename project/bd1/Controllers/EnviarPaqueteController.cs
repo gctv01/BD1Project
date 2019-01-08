@@ -142,6 +142,14 @@ namespace bd1.Controllers
             {
                 envio.monto = (buscandoPrecioRuta.costo + precioV) * (paq.peso);
             }
+            DAOCliente dataC = DAOCliente.getInstance();
+            Cliente cliente = dataC.buscarClienteEnvio(paq.cod);
+            cliente = dataC.buscarLVIP(cliente.CI);
+            if (cliente.cantEnvios >= 5)
+            {
+                ViewBag.LVIP = "10% de descuento por ser L-VIP, sin serlo el monto era " + envio.monto;
+                envio.monto = envio.monto * 0.1;      
+            }
 
             return View("~/Views/EnviarPaquete/NuevoEnvioFinal.cshtml", envio);
         }
