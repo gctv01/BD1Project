@@ -10,8 +10,9 @@ namespace bd1.Controllers
     public class EmpleadoController : Controller
     {
         // GET: Empleado
-        public ActionResult IndexEmpleado()
+        public ActionResult IndexEmpleado(string viewba)
         {
+            ViewBag.name = viewba;
             DAOEmpleado data = DAOEmpleado.getInstance();
             List<Empleado> Empleados = data.obtenerEmpleado();
             return View(Empleados);

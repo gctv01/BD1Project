@@ -9,8 +9,9 @@ namespace bd1.Controllers
     public class ReporteController : Controller
     {
         // GET: Reporte
-        public ActionResult IndexReporte()
+        public ActionResult IndexReporte(string viewba)
         {
+            ViewBag.name = viewba;
             return View();
         }
 

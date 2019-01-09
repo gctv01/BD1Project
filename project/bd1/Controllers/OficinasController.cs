@@ -10,16 +10,25 @@ namespace bd1.Controllers
     public class OficinasController : Controller
     {
         // GET: Oficinas
-        public ActionResult IndexOficina()
+        public ActionResult IndexOficina(string viewba)
         {
+            ViewBag.name = viewba;
             OficinaDAO data = OficinaDAO.getInstance();
             List<Oficina> oficinas = data.obtenerOficinas();
 
             return View(oficinas);
         }
+        [HttpGet]
+        public ActionResult BuscarOficina(string viewba, string viewba2)
+        {
+            ViewBag.name = viewba;
+            return View();
+        }
+
         [HttpPost]
         public ActionResult BuscarOficina(string oficina)
         {
+            
             if (oficina != "")
             {
                 int cod = Int32.Parse(oficina);
@@ -39,13 +48,15 @@ namespace bd1.Controllers
             }
         }
         //Agregar Oficina
-        public ActionResult AgregarOficina()
+        public ActionResult AgregarOficina(string viewba)
         {
+            ViewBag.name = viewba;
             return View();
         }
         [HttpPost]
-        public ActionResult AgregarOficina(Oficina model, string lugar)
+        public ActionResult AgregarOficina(Oficina model, string lugar, string viewba)
         {
+            ViewBag.name = viewba;
             int codlugar = Int32.Parse(lugar);
             OficinaDAO data = OficinaDAO.getInstance();
             data.insertarOficina(model.nombre, model.capacidad, model.correo, model.almacenamiento, codlugar);
@@ -54,9 +65,9 @@ namespace bd1.Controllers
             return View("~/Views/Oficinas/IndexOficina.cshtml", oficinas);
         }
         //Eliminar Oficina
-        public ActionResult EliminarOficina()
+        public ActionResult EliminarOficina(string viewba1)
         {
-
+            ViewBag.name = viewba1;
             return View();
         }
         [HttpPost]

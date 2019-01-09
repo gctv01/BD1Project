@@ -10,9 +10,9 @@ namespace bd1.Controllers
     public class ClienteController : Controller
     {
         // GET: Cliente
-        public ActionResult IndexCliente()
+        public ActionResult IndexCliente(string viewba)
         {
-          
+            ViewBag.name = viewba;
             DAOCliente data = DAOCliente.getInstance();
             List<Cliente> Clientes = data.obtenerClientes();
             return View(Clientes);

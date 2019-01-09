@@ -10,8 +10,9 @@ namespace bd1.Controllers
     public class RutaController : Controller
     {
         // GET: Ruta
-        public ActionResult IndexRuta()
+        public ActionResult IndexRuta(string viewba)
         {
+            ViewBag.name = viewba;
             DAORuta data = DAORuta.getInstance();
             List<Ruta> Rutas = data.obtenerRuta();
             return View(Rutas);

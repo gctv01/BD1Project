@@ -10,8 +10,9 @@ namespace bd1.Controllers
     public class PaqueteController : Controller
     {
         // GET: Paquete
-        public ActionResult IndexPaquete()
+        public ActionResult IndexPaquete(string viewba)
         {
+            ViewBag.name = viewba;
             return View();
         }
         public PartialViewResult MenuSuperior()

@@ -10,8 +10,9 @@ namespace bd1.Controllers
     public class VehiculoController : Controller
     {
         // GET: Vehiculo
-        public ActionResult IndexVehiculo()
+        public ActionResult IndexVehiculo(string viewba)
         {
+            ViewBag.name = viewba;
             DAOTerrestre data = DAOTerrestre.getInstance();
             List<Terrestre> terrestre = data.obtenerTerrestres();
 

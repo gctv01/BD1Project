@@ -10,8 +10,9 @@ namespace bd1.Controllers
     public class UsuarioController : Controller
     {
         // GET: Usuario
-        public ActionResult IndexUsuario()
+        public ActionResult IndexUsuario(string viewba)
         {
+            ViewBag.name = viewba;
             DAOUsuario data = DAOUsuario.getInstance();
             List<Usuario> Usuarios = data.obtenerUsuario();
 

@@ -5,25 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{
-    string name = ViewBag.name;
 
-}
 
 @Html.Action("MenuSuperior", "Cliente", new { viewba = ViewBag.name });
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>OFICINAS</b></p>
 </div>
 
-@using (Html.BeginForm("BuscarOficina", "Oficinas",
+@using (Html.BeginForm("BuscarOficina", "Oficinas", new { viewba= ViewBag.name },
            FormMethod.Post))
 {
+
+    string name = ViewBag.name;
+
+
     @Html.Action("TBOficina");
     <input type="submit" value="Buscar" />
     <input type="button" style="float:right" value="Eliminar Oficina"
-           onclick="location.href='@Url.Action("EliminarOficina", "Oficinas")'" />
+           onclick="location.href='@Url.Action("EliminarOficina", "Oficinas", new { viewba = name })'" />
     <input type="button" style="float:right; margin-right:1%" value="Agregar Oficina"
-           onclick="location.href='@Url.Action("AgregarOficina", "Oficinas")'" />
+           onclick="location.href='@Url.Action("AgregarOficina", "Oficinas", new { viewba = name })'" />
 }
 <br />
 <div class="jumbotron">

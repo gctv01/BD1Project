@@ -6,20 +6,20 @@
 <p> Bienvenido de nuevo, @ViewBag.name <a href='@Url.Action("Index", "Home")'>Cerrar sesión</a> </p>
 <div class="hola">
     <ul class="hola">
-        <li style="margin-right:8%">@Html.ActionLink("Home", "IndexAdmin", "Admin")</li>
-        <li style="margin-right:8%">@Html.ActionLink("Oficinas", "IndexOficina", "Oficinas")</li>
-        <li style="margin-right:8%">@Html.ActionLink("Vehiculos", "IndexVehiculo", "Vehiculo")</li>
-        <li style="margin-right:8%">@Html.ActionLink("Clientes", "IndexCliente", "Cliente")</li>
-        <li style="margin-right:8%">@Html.ActionLink("Empleados", "IndexEmpleado", "Empleado")</li>
-        <li style="margin-right:8%">@Html.ActionLink("Roles", "IndexRol", "Rol")</li>
-        <li style="margin-right:8%">@Html.ActionLink("Usuarios", "IndexUsuario", "Usuario")</li>
-        <li style="margin-right:8%">@Html.ActionLink("RUTAS", "IndexRuta", "Ruta")</li>
+        <li style="margin-right:8%">@Html.ActionLink("Home", "IndexAdmin", "Admin", new { viewba = ViewBag.name }, null)</li>
+        <li style="margin-right:8%">@Html.ActionLink("Oficinas", "IndexOficina", "Oficinas", new { viewba = ViewBag.name }, null)</li>
+        <li style="margin-right:8%">@Html.ActionLink("Vehiculos", "IndexVehiculo", "Vehiculo", new { viewba = ViewBag.name }, null)</li>
+        <li style="margin-right:8%">@Html.ActionLink("Clientes", "IndexCliente", "Cliente", new { viewba = ViewBag.name }, null)</li>
+        <li style="margin-right:8%">@Html.ActionLink("Empleados", "IndexEmpleado", "Empleado", new { viewba = ViewBag.name }, null)</li>
+        <li style="margin-right:8%">@Html.ActionLink("Roles", "IndexRol", "Rol", new { viewba = ViewBag.name }, null)</li>
+        <li style="margin-right:8%">@Html.ActionLink("Usuarios", "IndexUsuario", "Usuario", new { viewba = ViewBag.name }, null)</li>
+        <li style="margin-right:8%">@Html.ActionLink("RUTAS", "IndexRuta", "Ruta", new { viewba = ViewBag.name }, null)</li>
     </ul>
 </div>
 <div class="hola">
     <ul class="hola">
-        <li style="margin-right:8%">@Html.ActionLink("Enviar paquete", "IndexEnvio", "EnviarPaquete")</li>
+        <li style="margin-right:8%">@Html.ActionLink("Enviar paquete", "IndexEnvio", "EnviarPaquete", new { viewba = ViewBag.name }, null)</li>
         <li style="margin-right:8%">@Html.ActionLink("Asistencia de Empleados", "", "")</li>
-        <li style="margin-right:8%">@Html.ActionLink("REPORTES", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:8%">@Html.ActionLink("REPORTES", "IndexReporte", "Reporte", new { viewba = ViewBag.name }, null)</li>
     </ul>
 </div>
