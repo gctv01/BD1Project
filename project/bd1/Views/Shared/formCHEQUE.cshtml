@@ -1,0 +1,17 @@
+﻿@model bd1.Models.Cheque
+
+<h4 id="cheque" value="cheque">Cheque:</h4>
+<p>
+    @Html.TextBoxFor(m => m.Banco, new { @class = "form-control", placeholder = "Banco" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.NroCuenta, new { @class = "form-control", placeholder = "Numero de Cuenta" })
+</p>
+<p>
+    <h5>Fecha:<h5\> @Html.TextBoxFor(model => model.fecha, new { @class = "form-control", @type = "date" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.montoCh, new { @class = "form-control", placeholder = "Monto" })
+</p>
+
+

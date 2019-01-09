@@ -1,0 +1,21 @@
+﻿@model bd1.Models.Transferencia
+
+<h4>Transferencia:</h4>
+<p>
+    @Html.TextBoxFor(m => m.Banco, new { @class = "form-control", placeholder = "Banco" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.NroCuenta, new { @class = "form-control", placeholder = "Numero de Cuenta" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.correo, new { @class = "form-control", placeholder = "Correo Electronico" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.descripcion, new { @class = "form-control", placeholder = "Descripcion" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.montoTrans, new { @class = "form-control", placeholder = "Monto" })
+</p>
+
+
+

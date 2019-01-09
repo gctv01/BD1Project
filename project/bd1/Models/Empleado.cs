@@ -84,7 +84,7 @@ namespace bd1.Models
                 " \"Correo\", \"NivelAca\", \"Profesion\", \"EstadoCivil\", \"CantHijos\", \"CorreoEmpresa\", " +
                 " \"SalarioAsig\", TO_CHAR(\"FechaContratado\",'YYYY-MM-DD') " +
                 "FROM \"Empleado\"" +
-                "Order by \"CI\"";
+                "Order by \"Nombre\", \"Apellido\"";
             //CONSULTA PARA MOSTRAR EL EMPLEADO CON SU SUCURSAL
             //Select e."Nombre", e."Apellido", s."Nombre"
             //From "Empleado" e, "Sucursal" s

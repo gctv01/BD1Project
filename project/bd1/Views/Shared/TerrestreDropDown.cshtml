@@ -1,0 +1,17 @@
+﻿@model IEnumerable<bd1.Models.Terrestre>
+
+<p>
+    <h4>Terrestre (Costo 500): </h4>
+    <select name="terrestre" id="terrestre">
+        <option value="-" selected>
+            -
+        </option>
+        @foreach (var item in Model)
+        {
+            <option value="@item.placa">
+                @item.placa - @item.modelo - Capacidad: @item.capacidad
+            </option>
+        }
+    </select>
+</p>
+

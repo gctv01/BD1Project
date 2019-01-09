@@ -1,0 +1,113 @@
+﻿@model bd1.Models.Pago
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>REGISTRANDO PAGO</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Pago</h2>
+    <br />
+    @using (Html.BeginForm("pagoEnvio", "Pago",
+    FormMethod.Post))
+    {
+        @Html.Action("NuevoEnvioTB", "Pago")
+        @Html.Action("montoTB", "Pago")
+        <br />
+        <p>
+            Fecha del Pago:
+            @Html.TextBoxFor(model => model.fecha, new { @class = "form-control", @type = "date" })
+        </p>
+        <p>
+            ¿Pago en Destino?
+            <select name="pagoD" id="pagoD">
+                <option value="TRUE">
+                    Si
+                </option>
+                <option value="FALSE">
+                    No
+                </option>
+            </select>
+        </p>
+        <p>
+            Metodo de pago 1:
+            <select name="metodoPago" id="metodoPago">
+                <option value="-" selected></option>
+                <option value="efectivo">
+                    Efectivo
+                </option>
+                <option value="cheque">
+                    Cheque
+                </option>
+                <option value="tarjeta">
+                    Tarjeta
+                </option>
+                <option value="transferencia">
+                    Transferencia
+                </option>
+            </select>
+        </p>
+        <p>
+            Metodo de pago 2:
+            <select name="metodoPago2" id="metodoPago2">
+                <option value="-" selected></option>
+                <option value="efectivo">
+                    Efectivo
+                </option>
+                <option value="cheque">
+                    Cheque
+                </option>
+                <option value="tarjeta">
+                    Tarjeta
+                </option>
+                <option value="transferencia">
+                    Transferencia
+                </option>
+            </select>
+        </p>
+        <p>
+            Metodo de pago 3:
+            <select name="metodoPago3" id="metodoPago3">
+                <option value="-" selected></option>
+                <option value="efectivo">
+                    Efectivo
+                </option>
+                <option value="cheque">
+                    Cheque
+                </option>
+                <option value="tarjeta">
+                    Tarjeta
+                </option>
+                <option value="transferencia">
+                    Transferencia
+                </option>
+            </select>
+        </p>
+        <p>
+            Metodo de pago 4:
+            <select name="metodoPago4" id="metodoPago4">
+                <option value="-" selected></option>
+                <option value="efectivo">
+                    Efectivo
+                </option>
+                <option value="cheque">
+                    Cheque
+                </option>
+                <option value="tarjeta">
+                    Tarjeta
+                </option>
+                <option value="transferencia">
+                    Transferencia
+                </option>
+            </select>
+        </p>
+        <div>
+            <input type="submit" value="Siguiente" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEnvio", "EnviarPaquete")'" />
+        </div>
+    }
+</div>

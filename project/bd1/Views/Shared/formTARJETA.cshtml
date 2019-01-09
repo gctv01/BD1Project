@@ -1,0 +1,24 @@
+﻿@model bd1.Models.Tarjeta
+
+<h4>Tarjeta:</h4>
+<p>
+    @Html.TextBoxFor(m => m.Banco, new { @class = "form-control", placeholder = "Banco" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.NroCuenta, new { @class = "form-control", placeholder = "Numero de Cuenta" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.tipo, new { @class = "form-control", placeholder = "Tipo de Tarjeta" })
+</p>
+<p>
+    <h5>Fecha de Vencimiento:<h5\> @Html.TextBoxFor(model => model.fechaVencimiento, new { @class = "form-control", @type = "date" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.marca, new { @class = "form-control", placeholder = "Marca" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.montoTarj, new { @class = "form-control", placeholder = "Monto" })
+</p>
+
+
+

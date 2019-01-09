@@ -1,0 +1,19 @@
+﻿@model IEnumerable<bd1.Models.Barco>
+
+<p>
+    <h4>Barco (Costo 2500): </h4>
+    <select name="barco" id="barco">
+        <option value="-" selected>
+            -
+        </option>
+        @foreach (var item in Model)
+        {
+            <option value="@item.placa">
+                @item.nombre - @item.modelo - Capacidad: @item.capacidad
+            </option>
+        }
+    </select>
+</p>
+
+
+

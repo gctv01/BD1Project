@@ -1,0 +1,20 @@
+﻿@model IEnumerable<bd1.Models.Cliente>
+
+<p>
+    <h4>Titular: </h4>
+    <select name="clienteR" id="clienteR">
+        @foreach (var item in Model)
+        {
+            <option value="@item.CI">
+                @item.Nombre @item.Apellido
+            </option>
+        }
+    </select>
+</p>
+<div>
+    Si el cliente no esta registrado:
+    <input type="button" value="Registrar Cliente" onclick="location.href='@Url.Action("AgregarCliente", "Cliente")'" />
+</div>
+
+
+

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<bd1.Models.Ruta>
+
+<p>
+    <h4>Ruta: </h4>
+    <select name="ruta" id="ruta">
+        <option value="0" selected>
+            
+        </option>
+        @foreach (var item in Model)
+        {
+            <option value="@item.COD">
+                @item.origen a @item.destino
+            </option>
+        }
+    </select>
+</p>
+
+

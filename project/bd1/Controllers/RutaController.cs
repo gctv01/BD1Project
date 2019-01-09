@@ -14,15 +14,6 @@ namespace bd1.Controllers
         {
             DAORuta data = DAORuta.getInstance();
             List<Ruta> Rutas = data.obtenerRuta();
-            foreach (var item in Rutas)
-            {
-                OficinaDAO data2 = OficinaDAO.getInstance();
-                Oficina ofic = data2.buscarOficina(Int32.Parse(item.origen));
-                item.origen = ofic.nombre;
-                data2 = OficinaDAO.getInstance();
-                ofic = data2.buscarOficina(Int32.Parse(item.destino));
-                item.destino = ofic.nombre;
-            }
             return View(Rutas);
         }
         public ActionResult AgregarRuta()
@@ -30,21 +21,41 @@ namespace bd1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AgregarRuta(Ruta model, string SucursalOrigen, string SucursalDestino)
+        public ActionResult AgregarRuta(Ruta model, string SucursalOrigen, string SucursalDestino, string ruta)
+        {
+            int SO = Int32.Parse(SucursalOrigen);
+            int fkR = Int32.Parse(ruta);   
+            List<Ruta> Rutas;
+            DAORuta data;
+            if (fkR != 0)
+            {
+                data = DAORuta.getInstance();
+                Ruta r = data.buscarRuta(fkR);
+                if(r.codDestino == SO)
+                {
+                    data = DAORuta.getInstance();
+                    data.insertarRutaCombinada(SucursalOrigen, SucursalDestino, model.costo, fkR);
+                    Rutas = data.obtenerRuta();
+                }
+                else
+                {
+                    ViewBag.Error = "EL ORIGEN DE LA RUTA COMBINADA DEBE SER IGUAL AL DESTINO DEL LA RUTA ORIGINARIA";
+                    return View("~/Views/Ruta/AgregarRuta.cshtml");
+                }              
+            }
+            else
+            {
+                data = DAORuta.getInstance();
+                data.insertarRuta(SucursalOrigen, SucursalDestino, model.costo);
+                Rutas = data.obtenerRuta();
+            }         
+            return View("~/Views/Ruta/IndexRuta.cshtml", Rutas);
+        }
+        public PartialViewResult RutaDD()
         {
             DAORuta data = DAORuta.getInstance();
-            data.insertarRuta(SucursalOrigen, SucursalDestino, model.costo);
-            List<Ruta> Rutas = data.obtenerRuta();
-            foreach (var item in Rutas)
-            {
-                OficinaDAO data2 = OficinaDAO.getInstance();
-                Oficina ofic = data2.buscarOficina(Int32.Parse(item.origen));
-                item.origen = ofic.nombre;
-                data2 = OficinaDAO.getInstance();
-                ofic = data2.buscarOficina(Int32.Parse(item.destino));
-                item.destino = ofic.nombre;
-            }
-            return View("~/Views/Ruta/IndexRuta.cshtml", Rutas);
+            List<Ruta> rutas = data.obtenerRuta();
+            return PartialView("RutaDropDown", rutas);
         }
         //Eliminar Ruta
         public ActionResult EliminarRuta()

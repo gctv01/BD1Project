@@ -33,6 +33,28 @@ namespace bd1.Models
                 return r;
             }
         }
+        //INSERTAR PAGO
+        public int insertarPago(double montoTotal, string fecha, string pagoD, int fkEnvio)
+        {
+            NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
+            conn.Open();
+            int montoT = Convert.ToInt32(montoTotal);
+            String sql = "INSERT INTO \"Pago\" (\"COD\", \"MontoTotal\", \"Fecha\", \"PagoDest\", \"FK-EnvioP\") " +
+                "VALUES ((SELECT NEXTVAL('seq')), " + montoT + ", TO_DATE('" + fecha + "', 'YYYY-MM-DD'), " +
+                "'" + pagoD + "', " + fkEnvio + ")";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return 0;
+            }
+        }
         //VER LISTA DE PAGOS
         //public List<Pago> obtenerPago()
         //{
@@ -115,6 +137,55 @@ namespace bd1.Models
                 {
                     data.pagoEnDestino = "No";
                 }
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
+        //BUSCAR A UNO POR CODIGO DE ENVIO
+        public Pago buscarPagoEnvio(int cod)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT p.\"COD\" " +
+                          "FROM \"Pago\" p " +
+                          "WHERE p.\"FK-EnvioP\" = " + cod + " ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Pago data = new Pago();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.cod = Int32.Parse(dr[0].ToString());
+               
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
+        //BUSCANDO ULTIMO PAGO
+        public Pago buscarUltimoPago()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT  e.\"COD\", \"MontoTotal\" " +
+                          "FROM \"Pago\" e " +
+                          "Order by \"COD\" DESC " +
+                          "LIMIT 1 ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Pago data = new Pago();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.cod = Int32.Parse(dr[0].ToString());
+                data.montoTotal = Int32.Parse(dr[1].ToString());
             }
             dr.Close();
             conn.Close();

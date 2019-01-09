@@ -1,0 +1,41 @@
+﻿@model bd1.Models.Envio
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ENVIANDO PAQUETE</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Informacion del Envio</h2>
+    <br />
+    @using (Html.BeginForm("nuevoEnvio", "EnviarPaquete",
+    FormMethod.Post))
+    {
+        <br />
+        <p>
+            Fecha de Envio:
+            @Html.TextBoxFor(model => model.fechaInicio, new { @class = "form-control", @type = "date" })
+        </p>
+        @*<p>
+            Fecha estimada de entrega:
+            @Html.TextBoxFor(model => model.fechaLlegada, new { @class = "form-control", @type = "date" })
+        </p>*@
+        @Html.Action("EmpleadoDD");
+        <div>
+            <input type="submit" value="Siguiente" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEnvio", "EnviarPaquete")'" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+

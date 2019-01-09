@@ -1,0 +1,10 @@
+﻿@model bd1.Models.MetodoPago
+
+<h4>Efectivo:</h4>
+<p>
+    @Html.TextBoxFor(m => m.moneda, new { @class = "form-control", placeholder = "Moneda" })
+</p>
+<p>
+    @Html.TextBoxFor(m => m.montoE, new { @class = "form-control", placeholder = "Monto" })
+</p>
+

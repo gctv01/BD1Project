@@ -178,6 +178,7 @@
     <Compile Include="Controllers\EnviarPaqueteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OficinasController.cs" />
+    <Compile Include="Controllers\PagoController.cs" />
     <Compile Include="Controllers\PaqueteController.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Models\DAO.cs" />
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\Lugar.cs" />
+    <Compile Include="Models\MetodoPago.cs" />
     <Compile Include="Models\ModeloVehiculo.cs" />
     <Compile Include="Models\Oficina.cs" />
     <Compile Include="Models\Pago.cs" />
@@ -316,6 +318,26 @@
     <Content Include="Views\EnviarPaquete\DetallePago.cshtml" />
     <Content Include="Views\EnviarPaquete\DetalleRuta.cshtml" />
     <Content Include="Views\EnviarPaquete\DetalleVehiculo.cshtml" />
+    <Content Include="Views\EnviarPaquete\NuevoEnvio2.cshtml" />
+    <Content Include="Views\Shared\ClientePaqueteDropDown.cshtml" />
+    <Content Include="Views\Shared\TipoPaqueteDropDown.cshtml" />
+    <Content Include="Views\EnviarPaquete\NuevoEnvio.cshtml" />
+    <Content Include="Views\Shared\EmpleadoEnvioDropDown.cshtml" />
+    <Content Include="Views\Shared\CodigoNuevoEnvioTextBox.cshtml" />
+    <Content Include="Views\EnviarPaquete\NuevoEnvio3.cshtml" />
+    <Content Include="Views\Shared\RutaDropDown.cshtml" />
+    <Content Include="Views\Shared\BarcoDropDown.cshtml" />
+    <Content Include="Views\Shared\TerrestreDropDown.cshtml" />
+    <Content Include="Views\Shared\AvionDropDown.cshtml" />
+    <Content Include="Views\EnviarPaquete\NuevoEnvioFinal.cshtml" />
+    <Content Include="Views\Pago\PagoEnvio.cshtml" />
+    <Content Include="Views\Shared\MontoEnvioTextBox.cshtml" />
+    <Content Include="Views\Pago\PagoEnvio2.cshtml" />
+    <Content Include="Views\Shared\formEFECTIVO.cshtml" />
+    <Content Include="Views\Shared\ClienteMetodoPAGODropDown.cshtml" />
+    <Content Include="Views\Shared\formCHEQUE.cshtml" />
+    <Content Include="Views\Shared\formTRANSFERENCIA.cshtml" />
+    <Content Include="Views\Shared\formTARJETA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

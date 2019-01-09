@@ -10,8 +10,10 @@ namespace bd1.Models
     {
         public int COD { get; set; }
         public string origen { get; set; }
+        public int codDestino { get; set; }
         public string destino { get; set; }
         public int costo { get; set; }
+        public int fkruta { get; set; }
     }
     public class DAORuta : DAO
     {
@@ -36,8 +38,10 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT \"COD\", \"CODSucursal1\", \"CODSucursal2\", \"Costo\" FROM \"Ruta\"" +
-                " Order by \"COD\";";
+            string sql = "SELECT r.\"COD\", s.\"Nombre\", s2.\"Nombre\", \"Costo\" " +
+                "FROM \"Ruta\" r, \"Sucursal\" s, \"Sucursal\" s2 " +
+                "Where r.\"CODSucursal1\"=s.\"COD\" and r.\"CODSucursal2\"=s2.\"COD\" " +
+                " Order by r.\"COD\";";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -80,13 +84,34 @@ namespace bd1.Models
                 return 0;
             }
         }
+        //INSERTAR RUTA COMBINADA
+        public int insertarRutaCombinada(string origen, string destino, int duracion, int fkruta)
+        {
+            NpgsqlConnection conn = DAORuta.getInstanceDAO();
+            conn.Open();
+
+            String sql = "INSERT INTO \"Ruta\" (\"COD\", \"CODSucursal1\", \"CODSucursal2\", \"Costo\", \"FK-Ruta\") " +
+                "VALUES ((SELECT NEXTVAL('seq')),'" + origen + "', '" + destino + "', '" + duracion + "', '" + fkruta + "')";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return 0;
+            }
+        }
         //BUSCAR A UNO
         public Ruta buscarRuta(int cod)
         {
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT r.\"COD\", s.\"Nombre\", s2.\"Nombre\", r.\"Costo\" " +
+            string sql = "SELECT r.\"COD\", s.\"Nombre\", s2.\"Nombre\", r.\"Costo\", \"CODSucursal2\" " +
                             "FROM \"Ruta\" r, \"Sucursal\" s, \"Sucursal\" s2  " +
                             "WHERE r.\"COD\" = " + cod + " and r.\"CODSucursal1\"=s.\"COD\" and r.\"CODSucursal2\"=s2.\"COD\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -101,6 +126,7 @@ namespace bd1.Models
                 data.origen = dr[1].ToString();
                 data.destino = dr[2].ToString();
                 data.costo = Int32.Parse(dr[3].ToString());
+                data.codDestino = Int32.Parse(dr[4].ToString());
             }
             dr.Close();
             conn.Close();
@@ -141,6 +167,36 @@ namespace bd1.Models
                 conn.Close();
                 return 0;
             }
+        }
+        //LISTA DE RUTAS PARA ENVIOS
+        public List<Ruta> obtenerRutaEnvios(int sucursalOrigen)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT r.\"COD\", s.\"Nombre\", s2.\"Nombre\", \"Costo\" " +
+                "FROM \"Ruta\" r, \"Sucursal\" s, \"Sucursal\" s2 " +
+                "Where r.\"CODSucursal1\"=s.\"COD\" and r.\"CODSucursal2\"=s2.\"COD\" and r.\"CODSucursal1\"="+sucursalOrigen+" " +
+                " Order by \"COD\";";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Ruta> data = new List<Ruta>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Ruta()
+                {
+                    COD = Int32.Parse(dr[0].ToString()),
+                    origen = dr[1].ToString(),
+                    destino = dr[2].ToString(),
+                    costo = Int32.Parse(dr[3].ToString())
+                });
+            }
+
+            conn.Close();
+            return data;
         }
     }
 }
