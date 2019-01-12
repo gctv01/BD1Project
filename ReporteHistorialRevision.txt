@@ -1,0 +1,2 @@
+Select "CODTaller", "Descripcion",('Desde ' ||"FechaIni"||' hasta '||"FechaFinal") as Duracion
+From "Mantenimiento"  
