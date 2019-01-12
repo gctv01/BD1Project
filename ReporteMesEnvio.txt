@@ -1,0 +1,6 @@
+Select conteo_envio, mes_utilizado
+From "Envio" e, (Select Count(EXTRACT(MONTH FROM "FechaInicio"))as conteo_envio, EXTRACT(MONTH FROM "FechaInicio") as mes_utilizado
+									 from "Envio" e
+									 Group by EXTRACT(MONTH FROM "FechaInicio") ) x
+Order by conteo_envio DESC
+limit 1
