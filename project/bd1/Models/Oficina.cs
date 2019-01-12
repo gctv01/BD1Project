@@ -17,6 +17,8 @@ namespace bd1.Models
         public int cantEnvios { get; set; }
         public string descripcion { get; set; }
         public double pesoProm { get; set; }
+        public string mesMantenimiento { get; set; }
+        public int gastoMantenimiento { get; set; }
     }
 
     public class OficinaDAO : DAO
@@ -347,6 +349,50 @@ namespace bd1.Models
                     cod = Int32.Parse(dr[0].ToString()),
                     nombre = dr[1].ToString(),
                     descripcion = dr[2].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 14 REQUERIMIENTOS
+        public List<Oficina> obtenerReporte14R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select SUM(m.\"Costo\") as costoT, Extract(MONTH FROM m.\"FechaIni\"), s.\"COD\", s.\"Nombre\" " +
+                "from \"Mantenimiento\" m, \"Barco\" b, \"Puerto\" p, \"Sucursal\" s " +
+                "where(m.\"PlacaB\"=b.\"Placa\") and  " +
+                "((b.\"FK-PuertoB\"=p.\"COD\" and p.\"FK-Sucursal\"=s.\"COD\")) " +
+                "Group by s.\"COD\", Extract(MONTH FROM m.\"FechaIni\") " +
+                "Union " +
+                "Select SUM(m2.\"Costo\")as costoT, Extract(MONTH FROM m2.\"FechaIni\"), s2.\"COD\", s2.\"Nombre\"  " +
+                "from \"Mantenimiento\" m2, \"Avion\" av, \"Aeropuerto\" ae, \"Sucursal\" s2 " +
+                "where(m2.\"PlacaA\"=av.\"Placa\") and  " +
+                "((av.\"FK-Aeropuerto\"=ae.\"COD\" and ae.\"FK-SucursalA\"=s2.\"COD\")) " +
+                "Group by s2.\"COD\", Extract(MONTH FROM m2.\"FechaIni\") " +
+                "Union " +
+                "Select SUM(m3.\"Costo\")as costoT, Extract(MONTH FROM m3.\"FechaIni\"), s3.\"COD\", s3.\"Nombre\" " +
+                "from \"Mantenimiento\" m3, \"Terrestre\" t, \"Sucursal\" s3 " +
+                "where(m3.\"PlacaT\"=t.\"Placa\") and  " +
+                "(t.\"FK-SucursalT\"=s3.\"COD\") " +
+                "Group by s3.\"COD\", Extract(MONTH FROM m3.\"FechaIni\") order by costoT Desc";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Oficina> data = new List<Oficina>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Oficina()
+                {
+                    cod = Int32.Parse(dr[3].ToString()),
+                    nombre = dr[4].ToString(),
+                    mesMantenimiento = dr[1].ToString(),
+                    gastoMantenimiento = Int32.Parse(dr[0].ToString()),
                 });
             }
             dr.Close();

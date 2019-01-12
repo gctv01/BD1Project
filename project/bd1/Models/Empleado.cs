@@ -289,5 +289,58 @@ namespace bd1.Models
             conn.Close();
             return data;
         }
+        //REPORTE 6 DE LOS REQUERIMIENTOS
+        public List<Empleado> obtenerReporte6R()
+        {
+            List<Empleado> data = null;
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select e.\"CI\", e.\"Nombre\"||' '||e.\"Apellido\", e.\"SalarioAsig\" " +
+                "from \"Empleado\" e ";
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+                Random r = new Random();
+                int i = 1;
+                while (dr.Read())
+                {
+                    r = new Random();
+                    i = r.Next(1,3);
+                    if(i == 1)                       
+                    {
+                        System.Diagnostics.Debug.WriteLine("connection established");
+                        data.Add(new Empleado()
+                        {
+                            CI = Int32.Parse(dr[0].ToString()),
+                            Nombre = dr[1].ToString(),
+                            salarioAsig = Int32.Parse(dr[2].ToString()),
+                            gastos = "Pagado"
+                        });
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("connection established");
+                        data.Add(new Empleado()
+                        {
+                            CI = Int32.Parse(dr[0].ToString()),
+                            Nombre = dr[1].ToString(),
+                            salarioAsig = Int32.Parse(dr[2].ToString()),
+                            gastos = "Por pagar"
+                        });
+                    }
+                    
+                }
+                dr.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+            }
+            conn.Close();
+            return data;
+        }
     }
 }
