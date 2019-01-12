@@ -342,6 +342,9 @@
     <Content Include="Views\Reporte\Reporte3R.cshtml" />
     <Content Include="Views\Reporte\Reporte12_1R.cshtml" />
     <Content Include="Views\Reporte\Reporte12_2R.cshtml" />
+    <Content Include="Views\Reporte\Reporte7R.cshtml" />
+    <Content Include="Views\Reporte\Reporte8R.cshtml" />
+    <Content Include="Views\Reporte\Reporte5R.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

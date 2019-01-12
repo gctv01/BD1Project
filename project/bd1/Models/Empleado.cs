@@ -27,6 +27,8 @@ namespace bd1.Models
         public string perteneceOficina { get; set; }
         public string comandaOficina { get; set; }
         public string telefono { get; set; }
+        //PARA REPORTES
+
     }
     public class DAOEmpleado : DAO
     {
@@ -212,6 +214,80 @@ namespace bd1.Models
                 conn.Close();
                 return 0;
             }
+        }
+        //REPORTE 7 DE LOS REQUERIMIENTOS
+        public List<Empleado> obtenerReporte7R()
+        {
+            List<Empleado> data = null;
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select e.\"CI\", e.\"Nombre\"||' '||e.\"Apellido\", to_char(a.\"Fecha\", 'DD-MM-YYYY') " +
+                "from \"Empleado\" e, \"Asistencia\" a " +
+                "where a.\"CIEmpleado\"=e.\"CI\" " +
+                "order by e.\"Nombre\", e.\"Apellido\", a.\"Fecha\"";
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+
+                while (dr.Read())
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Empleado()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        horario = dr[2].ToString(),
+                    });
+                }
+                dr.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+            }
+            conn.Close();
+            return data;
+        }
+        //REPORTE 8 DE LOS REQUERIMIENTOS
+        public List<Empleado> obtenerReporte8R()
+        {
+            List<Empleado> data = null;
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select e.\"CI\", e.\"Nombre\"||' '||e.\"Apellido\", to_char(a.\"Fecha\", 'DD-MM-YYYY'), " +
+                "'De '||to_char(h.\"HorarioInicio\", 'hh24:mm:ss')||' a '||to_char( h.\"HorarioFinal\", 'hh24:mm:ss')" +
+                "from \"Empleado\" e, \"Asistencia\" a, \"Horario\" h " +
+                "where a.\"CIEmpleado\"=e.\"CI\" and e.\"FK-HorarioEmp\"=h.\"COD\" " +
+                "order by e.\"Nombre\", e.\"Apellido\", a.\"Fecha\" ";
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+
+                while (dr.Read())
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Empleado()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        horario = dr[2].ToString(),
+                        horarioAsig = dr[3].ToString(),
+                    });
+                }
+                dr.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+            }
+            conn.Close();
+            return data;
         }
     }
 }

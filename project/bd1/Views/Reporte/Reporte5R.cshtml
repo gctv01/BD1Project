@@ -1,0 +1,53 @@
+﻿@model IEnumerable<bd1.Models.Ruta>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>Ruta mas utilizada</b></p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Codigo de Ruta
+                </th>
+                <th>
+                    Ruta
+                </th>
+                <th>
+                    Cantidad de uso
+                </th>
+            </tr>
+        </thead>
+        @foreach (var ruta in Model)
+        {
+            <tr>
+                <td>
+                    <p>@ruta.COD</p>
+                </td>
+                <td>
+                    <p>@ruta.origen</p>
+                </td>
+                <td>
+                    <p>@ruta.cant_Uso</p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+
+
+

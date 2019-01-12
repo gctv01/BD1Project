@@ -14,6 +14,8 @@ namespace bd1.Models
         public string destino { get; set; }
         public int costo { get; set; }
         public int fkruta { get; set; }
+        //PARA REPORTES
+        public int cant_Uso { get; set; }
     }
     public class DAORuta : DAO
     {
@@ -192,6 +194,40 @@ namespace bd1.Models
                     origen = dr[1].ToString(),
                     destino = dr[2].ToString(),
                     costo = Int32.Parse(dr[3].ToString())
+                });
+            }
+
+            conn.Close();
+            return data;
+        }
+        //REPORTE 5 DE LOS REQUERIMIENTOS
+        public List<Ruta> obtenerReporte5R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select r.\"COD\", 'De '||s1.\"Nombre\"||' a '||s2.\"Nombre\", cant_usado " +
+                "From \"Ruta\" r, \"Sucursal\" s1, \"Sucursal\" s2, (Select Count(vr.\"CODRuta\") as cant_usado, " +
+                "vr.\"CODRuta\" as codRuta " +
+                "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e " +
+                "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" " +
+                "group by vr.\"CODRuta\") x " +
+                "where r.\"CODSucursal1\"=s1.\"COD\" and r.\"CODSucursal2\"=s2.\"COD\" and r.\"COD\"= x.codRuta " +
+                "order by cant_usado DESC " +
+                "limit 1 ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Ruta> data = new List<Ruta>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Ruta()
+                {
+                    COD = Int32.Parse(dr[0].ToString()),
+                    origen = dr[1].ToString(),
+                    cant_Uso = Int32.Parse(dr[2].ToString()),
                 });
             }
 
