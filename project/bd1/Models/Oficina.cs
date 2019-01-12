@@ -13,6 +13,10 @@ namespace bd1.Models
         public int capacidad { get; set; }
         public string correo { get; set; }
         public int almacenamiento { get; set; }
+        //Para reportes
+        public int cantEnvios { get; set; }
+        public string descripcion { get; set; }
+        public double pesoProm { get; set; }
     }
 
     public class OficinaDAO : DAO
@@ -198,6 +202,157 @@ namespace bd1.Models
                 conn.Close();
                 return 0;
             }
+        }
+        //REPORTE 1 REQUERIMIENTOS
+        public List<Oficina> obtenerReporte1R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select s.\"COD\", s.\"Nombre\", cant_envios  " +
+                            "From \"Sucursal\" s, (Select Count(em.\"FK-SucursalEmp\") as cant_envios, em.\"FK-SucursalEmp\" " +
+                            "from \"Empleado\" em, \"Envio\" e " +
+                            "Where e.\"FK-EmpleadoE\"=em.\"CI\" " +
+                            "Group by em.\"FK-SucursalEmp\" " +
+                            "Order by Count(em.\"FK-SucursalEmp\") DESC " +
+                            "limit 1) x " +
+                         "Where s.\"COD\" = x.\"FK-SucursalEmp\" " +
+                         "Union " +
+                         "Select s2.\"COD\", s2.\"Nombre\", cant_recibidos " +
+                         "From \"Sucursal\" s2, (Select Count(r.\"CODSucursal2\") as cant_recibidos, r.\"CODSucursal2\" " +
+                             "from \"Ruta\" r, \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e " +
+                             "Where vr.\"CODRuta\"=r.\"COD\" and vr.\"COD\"=t.\"CODVeh-Rut\" and " +
+                             "t.\"CODEnvio\"=e.\"COD\" " +
+                             "Group by r.\"CODSucursal2\" " +
+                             "Order by Count(r.\"CODSucursal2\") DESC " +
+                             "limit 1) y " +
+                         "Where s2.\"COD\" = y.\"CODSucursal2\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Oficina> data = new List<Oficina>();
+            int cont = 1;
+            while (dr.Read())
+            {
+                if (cont == 1)
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Oficina()
+                    {
+                        cod = Int32.Parse(dr[0].ToString()),
+                        nombre = dr[1].ToString(),
+                        cantEnvios = Int32.Parse(dr[2].ToString()),
+                        descripcion = "Oficina que mas envia",
+                    });
+                    cont++;
+                }else
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Oficina()
+                    {
+                        cod = Int32.Parse(dr[0].ToString()),
+                        nombre = dr[1].ToString(),
+                        cantEnvios = Int32.Parse(dr[2].ToString()),
+                        descripcion = "Oficina que mas recibe",
+                    });
+                }     
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 2 REQUERIMIENTOS
+        public List<Oficina> obtenerReporte2R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select s.\"COD\", s.\"Nombre\", x.prom_paq " +
+                "From \"Sucursal\" s, (Select AVG(p.\"Peso\") as prom_paq, em.\"FK-SucursalEmp\" " +
+                                        "from \"Empleado\" em, \"Envio\" e, \"Paquete\" p " +
+                                        "Where e.\"FK-EmpleadoE\"=em.\"CI\" and p.\"FK-EnvioP\"=e.\"COD\" " +
+                                        "Group by em.\"FK-SucursalEmp\" " +
+                                        "Order by prom_paq DESC) x " +
+                "Where s.\"COD\" = x.\"FK-SucursalEmp\" " +
+                "Order by x.prom_paq DESC";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Oficina> data = new List<Oficina>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Oficina()
+                {
+                    cod = Int32.Parse(dr[0].ToString()),
+                    nombre = dr[1].ToString(),
+                    pesoProm = Convert.ToDouble(dr[2].ToString()),
+                });             
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 12.1 REQUERIMIENTOS
+        public List<Oficina> obtenerReporte12_1R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select s.\"COD\", s.\"Nombre\", 'Puerto de '||l.\"Nombre\" " +
+                "from \"Sucursal\" s, \"Puerto\" p, \"Lugar\" l " +
+                "where p.\"FK-Sucursal\"=s.\"COD\" and p.\"FK-LugarP\"=l.\"COD\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Oficina> data = new List<Oficina>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Oficina()
+                {
+                    cod = Int32.Parse(dr[0].ToString()),
+                    nombre = dr[1].ToString(),
+                    descripcion = dr[2].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 12.2 REQUERIMIENTOS
+        public List<Oficina> obtenerReporte12_2R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select s.\"COD\", s.\"Nombre\", 'Aeropuerto de '||l.\"Nombre\" " +
+                "from \"Sucursal\" s, \"Aeropuerto\" p, \"Lugar\" l " +
+                "where p.\"FK-SucursalA\"=s.\"COD\" and p.\"FK-LugarAe\"=l.\"COD\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Oficina> data = new List<Oficina>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Oficina()
+                {
+                    cod = Int32.Parse(dr[0].ToString()),
+                    nombre = dr[1].ToString(),
+                    descripcion = dr[2].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
         }
     }
 }

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<bd1.Models.Oficina>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>Sucursales de Puertos</b></p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Codigo de la Oficina
+                </th>
+                <th>
+                    Oficina
+                </th>
+                <th>
+                    Puerto
+                </th>
+            </tr>
+        </thead>
+        @foreach (var oficina in Model)
+        {
+            <tr>
+                <td>
+                    <p>@oficina.cod</p>
+                </td>
+                <td>
+                    <p>@oficina.nombre</p>
+                </td>
+                <td>
+                    <p>@oficina.descripcion</p>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+
+
+
+
