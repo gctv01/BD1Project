@@ -173,6 +173,48 @@ namespace bd1.Models
 
             return data;
         }
+        //REPORTE 2 DE LOS ENUNCIADOS
+        public List<Vehiculo> obtenerReporte2E()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select \"Placa\" as Placa, ma.\"Nombre\"||', '||mo.\"Nombre\", to_char(\"FechaCreacion\",'DD-MM-YYYY'), " +
+                "'Barco' as tipo " +
+                "From \"Barco\", \"Marca\" ma, \"Modelo\" mo " +
+                "where \"FK-ModeloB\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" " +
+                "Union " +
+                "Select \"Placa\" as Placa, ma.\"Nombre\"||', '||mo.\"Nombre\", to_char(\"FechaCreacion\",'DD-MM-YYYY'), " +
+                "'Avion' as tipo " +
+                "From \"Avion\", \"Marca\" ma, \"Modelo\" mo " +
+                "where \"FK-ModeloA\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" " +
+                "Union " +
+                "Select \"Placa\" as Placa, ma.\"Nombre\"||', '||mo.\"Nombre\", to_char(\"FechaCreacion\",'DD-MM-YYYY'), " +
+                "'Terrestre' as tipo " +
+                "From \"Terrestre\", \"Marca\" ma, \"Modelo\" mo " +
+                "where \"FK-ModeloT\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" " +
+                "order by tipo, Placa ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Vehiculo> data = new List<Vehiculo>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Vehiculo()
+                {
+                    placa = dr[0].ToString(),
+                    modelo = dr[1].ToString(),
+                    fechaCreacion = dr[2].ToString(),
+                    tipo = dr[3].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
     }
         //BARCOS
     public class Barco : Vehiculo

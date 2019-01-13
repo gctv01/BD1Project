@@ -342,5 +342,71 @@ namespace bd1.Models
             conn.Close();
             return data;
         }
+        //REPORTE 6 DE LOS REQUERIMIENTOS
+        public List<Empleado> obtenerReporte4E(string fecha1, string fecha2)
+        {
+            List<Empleado> data = null;
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select \"CI\", \"Nombre\"||' '||\"Apellido\", to_char(\"FechaNac\",'DD-MM-YYYY'), \"CantHijos\", " +
+                "\"Profesion\", to_char(\"FechaContratado\",'DD-MM-YYYY') " +               
+                "from \"Empleado\" " +
+                "where \"FechaContratado\" between '" + fecha1 + "' and '" + fecha2 + "' " +
+                "order by \"FechaContratado\" ";
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+
+                while (dr.Read())
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Empleado()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        fechaNac = dr[2].ToString(),
+                        cantHijos = dr[3].ToString(),
+                        profesion = dr[4].ToString(),
+                        fechaContratado = dr[5].ToString(),
+                    });        
+                }
+                dr.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+            }
+            conn.Close();
+            return data;
+        }
+        public Empleado obtenerReporte4E_cont(string fecha1, string fecha2)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select Count(x.*)" +
+                "From (Select \"CI\", \"Nombre\"||' '||\"Apellido\", to_char(\"FechaNac\",'DD-MM-YYYY'), \"CantHijos\", " +
+                "\"Profesion\", to_char(\"FechaContratado\",'DD-MM-YYYY') " +
+                "from \"Empleado\" " +
+                "where \"FechaContratado\" between '" + fecha1 + "' and '" + fecha2 + "' " +
+                "order by \"FechaContratado\") x";
+
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Empleado data = new Empleado();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.gastos = dr[0].ToString();
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
     }
 }

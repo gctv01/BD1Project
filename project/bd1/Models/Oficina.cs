@@ -440,5 +440,38 @@ namespace bd1.Models
 
             return data;
         }
+        //REPORTE 1 ENUNCIADO
+        public List<Oficina> obtenerReporte1E()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select s.\"COD\", s.\"Nombre\", estado " +
+                "From \"Sucursal\" s, \"Lugar\" l, (Select \"Nombre\" as estado, \"COD\" " +
+                                                    "From \"Lugar\" " +
+                                                    "Where \"Tipo\"='Estado' " +
+                                                    "Order by estado) x " +
+                "where s.\"FK-LugarS\"=l.\"COD\" and l.\"Fk-LugarL\"=x.\"COD\"  " +
+                "Order by estado, s.\"Nombre\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Oficina> data = new List<Oficina>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Oficina()
+                {
+                    cod = Int32.Parse(dr[0].ToString()),
+                    nombre = dr[1].ToString(),
+                    descripcion = dr[2].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
     }
 }

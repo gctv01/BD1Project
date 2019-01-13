@@ -87,6 +87,35 @@ namespace bd1.Controllers
             List<Oficina> oficinas = data.obtenerReporte14R();
             return View(oficinas);
         }
+        public ActionResult Reporte1E()
+        {
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> oficinas = data.obtenerReporte1E();
+            return View(oficinas);
+        }
+        public ActionResult Reporte2E()
+        {
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            List<Vehiculo> vehiculos = data.obtenerReporte2E();
+            return View(vehiculos);
+        }
+        public ActionResult Reporte4E_1()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Reporte4E_1(string fecha1, string fecha2)
+        {          
+            DAOEmpleado data = DAOEmpleado.getInstance();
+            Empleado cont = data.obtenerReporte4E_cont(fecha1, fecha2);
+            ViewBag.contEmpleados = cont.gastos;
+            List<Empleado> empleados = data.obtenerReporte4E(fecha1, fecha2);
+            return View("~/Views/Reporte/Reporte4E.cshtml", empleados);
+        }
+        public ActionResult Reporte4E()
+        {
+            return View();
+        }
         public ActionResult Reporte5E()
         {
             DAORuta data = DAORuta.getInstance();
