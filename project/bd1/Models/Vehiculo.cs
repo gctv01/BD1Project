@@ -215,6 +215,92 @@ namespace bd1.Models
 
             return data;
         }
+        //REPORTE 6 DE LOS ENUNCIADOS
+        public List<Vehiculo> obtenerReporte6E()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select Count(vr.\"PlacaB\") as cant_usado, 'Barco' as tipo " +
+                "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e " +
+                "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" " +
+                "group by tipo " +
+                "Union " +
+                "Select Count(vr.\"PlacaA\") as cant_usado, 'Avion' as tipo " +
+                "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e " +
+                "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" " +
+                "group by tipo " +
+                "Union " +
+                "Select Count(vr.\"PlacaT\") as cant_usado, 'Terrestre' as tipo " +
+                "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e " +
+                "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" " +
+                "group by tipo " +
+                "order by cant_usado DESC " +
+                "limit 1 ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Vehiculo> data = new List<Vehiculo>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Vehiculo()
+                {
+                    duracion = dr[0].ToString(),
+                    tipo = dr[1].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 7 DE LOS ENUNCIADOS
+        public List<Vehiculo> obtenerReporte7E(string fecha1, string fecha2)
+        {
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select ((x.cant_usado*100)/x.envios) as porcentaje, x.tipo  " +
+                "from(Select Count(vr.\"PlacaB\") as cant_usado, COUNT(t.*) as envios, 'Barco' as tipo " +
+                    "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e " +
+                    "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" and " +
+                    "e.\"FechaInicio\" between '"+ fecha1 + "' and '" + fecha2 + "' " +
+                    "group by tipo) x " +
+                    "Union " +
+                    "Select((x.cant_usado * 100) / x.envios) as porcentaje, x.tipo " +
+                    "from(Select Count(vr.\"PlacaA\") as cant_usado, COUNT(t.*) as envios, 'Avion' as tipo " +
+                    "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e  " +
+                    "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" and " +
+                    "e.\"FechaInicio\" between '" + fecha1 + "' and '" + fecha2 + "' " +
+                    "group by tipo) x " +
+                    "Union " +
+                    "Select((x.cant_usado * 100) / x.envios) as porcentaje, x.tipo " +
+                    "from(Select Count(vr.\"PlacaT\") as cant_usado, COUNT(t.*) as envios, 'Terrestre' as tipo " +
+                    "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e " +
+                    "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" and " +
+                    "e.\"FechaInicio\" between '" + fecha1 + "' and '" + fecha2 + "' " +
+                    "group by tipo) x " +
+                    "order by porcentaje ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Vehiculo> data = new List<Vehiculo>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Vehiculo()
+                {
+                    duracion = dr[0].ToString(),
+                    tipo = dr[1].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
     }
         //BARCOS
     public class Barco : Vehiculo
@@ -631,6 +717,42 @@ namespace bd1.Models
                 "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Tipo\", mo.\"Nombre\"||', '||ma.\"Nombre\" " +
                 "FROM \"Terrestre\" a, \"Modelo\" mo, \"Marca\" ma " +
                 "WHERE a.\"FK-ModeloT\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Terrestre> data = new List<Terrestre>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Terrestre()
+                {
+                    placa = dr[0].ToString(),
+                    serialMotor = Int32.Parse(dr[1].ToString()),
+                    capacidad = Int32.Parse(dr[2].ToString()),
+                    peso = Int32.Parse(dr[3].ToString()),
+                    descripcion = dr[4].ToString(),
+                    serialCarroceria = Int32.Parse(dr[5].ToString()),
+                    fechaCreacion = dr[6].ToString(),
+                    tipoT = dr[7].ToString(),
+                    modelo = dr[8].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //PARA ENVIOS
+        public List<Terrestre> obtenerTerrestresEnvio(int fkS)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", " +
+                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Tipo\", mo.\"Nombre\"||', '||ma.\"Nombre\" " +
+                "FROM \"Terrestre\" a, \"Modelo\" mo, \"Marca\" ma " +
+                "WHERE a.\"FK-ModeloT\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" and \"FK-SucursalT\"="+ fkS +" ";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 

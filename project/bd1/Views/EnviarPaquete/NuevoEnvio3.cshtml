@@ -19,8 +19,9 @@
     FormMethod.Post))
     {
         @Html.Action("NuevoEnvioTB", "EnviarPaquete")
+        @Html.Action("EmpleadoDD", "EnviarPaquete")
         @Html.Action("RutaDD", "EnviarPaquete")
-        <div>           
+        <div>
             <input type="button" value="Agregar Ruta Combinada" onclick="location.href='@Url.Action("AgregarRuta", "Ruta")'" />
         </div>
         if (transporte == "Terrestre")

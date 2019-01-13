@@ -67,11 +67,10 @@ namespace bd1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult nuevoEnvio(Envio model, string empleadoE)
+        public ActionResult nuevoEnvio(Envio model)
         {
-            int fkE = Int32.Parse(empleadoE);
             DAOEnvio data = DAOEnvio.getInstance();
-            data.insertarEnvio(model.fechaInicio, model.fechaLlegada, fkE);
+            data.insertarEnvio(model.fechaInicio, model.fechaLlegada);
 
             return View("~/Views/EnviarPaquete/NuevoEnvio2.cshtml");
         }
@@ -102,11 +101,11 @@ namespace bd1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult nuevoEnvio3(Envio model2, string ruta, string avion, string barco, string terrestre)
+        public ActionResult nuevoEnvio3(Envio model2, string ruta, string avion, string barco, string terrestre, string empleadoE)
         {
             int r = Int32.Parse(ruta);
             int precioV = 0;
-            
+            TempData["fkE"] = empleadoE;
             DAOEnvio data = DAOEnvio.getInstance();
             if ((avion == null)&&(barco == null))
             {
@@ -160,9 +159,9 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult nuevoEnvioFinal(Envio model)
         {
-
+            int fkE = Int32.Parse(TempData["fkE"].ToString());
             DAOEnvio data2 = DAOEnvio.getInstance();
-            data2.actualizarEnvio(model.cod, model.monto, model.fechaLlegada);
+            data2.actualizarEnvio(model.cod, model.monto, model.fechaLlegada, fkE);
             Envio envio = data2.buscarUltimoEnvio();
             DAOEnvio data = DAOEnvio.getInstance();
             List<Envio> envios = data.obtenerEnvio();
@@ -196,8 +195,10 @@ namespace bd1.Controllers
         }
         public PartialViewResult TerrestreDD()
         {
+            string fkS = TempData["codSucursal"].ToString();
+            int cS = Int32.Parse(fkS);
             DAOTerrestre data = DAOTerrestre.getInstance();
-            List<Terrestre> terrestres = data.obtenerTerrestres();
+            List<Terrestre> terrestres = data.obtenerTerrestresEnvio(cS);
             return PartialView("TerrestreDropDown", terrestres);
         }
         public PartialViewResult ClientePaqueteDD()
@@ -220,8 +221,10 @@ namespace bd1.Controllers
         }
         public PartialViewResult EmpleadoDD()
         {
+            string fkS = TempData["codSucursal"].ToString();
+            int cS = Int32.Parse(fkS);
             DAOEmpleado data = DAOEmpleado.getInstance();
-            List<Empleado> empleados = data.obtenerEmpleado();
+            List<Empleado> empleados = data.obtenerEmpleadoEnvio(cS);
             return PartialView("EmpleadoEnvioDropDown", empleados);
         }
         public PartialViewResult NuevoEnvioTB()

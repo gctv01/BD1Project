@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px">
+        <b>
+            Indicar el porcentaje de uso de un medio de transporte según 
+            un periodo de tiempo.
+        </b>
+    </p>
+</div>
+<div class="jumbotron">
+    <h2>Rango de fechas:</h2>
+    <br />
+    @using (Html.BeginForm("Reporte7E_1", "Reporte",
+    FormMethod.Post))
+    {
+        <br />
+        <p>
+            Fecha 1:
+            <input class="form-control" name="fecha1" type="date">
+        </p>
+        <p>
+            Fecha 2:
+            <input class="form-control" name="fecha2" type="date">
+        </p>
+        <div>
+            <input type="submit" value="Siguiente" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+
+
+

@@ -20,11 +20,6 @@
             Fecha de Envio:
             @Html.TextBoxFor(model => model.fechaInicio, new { @class = "form-control", @type = "date" })
         </p>
-        @*<p>
-            Fecha estimada de entrega:
-            @Html.TextBoxFor(model => model.fechaLlegada, new { @class = "form-control", @type = "date" })
-        </p>*@
-        @Html.Action("EmpleadoDD");
         <div>
             <input type="submit" value="Siguiente" />
             <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEnvio", "EnviarPaquete")'" />

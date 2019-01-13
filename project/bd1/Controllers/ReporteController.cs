@@ -122,6 +122,23 @@ namespace bd1.Controllers
             List<Ruta> rutas = data.obtenerRuta();
             return View(rutas);
         }
+        public ActionResult Reporte6E()
+        {
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            List<Vehiculo> vehiculos = data.obtenerReporte6E();
+            return View(vehiculos);
+        }
+        public ActionResult Reporte7E_1()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Reporte7E_1(string fecha1, string fecha2)
+        {
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            List<Vehiculo> vehiculos = data.obtenerReporte7E(fecha1, fecha2);
+            return View("~/Views/Reporte/Reporte7E.cshtml", vehiculos);
+        }
         public PartialViewResult MenuSuperior()
         {
             return PartialView("MenuSuperiorAdm");

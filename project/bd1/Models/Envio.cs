@@ -51,14 +51,13 @@ namespace bd1.Models
             }
         }
         //INSERTAR ENVIO
-        public int insertarEnvio(string fechaInicio, string fechaLlegada, int fkEmpleado)
+        public int insertarEnvio(string fechaInicio, string fechaLlegada)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Envio\" (\"COD\", \"FechaInicio\", \"FechaLlegada\", \"FK-EmpleadoE\", \"FK-EstatusE\") " +
-                "VALUES ((SELECT NEXTVAL('seq')), TO_DATE('" + fechaInicio + "', 'YYYY-MM-DD'), TO_DATE('" + fechaLlegada + "', 'YYYY-MM-DD'), " +
-                ""+ fkEmpleado +", 5)";
+            String sql = "INSERT INTO \"Envio\" (\"COD\", \"FechaInicio\", \"FechaLlegada\", \"FK-EstatusE\") " +
+                "VALUES ((SELECT NEXTVAL('seq')), TO_DATE('" + fechaInicio + "', 'YYYY-MM-DD'), TO_DATE('" + fechaLlegada + "', 'YYYY-MM-DD'), 5)";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -73,12 +72,13 @@ namespace bd1.Models
             }
         }
         //Ingresar monto y fecha estimada del envio
-        public int actualizarEnvio(int cod, double monto, string fechaEstimada)
+        public int actualizarEnvio(int cod, double monto, string fechaEstimada, int fkE)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
             int montoT = Convert.ToInt32(monto);
-            String sql = "UPDATE \"Envio\" SET \"Monto\"=" + montoT + ", \"FechaLlegada\"= TO_DATE('"+ fechaEstimada + "', 'YYYY-MM-DD')" +
+            String sql = "UPDATE \"Envio\" SET \"Monto\"=" + montoT + ", " +
+                "\"FechaLlegada\"= TO_DATE('"+ fechaEstimada + "', 'YYYY-MM-DD'), \"FK-EmpleadoE\"="+ fkE +" " +
                             "WHERE \"COD\"= " + cod + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
