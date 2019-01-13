@@ -16,6 +16,10 @@ namespace bd1.Models
         public string Trabajo { get; set; }
         public int telefono { get; set; }
         public int cantEnvios { get; set; }
+        //PARA REPORTES
+        public string nombre2 { get; set; }
+        public string fecha { get; set; }
+        public int cuenta { get; set; }
     }
 
     public class DAOCliente : DAO
@@ -213,6 +217,43 @@ namespace bd1.Models
                 conn.Close();
                 return 0;
             }
+        }
+        //REPORTE 8 DE LOS ENUNCIADOS
+        public List<Cliente> obtenerReporte8E()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select c.\"CI\", c.\"Nombre\"||' '||c.\"Apellido\", s2.\"Nombre\", mes||'-'||ano, count " +
+                "from \"Cliente\" c, \"Sucursal\" s2, (select COUNT(p2.*) as count, EXTRACT(YEAR FROM e.\"FechaInicio\") as ano, " +
+                                                    "EXTRACT(MONTH FROM e.\"FechaInicio\") as mes, s.\"COD\", c2.\"CI\"  " +
+                                                    "from \"Cliente\" c2,\"Paquete\" p2, \"Envio\" e, \"Empleado\" em, \"Sucursal\" s " +
+                                                    "where p2.\"FK-Cliente1\"=c2.\"CI\" and p2.\"FK-EnvioP\"=e.\"COD\" " +
+                                                    "and e.\"FK-EmpleadoE\"=em.\"CI\" and em.\"FK-SucursalEmp\"=s.\"COD\" " +
+                                                    "group by ano, mes, s.\"COD\", c2.\"CI\") x " +
+                "where c.\"CI\"=x.\"CI\"and s2.\"COD\"=x.\"COD\" and x.count>=5 " +
+                "order by c.\"Nombre\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Cliente> data = new List<Cliente>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Cliente()
+                {
+                    CI = Int32.Parse(dr[0].ToString()),
+                    Nombre = dr[1].ToString(),
+                    nombre2= dr[2].ToString(),
+                    fecha = dr[3].ToString(),
+                    cuenta = Int32.Parse(dr[4].ToString()),
+                });
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+
         }
     }
 }

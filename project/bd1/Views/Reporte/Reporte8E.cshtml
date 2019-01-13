@@ -1,0 +1,68 @@
+﻿@model IEnumerable<bd1.Models.Cliente>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px">
+        <b>
+            ¿Cuáles son los clientes frecuentes por oficina ordenado alfabéticamente?
+            Un cliente es frecuente si envía más de 5 paquetes en un mes.
+        </b>
+    </p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Cedula
+                </th>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Oficina
+                </th>
+                <th>
+                    Mes
+                </th>
+                <th>
+                    Envios
+                </th>
+            </tr>
+        </thead>
+        @foreach (var envio in Model)
+        {
+            <tr>
+                <td>
+                    <p>@envio.CI</p>
+                </td>
+                <td>
+                    <p>@envio.Nombre</p>
+                </td>
+                <td>
+                    <p>@envio.nombre2</p>
+                </td>
+                <td>
+                    <p>@envio.fecha</p>
+                </td>
+                <td>
+                    <p>@envio.cuenta</p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+

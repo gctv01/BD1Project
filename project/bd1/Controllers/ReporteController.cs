@@ -139,6 +139,12 @@ namespace bd1.Controllers
             List<Vehiculo> vehiculos = data.obtenerReporte7E(fecha1, fecha2);
             return View("~/Views/Reporte/Reporte7E.cshtml", vehiculos);
         }
+        public ActionResult Reporte8E()
+        {
+            DAOCliente data = DAOCliente.getInstance();
+            List<Cliente> clientes = data.obtenerReporte8E();
+            return View(clientes);
+        }
         public PartialViewResult MenuSuperior()
         {
             return PartialView("MenuSuperiorAdm");
