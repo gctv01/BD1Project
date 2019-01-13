@@ -15,7 +15,12 @@ namespace bd1.Models
         public string descripcion { get; set; }
         public int serialCarroceria { get; set; }
         public string fechaCreacion { get; set; }
-        public string modelo { get; set; }        
+        public string modelo { get; set; }
+        //PARA REPORTES
+        public int codMantenimiento { get; set; }
+        public string tipo { get; set; }
+        public string nombreTaller { get; set; }
+        public string duracion { get; set; }
     }
     public class DAOVehiculo : DAO
     {
@@ -122,6 +127,50 @@ namespace bd1.Models
             }
             dr.Close();
             conn.Close();
+            return data;
+        }
+        //REPORTE 13 DE LOS REQUERIMIENTOS
+        public List<Vehiculo> obtenerReporte13R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select m.\"COD\",t.\"Nombre\", \"PlacaB\" as Placa, \"Descripcion\", " +
+                "('Desde ' ||to_char(\"FechaIni\", 'DD-MM-YYYY')||' hasta '||to_char(\"FechaFinal\", 'DD-MM-YYYY')) as Duracion, 'Barco' as tipo " +
+                "From \"Mantenimiento\" m, \"Taller\" t " +
+                "Where \"PlacaB\" is not null and t.\"COD\"=\"CODTaller\" " +
+                "Union " +
+                "Select m.\"COD\",t.\"Nombre\", \"PlacaA\" as Placa, \"Descripcion\", " +
+                "('Desde ' ||to_char(\"FechaIni\", 'DD-MM-YYYY')||' hasta '||to_char(\"FechaFinal\", 'DD-MM-YYYY')) as Duracion, 'Avion' as tipo  " +
+                "From \"Mantenimiento\" m, \"Taller\" t " +
+                "Where \"PlacaA\" is not null and t.\"COD\"=\"CODTaller\" " +
+                "Union " +
+                "Select m.\"COD\",t.\"Nombre\", \"PlacaT\" as Placa, \"Descripcion\", " +
+                "('Desde ' ||to_char(\"FechaIni\", 'DD-MM-YYYY')||' hasta '||to_char(\"FechaFinal\", 'DD-MM-YYYY')) as Duracion, 'Terrestre' as tipo  " +
+                "From \"Mantenimiento\" m, \"Taller\" t " +
+                "Where \"PlacaT\" is not null and t.\"COD\"=\"CODTaller\" " +
+                "order by tipo, Placa ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Vehiculo> data = new List<Vehiculo>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Vehiculo()
+                {
+                    codMantenimiento = Int32.Parse(dr[0].ToString()),
+                    nombreTaller = dr[1].ToString(),
+                    placa = dr[2].ToString(),
+                    descripcion = dr[3].ToString(),
+                    duracion = dr[4].ToString(),
+                    tipo = dr[5].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
             return data;
         }
     }
@@ -487,7 +536,7 @@ namespace bd1.Models
     //VEHICULOS TERRESTRES
     public class Terrestre : Vehiculo
     {
-        public string tipo { get; set; }
+        public string tipoT { get; set; }
     }
 
     public class DAOTerrestre : DAO
@@ -557,7 +606,7 @@ namespace bd1.Models
                     descripcion = dr[4].ToString(),
                     serialCarroceria = Int32.Parse(dr[5].ToString()),
                     fechaCreacion = dr[6].ToString(),
-                    tipo = dr[7].ToString(),
+                    tipoT = dr[7].ToString(),
                     modelo = dr[8].ToString(),
                 });
             }
@@ -628,7 +677,7 @@ namespace bd1.Models
                 data.descripcion = dr[4].ToString();
                 data.serialCarroceria = Int32.Parse(dr[5].ToString());
                 data.fechaCreacion = dr[6].ToString();
-                data.tipo = dr[7].ToString();
+                data.tipoT = dr[7].ToString();
 
             }
             dr.Close();

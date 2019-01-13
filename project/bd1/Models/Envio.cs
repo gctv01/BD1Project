@@ -28,6 +28,10 @@ namespace bd1.Models
         public string nombreClienteO { get; set; }
         public string nombreClienteD { get; set; }
         public int duracionVR { get; set; }
+
+        //Para reportes
+        public int contEnvios { get; set; }
+        public string mes { get; set; }
     }
     public class DAOEnvio : DAO
     {
@@ -499,6 +503,35 @@ namespace bd1.Models
                 conn.Close();
                 return 0;
             }
+        }
+        //REPORTE 4 DE LOS REQUERIMIENTOS
+        public List<Envio> obtenerReporte4R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select Count(EXTRACT(MONTH FROM \"FechaInicio\"))as conteo_envio, EXTRACT(MONTH FROM \"FechaInicio\") as mes_utilizado " +
+                "from \"Envio\" e " +
+                "Group by mes_utilizado " +
+                "Order by conteo_envio DESC " +
+                "limit 1";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Envio> data = new List<Envio>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Envio()
+                    {
+                        contEnvios = Int32.Parse(dr[0].ToString()),
+                        mes = dr[1].ToString(),
+                    });
+            }
+            dr.Close();
+            conn.Close();
+            return data;
         }
     }
 }

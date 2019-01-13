@@ -6,8 +6,7 @@
 }
 
 <div>
-    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px">
-    <b>Total de gastos generados por revisión de flotas por mes y por sucursal</b></p>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>Ingresos y Egresos por Oficina</b></p>
 </div>
 
 <br />
@@ -26,10 +25,13 @@
                     Oficina
                 </th>
                 <th>
-                    Mes
+                    Tipo
                 </th>
                 <th>
-                    Gasto total en Mantenimiento
+                    Monto
+                </th>
+                <th>
+                    Mes
                 </th>
             </tr>
         </thead>
@@ -43,15 +45,19 @@
                     <p>@oficina.nombre</p>
                 </td>
                 <td>
-                    <p>@oficina.mesMantenimiento</p>
+                    <p>@oficina.descripcion</p>
                 </td>
                 <td>
-                    <p>@oficina.gastoMantenimiento</p>
+                    <p>@oficina.monto</p>
+                </td>
+                <td>
+                    <p>@oficina.mesMantenimiento</p>
                 </td>
             </tr>
         }
     </table>
 </div>
+
 
 
 

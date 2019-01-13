@@ -21,11 +21,23 @@ namespace bd1.Controllers
             List<Oficina> oficinas = data.obtenerReporte1R();
             return View(oficinas);
         }
-        public ActionResult Reporte3R()
+        public ActionResult Reporte2R()
         {
             OficinaDAO data = OficinaDAO.getInstance();
             List<Oficina> oficinas = data.obtenerReporte2R();
             return View(oficinas);
+        }
+        public ActionResult Reporte3R()
+        {
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> oficinas = data.obtenerReporte3R();
+            return View(oficinas);
+        }
+        public ActionResult Reporte4R()
+        {
+            DAOEnvio data = DAOEnvio.getInstance();
+            List<Envio> envios = data.obtenerReporte4R();
+            return View(envios);
         }
         public ActionResult Reporte5R()
         {
@@ -62,6 +74,12 @@ namespace bd1.Controllers
             OficinaDAO data = OficinaDAO.getInstance();
             List<Oficina> oficinas = data.obtenerReporte12_2R();
             return View(oficinas);
+        }
+        public ActionResult Reporte13R()
+        {
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            List<Vehiculo> vehiculos = data.obtenerReporte13R();
+            return View(vehiculos);
         }
         public ActionResult Reporte14R()
         {

@@ -1,2 +1,11 @@
-Select "CODTaller", "Descripcion",('Desde ' ||"FechaIni"||' hasta '||"FechaFinal") as Duracion
-From "Mantenimiento"  
+﻿Select m."COD",t."Nombre", "PlacaB" as Placa, "Descripcion",('Desde ' ||"FechaIni"||' hasta '||"FechaFinal") as Duracion
+From "Mantenimiento" m, "Taller" t
+Where "PlacaB" is not null and t."COD"="CODTaller"
+Union
+Select m."COD",t."Nombre", "PlacaA" as Placa, "Descripcion",('Desde ' ||"FechaIni"||' hasta '||"FechaFinal") as Duracion
+From "Mantenimiento" m, "Taller" t
+Where "PlacaA" is not null and t."COD"="CODTaller"
+Union
+Select m."COD",t."Nombre", "PlacaT" as Placa, "Descripcion",('Desde ' ||"FechaIni"||' hasta '||"FechaFinal") as Duracion
+From "Mantenimiento" m, "Taller" t
+Where "PlacaT" is not null and t."COD"="CODTaller"

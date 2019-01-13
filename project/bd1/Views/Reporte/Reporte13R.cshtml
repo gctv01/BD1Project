@@ -1,0 +1,65 @@
+﻿@model IEnumerable<bd1.Models.Vehiculo>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>Histórico de revisión de la flota indicando taller, falla y duración de la revisión</b></p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Mantenimiento
+                </th>
+                <th>
+                    Taller
+                </th>
+                <th>
+                    Placa del Vehiculo
+                </th>
+                <th>
+                    Descripcion
+                </th>
+                <th>
+                    Duracion del Mantenimiento
+                </th>
+                <th>
+                    Tipo
+                </th>
+            </tr>
+        </thead>
+        @foreach (var envio in Model)
+        {
+            <tr>
+                <td>
+                    <p style="font-size:15px">@envio.codMantenimiento</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.nombreTaller</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.placa</p>
+                </td>
+                <td width="28%">
+                    <p style="font-size:15px">@envio.descripcion</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.duracion</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.tipo</p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

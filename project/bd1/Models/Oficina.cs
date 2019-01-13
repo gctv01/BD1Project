@@ -19,6 +19,7 @@ namespace bd1.Models
         public double pesoProm { get; set; }
         public string mesMantenimiento { get; set; }
         public int gastoMantenimiento { get; set; }
+        public int monto { get; set; }
     }
 
     public class OficinaDAO : DAO
@@ -270,6 +271,45 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
+            string sql = "Select s.\"COD\", s.\"Nombre\", SUM(\"MontoTotal\") as monto, Extract(MONTH FROM p.\"Fecha\") as mes, 'INGRESOS' as tipo " +
+                "from \"Sucursal\" s, \"Pago\" p, \"Envio\" e, \"Empleado\" em " +
+                "where p.\"FK-EnvioP\"=e.\"COD\" and e.\"FK-EmpleadoE\"=em.\"CI\" and s.\"COD\"=em.\"FK-SucursalEmp\" " +
+                "group by Extract(MONTH FROM p.\"Fecha\"), s.\"COD\", s.\"Nombre\" " +
+                "Union " +
+                "Select s.\"COD\", s.\"Nombre\", SUM(se.\"Costo\"+m.\"Costo\"+em.\"SalarioAsig\") as monto, " +
+                "Extract(MONTH FROM g.\"Fecha\")as mes, 'EGRESOS' as tipo " +
+                "from \"Sucursal\" s, \"Gastos\" g, \"Servicio\" se, \"Mantenimiento\" m, \"Empleado\" em " +
+                "where g.\"FK-SucursalG\"=s.\"COD\" and (g.\"FK-ServicioG\"=se.\"COD\" or g.\"FK-MantenimientoG\"=m.\"COD\") and em.\"FK-SucursalEmp\"=s.\"COD\" " +
+                "group by Extract(MONTH FROM g.\"Fecha\"), s.\"COD\", s.\"Nombre\" " +
+                "order by tipo, mes ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Oficina> data = new List<Oficina>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Oficina()
+                {
+                    cod = Int32.Parse(dr[0].ToString()),
+                    nombre = dr[1].ToString(),
+                    monto = Int32.Parse(dr[2].ToString()),
+                    mesMantenimiento = dr[3].ToString(),
+                    descripcion = dr[4].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 3 REQUERIMIENTOS
+        public List<Oficina> obtenerReporte3R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
             string sql = "Select s.\"COD\", s.\"Nombre\", x.prom_paq " +
                 "From \"Sucursal\" s, (Select AVG(p.\"Peso\") as prom_paq, em.\"FK-SucursalEmp\" " +
                                         "from \"Empleado\" em, \"Envio\" e, \"Paquete\" p " +
@@ -389,10 +429,10 @@ namespace bd1.Models
                 System.Diagnostics.Debug.WriteLine("connection established");
                 data.Add(new Oficina()
                 {
-                    cod = Int32.Parse(dr[3].ToString()),
-                    nombre = dr[4].ToString(),
-                    mesMantenimiento = dr[1].ToString(),
                     gastoMantenimiento = Int32.Parse(dr[0].ToString()),
+                    mesMantenimiento = dr[1].ToString(),
+                    cod = Int32.Parse(dr[2].ToString()),
+                    nombre = dr[3].ToString(),                                       
                 });
             }
             dr.Close();
