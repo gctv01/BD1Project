@@ -4,7 +4,10 @@
     ViewBag.Title = "Homempleado";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@{
+    string name = ViewBag.name;
+    string rol = ViewBag.rol;
+}
 
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>DETALLES DEL ENVIO</b></p>
@@ -45,7 +48,14 @@
                     <p>@envio.NombreEmpleadoE</p>
                 </td>
                 <td>
-                    @Html.ActionLink(envio.codPaquete.ToString(), "DetallePaquete", "EnviarPaquete", new { id2 = envio.codPaquete, id=envio.cod}, null)
+                    @if ((rol == "Admin") || (rol == "Supervisor") || (rol == "Cajero") || (rol == "Cliente"))
+                    {
+                        @Html.ActionLink(envio.codPaquete.ToString(), "DetallePaquete", "EnviarPaquete", new { id2 = envio.codPaquete, id = envio.cod }, null)
+                    }
+                    else
+                    {
+                        <p>@envio.codPaquete</p>
+                    }
                 </td>
                 <td>
                     @if (@envio.codPago == 0)
@@ -54,7 +64,14 @@
                     }
                     else
                     {
-                        @Html.ActionLink(envio.codPago.ToString(), "DetallePago", "EnviarPaquete", new { id2 = envio.codPago, id = envio.cod }, null)
+                        if ((rol == "Admin") || (rol == "Supervisor") || (rol == "Cajero"))
+                        {
+                            @Html.ActionLink(envio.codPago.ToString(), "DetallePago", "EnviarPaquete", new { id2 = envio.codPago, id = envio.cod }, null)
+                        }
+                        else
+                        {
+                            <p>@envio.codPago</p>
+                        }
                     }
                 </td>
                 <td>
@@ -64,11 +81,18 @@
                     }
                     else
                     {
-                        @Html.ActionLink(envio.codVehiculo.ToString(), "DetalleVehiculo", "EnviarPaquete", new { id2 = envio.codVehiculo, id = envio.cod}, null)
+                        if ((rol == "Admin") || (rol == "Supervisor") || (rol == "Cajero"))
+                        {
+                            @Html.ActionLink(envio.codVehiculo.ToString(), "DetalleVehiculo", "EnviarPaquete", new { id2 = envio.codVehiculo, id = envio.cod }, null)
+                        }
+                        else
+                        {
+                            <p>@envio.codVehiculo</p>
+                        }
                     }
                 </td>
-                <td>
-                    @if (@envio.codVehiculo == "-")
+                <td style="font-size: 25px">
+                    @if ((@envio.codVehiculo == "-") || (rol == "Cliente"))
                     {
                         <p>@envio.codRuta</p>
                     }
@@ -76,7 +100,7 @@
                     {
                         @Html.ActionLink(envio.codRuta.ToString(), "DetalleRuta", "EnviarPaquete", new { id2 = envio.codRuta, id = envio.cod }, null)
                     }
-                    
+
                 </td>
                 <td>
                     <p>@envio.nombreClienteO</p>
@@ -89,7 +113,14 @@
 
     </table>
     <div>
-        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEnvio", "EnviarPaquete")'" />
+        @if (rol == "Cliente")
+        {
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("Home_Cliente", "Cliente")'" />
+        }
+        else
+        {
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexEnvio", "EnviarPaquete")'" />
+        }
     </div>
 </div>
 

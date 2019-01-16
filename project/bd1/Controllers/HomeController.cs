@@ -11,10 +11,23 @@ namespace bd1.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.name = null;
+
             return View();
         }
-        
+        public ActionResult Salir(string salir)
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+            DAOUsuario data = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Cerrar sesion";
+            data.insertarAccion(codUser, 6, today, accion);
+            return View("~/Views/Home/Index.cshtml");
+        }
 
         [HttpPost]
         public ActionResult buscando(Usuario model)
@@ -25,15 +38,20 @@ namespace bd1.Controllers
             string tipoUsuario = model.Rol;
 
             DAOUsuario data = DAOUsuario.getInstance();
-
-            //int redireccion = data.buscandoUsuario(model.username, model.contrasena);
             
             if (tipoUsuario == "Empleado")
             {
                 int redireccion = data.buscandoUsuarioE(model.username, model.contrasena);
                 if (redireccion == 1)
-                {
-                    ViewBag.name = model.username;
+                {                   
+                    data = DAOUsuario.getInstance();
+                    Usuario usuario = data.buscarUsuarioRol(model.username, model.contrasena);
+                    string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+                    string accion = "Iniciar sesion";
+                    data.insertarAccion(usuario.cod, 5, today, accion);
+                    TempData["codUser"] = usuario.cod;
+                    TempData["username"] = model.username;
+                    TempData["rol"] = usuario.Rol;
                     return View("~/Views/Admin/IndexAdmin.cshtml");
                     
                 }
@@ -50,10 +68,19 @@ namespace bd1.Controllers
                     int redireccion = data.buscandoUsuarioC(model.username, model.contrasena);
                     if(redireccion == 1)
                     {
-                    ViewBag.name = model.username;
-                   
-                    
-                        return View("~/Views/Cliente/IndexCliente.cshtml");
+                        data = DAOUsuario.getInstance();
+                        Usuario usuario = data.buscarUsuarioRol(model.username, model.contrasena);
+                        TempData["codUser"] = usuario.cod;
+                        TempData["username"] = model.username;
+                        TempData["rol"] = usuario.Rol;
+                        ViewBag.name = model.username;
+                        ViewBag.rol = usuario.Rol;
+                        DAOEnvio data2 = DAOEnvio.getInstance();
+                        List<Envio> envios = data2.obtenerEnvioUsuarioCliente(usuario.cod);
+                        string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+                        string accion = "Iniciar sesion";
+                        data.insertarAccion(usuario.cod, 5, today, accion);
+                        return View("~/Views/Cliente/CLIENTE.cshtml", envios);
                     }
                     else
                     {

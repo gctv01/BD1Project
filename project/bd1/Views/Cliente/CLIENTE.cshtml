@@ -11,7 +11,7 @@
 }
 
 
-@Html.Action("MenuSuperior", "EnviarPaquete");
+@Html.Action("MenuSuperiorCli", "Cliente");
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ENVIOS</b></p>
 </div>
@@ -33,7 +33,7 @@
         if (rol == "Cajero")
         {
             <input type="button" style="float:right; margin-right:1%" value="Nuevo Envio"
-               onclick="location.href='@Url.Action("nuevoEnvio", "EnviarPaquete")'" />
+                   onclick="location.href='@Url.Action("nuevoEnvio", "EnviarPaquete")'" />
         }
     }
 }
@@ -97,6 +97,7 @@
 
     </table>
 </div>
+
 
 
 

@@ -12,6 +12,20 @@ namespace bd1.Controllers
         // GET: Usuario
         public ActionResult IndexUsuario(string viewba)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Usuario Index ";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             ViewBag.name = viewba;
             DAOUsuario data = DAOUsuario.getInstance();
             List<Usuario> Usuarios = data.obtenerUsuario();
@@ -28,6 +42,19 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult ModificarUsuario(Usuario model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Modifico Usuario " + model.cod;
+            dataU.insertarAccion(codUser, 3, today, accion);
 
             DAOUsuario data = DAOUsuario.getInstance();
             data.modificarUsuario(model. cod, model.username, model.contrasena, model.Rol);
@@ -37,6 +64,12 @@ namespace bd1.Controllers
         }
         public PartialViewResult MenuSuperior()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             return PartialView("MenuSuperiorAdm");
         }
         public PartialViewResult RolDD()

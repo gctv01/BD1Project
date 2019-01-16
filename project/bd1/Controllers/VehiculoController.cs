@@ -12,6 +12,20 @@ namespace bd1.Controllers
         // GET: Vehiculo
         public ActionResult IndexVehiculo(string viewba)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Vehiculos Index";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             ViewBag.name = viewba;
             DAOTerrestre data = DAOTerrestre.getInstance();
             List<Terrestre> terrestre = data.obtenerTerrestres();
@@ -20,6 +34,12 @@ namespace bd1.Controllers
         }
         public PartialViewResult MenuSuperior()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             return PartialView("MenuSuperiorAdm");
         }
         //Agregar Terrestre
@@ -30,6 +50,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult AgregarTerrestre(Terrestre model, string modeloVeh, string sucursal)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Registro Vehiculo Terrestre " + model.placa;
+            dataU.insertarAccion(codUser, 1, today, accion);
+
             int fkModelo = Int32.Parse(modeloVeh);
             int fkSucursal = Int32.Parse(sucursal);
             DAOTerrestre data = DAOTerrestre.getInstance();
@@ -59,6 +93,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult EliminarTerrestre(Terrestre model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Elimino Vehiculo Terrestre " + model.placa;
+            dataU.insertarAccion(codUser, 4, today, accion);
+
             //int cod = Int32.Parse(model.cod);
             DAOTerrestre data = DAOTerrestre.getInstance();
             data.eliminarTerrestre(model.placa);
@@ -76,6 +124,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult ModificarTerrestre(Terrestre model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Modifico Vehiculo Terrestre " + model.placa;
+            dataU.insertarAccion(codUser, 3, today, accion);
+
             DAOTerrestre data = DAOTerrestre.getInstance();
             data.modificarTerrestre(model.placa, model.serialMotor, model.capacidad, model.peso,
                 model.descripcion, model.serialCarroceria, model.fechaCreacion, model.tipo);
@@ -87,6 +149,20 @@ namespace bd1.Controllers
         //INDEX BARCO
         public ActionResult IndexBarco()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Barcos ";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             DAOBarco data = DAOBarco.getInstance();
             List<Barco> Barcos = data.obtenerBarcos();
             if(Barcos!=null)
@@ -102,6 +178,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult AgregarBarco(Barco model, string modeloVeh, string puerto)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Registro Barco " + model.placa;
+            dataU.insertarAccion(codUser, 1, today, accion);
+
             int fkM = Int32.Parse(modeloVeh);
             int fkP= Int32.Parse(puerto);
             DAOBarco data = DAOBarco.getInstance();
@@ -125,6 +215,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult EliminarBarco(Barco model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Elimino Barco " + model.placa;
+            dataU.insertarAccion(codUser, 4, today, accion);
+
             //int cod = Int32.Parse(model.cod);
             DAOBarco data = DAOBarco.getInstance();
             data.eliminarBarco(model.placa);
@@ -142,6 +246,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult ModificarBarco(Barco model, string modeloVeh, string puerto)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Modifico Barco " + model.placa;
+            dataU.insertarAccion(codUser, 3, today, accion);
+
             int fkM = Int32.Parse(modeloVeh);
             int fkP = Int32.Parse(puerto);
             DAOBarco data = DAOBarco.getInstance();
@@ -164,11 +282,39 @@ namespace bd1.Controllers
         //Agregar Avion
         public ActionResult AgregarAvion()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Avion ";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             return View();
         }
         [HttpPost]
         public ActionResult AgregarAvion(Avion model, string modeloVeh, string AeroP)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Registro Avion " + model.placa;
+            dataU.insertarAccion(codUser, 1, today, accion);
+
             int fkM = Int32.Parse(modeloVeh);
             int fkA = Int32.Parse(AeroP);
             DAOAvion data = DAOAvion.getInstance();
@@ -194,6 +340,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult EliminarAvion(Avion model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Elimino Avion " + model.placa;
+            dataU.insertarAccion(codUser, 4, today, accion);
+
             //int cod = Int32.Parse(model.cod);
             DAOAvion data = DAOAvion.getInstance();
             data.eliminarAvion(model.placa);
@@ -211,6 +371,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult ModificarAvion(Avion model, string modeloVeh, string AeroP)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Modifico Avion " + model.placa;
+            dataU.insertarAccion(codUser, 3, today, accion);
+
             int fkM = Int32.Parse(modeloVeh);
             int fkA = Int32.Parse(AeroP);
             DAOAvion data = DAOAvion.getInstance();

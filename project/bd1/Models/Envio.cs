@@ -166,6 +166,54 @@ namespace bd1.Models
             conn.Close();
             return data;
         }
+        public List<Envio> obtenerEnvioUsuarioCliente(int codUser)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT e.\"COD\", to_char(e.\"FechaInicio\", 'DD-MM-YYYY'), to_char(e.\"FechaLlegada\", 'DD-MM-YYYY'),  " +
+                "e.\"Monto\", em.\"Nombre\", es.\"Nombre\"  " +
+                "FROM \"Envio\" e, \"Empleado\" em, \"Estatus\" es, \"Paquete\" p, \"Cliente\" c, \"Usuario\" u " +
+                "WHERE em.\"CI\" = e.\"FK-EmpleadoE\" and es.\"COD\" = e.\"FK-EstatusE\" and p.\"FK-EnvioP\"=e.\"COD\" and p.\"FK-Cliente1\"=c.\"CI\"  " +
+                "and c.\"CI\"=u.\"FK-ClienteU\" and  u.\"COD\"= "+ codUser +" " +
+                "Order by \"COD\" DESC";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Envio> data = new List<Envio>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                try
+                {
+                    data.Add(new Envio()
+                    {
+                        cod = Int32.Parse(dr[0].ToString()),
+                        fechaInicio = dr[1].ToString(),
+                        fechaLlegada = dr[2].ToString(),
+                        monto = Int32.Parse(dr[3].ToString()),
+                        NombreEmpleadoE = dr[4].ToString(),
+                        NombreEstatusE = dr[5].ToString()
+                    });
+                }
+                catch
+                {
+                    data.Add(new Envio()
+                    {
+                        cod = Int32.Parse(dr[0].ToString()),
+                        fechaInicio = dr[1].ToString(),
+                        fechaLlegada = "-",
+                        monto = 0,
+                        NombreEmpleadoE = dr[4].ToString(),
+                        NombreEstatusE = dr[5].ToString()
+                    });
+                }
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
         //DETALLES DE ENVIO
         public Envio detallesEnvio(int cod)
         {

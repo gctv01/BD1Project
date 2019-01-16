@@ -12,6 +12,20 @@ namespace bd1.Controllers
         // GET: Oficinas
         public ActionResult IndexOficina(string viewba)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Oficinas Index";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             ViewBag.name = viewba;
             OficinaDAO data = OficinaDAO.getInstance();
             List<Oficina> oficinas = data.obtenerOficinas();
@@ -21,6 +35,20 @@ namespace bd1.Controllers
         [HttpGet]
         public ActionResult BuscarOficina(string viewba, string viewba2)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Buscando Oficina";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             ViewBag.name = viewba;
             return View();
         }
@@ -28,7 +56,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult BuscarOficina(string oficina)
         {
-            
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Buscando Oficina " + oficina;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             if (oficina != "")
             {
                 int cod = Int32.Parse(oficina);
@@ -56,6 +97,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult AgregarOficina(Oficina model, string lugar, string viewba)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Creando Oficina " + model.nombre;
+            dataU.insertarAccion(codUser, 1, today, accion);
+
             ViewBag.name = viewba;
             int codlugar = Int32.Parse(lugar);
             OficinaDAO data = OficinaDAO.getInstance();
@@ -73,6 +128,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult EliminarOficina(Oficina model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Eliminar Oficina " + model.cod;
+            dataU.insertarAccion(codUser, 4, today, accion);
+
             //int cod = Int32.Parse(model.cod);
             OficinaDAO data = OficinaDAO.getInstance();
             data.eliminarOficina(model.cod);
@@ -93,6 +162,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult ModificarOficinaPOST(Oficina model, string lugar)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Modificando Oficina " + model.cod;
+            dataU.insertarAccion(codUser, 3, today, accion);
+
             int codlugar = Int32.Parse(lugar);
             OficinaDAO data = OficinaDAO.getInstance();
             data.modificarOficina(model.cod, model.nombre, model.capacidad, model.correo, model.almacenamiento, codlugar);
@@ -102,6 +185,12 @@ namespace bd1.Controllers
         }
         public PartialViewResult MenuSuperior()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             return PartialView("MenuSuperiorAdm");
         }
         public PartialViewResult TBOficina()

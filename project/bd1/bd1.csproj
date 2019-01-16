@@ -180,7 +180,6 @@
     <Compile Include="Controllers\OficinasController.cs" />
     <Compile Include="Controllers\PagoController.cs" />
     <Compile Include="Controllers\PaqueteController.cs" />
-    <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\RolController.cs" />
@@ -359,6 +358,12 @@
     <Content Include="Views\Reporte\Reporte7E_1.cshtml" />
     <Content Include="Views\Reporte\Reporte7E.cshtml" />
     <Content Include="Views\Reporte\Reporte8E.cshtml" />
+    <Content Include="Views\Reporte\Reporte3E.cshtml" />
+    <Content Include="Views\Empleado\AsistenciaEmpleado.cshtml" />
+    <Content Include="Views\Empleado\RegistroAsistencia.cshtml" />
+    <Content Include="Views\Shared\ZonaDropDown.cshtml" />
+    <Content Include="Views\Cliente\CLIENTE.cshtml" />
+    <Content Include="Views\Shared\MenuSuperiorCli.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

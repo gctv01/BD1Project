@@ -356,7 +356,7 @@ namespace bd1.Models
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
             string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", " +
-                "\"Peso\", \"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", b.\"Nombre\", mo.\"Nombre\"||', '||ma.\"Nombre\" " +
+                "\"Peso\", \"Descripcion\", \"SerialCarroceria\", to_char(\"FechaCreacion\", 'DD-MM-YYYY'), b.\"Nombre\", mo.\"Nombre\"||', '||ma.\"Nombre\" " +
                 "FROM \"Barco\" b, \"Modelo\" mo, \"Marca\" ma " +
                 "WHERE b.\"FK-ModeloB\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" ";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -525,7 +525,7 @@ namespace bd1.Models
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
             string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", " +
-                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Longitud\"," +
+                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", to_char(\"FechaCreacion\", 'DD-MM-YYYY'), \"Longitud\"," +
                 "\"PesoVacio\",\"Envergadura\",\"PesoMax\",\"Altura\", \"AnchoCabina\",\"CapacidadCombustible\"," +
                 "\"CarreraDespegue\", \"DiametroFuselaje\", mo.\"Nombre\"||', '||ma.\"Nombre\"  " +
                 "FROM \"Avion\" a, \"Modelo\" mo, \"Marca\" ma " +
@@ -714,7 +714,7 @@ namespace bd1.Models
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
             string sql = "SELECT \"Placa\", \"SerialMotor\", \"Capacidad\", " +
-                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", \"FechaCreacion\", \"Tipo\", mo.\"Nombre\"||', '||ma.\"Nombre\" " +
+                "\"Peso\" ,\"Descripcion\", \"SerialCarroceria\", to_char(\"FechaCreacion\", 'DD-MM-YYYY'), \"Tipo\", mo.\"Nombre\"||', '||ma.\"Nombre\" " +
                 "FROM \"Terrestre\" a, \"Modelo\" mo, \"Marca\" ma " +
                 "WHERE a.\"FK-ModeloT\"=mo.\"COD\" and mo.\"FK-MarcaM\"=ma.\"COD\" ";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);

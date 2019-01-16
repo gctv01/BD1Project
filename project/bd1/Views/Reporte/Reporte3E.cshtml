@@ -1,0 +1,95 @@
+﻿@model IEnumerable<bd1.Models.Empleado>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px">
+        <b>
+            Lista de empleados activos, indicando su información básica, cargo que
+            ocupa y fecha de ingreso a la compañía. Por rango de fechas
+        </b>
+    </p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Cedula
+                </th>
+                <th>
+                    Empleado
+                </th>
+                <th width="15%">
+                    Fecha de Nacimiento
+                </th>
+                <th width="10%">
+                    Correo
+                </th>
+                <th>
+                    Nro de Hijos
+                </th>
+                <th>
+                    Estado Civil
+                </th>
+                <th>
+                    Profesion
+                </th>
+                <th>
+                    Salario
+                </th>
+                <th width="15%">
+                    Fecha de Ingreso
+                </th>
+            </tr>
+        </thead>
+        @foreach (var envio in Model)
+        {
+            <tr>
+                <td>
+                    <p style="font-size:15px">@envio.CI</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.Nombre</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.fechaNac</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.correo</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.cantHijos</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.estCivil</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.profesion</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.salarioAsig</p>
+                </td>
+                <td>
+                    <p style="font-size:15px">@envio.fechaContratado</p>
+                </td>
+            </tr>
+        }
+    </table>
+    <div>
+        <p>Cantidad de empleados: @ViewBag.contEmpleados</p>
+    </div>
+</div>
+
+
+
+

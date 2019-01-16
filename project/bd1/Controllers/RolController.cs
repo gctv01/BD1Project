@@ -12,6 +12,20 @@ namespace bd1.Controllers
         // GET: Roles
         public ActionResult IndexRol()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Rol Index ";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             DAORol data = DAORol.getInstance();
             List<Rol> Roles = data.obtenerRol();
 
@@ -20,6 +34,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult BuscarRol(string rol)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Busco Rol " + rol;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             if (rol != "")
             {
                 int cod = Int32.Parse(rol);
@@ -46,6 +74,19 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult AgregarRol(Rol model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Registro Rol " + model.Nombre;
+            dataU.insertarAccion(codUser, 1, today, accion);
 
             DAORol data = DAORol.getInstance();
             data.insertarRol(model.Nombre);
@@ -61,6 +102,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult EliminarRol(Rol model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Elimino Rol " + model.COD;
+            dataU.insertarAccion(codUser, 4, today, accion);
+
             //int cod = Int32.Parse(model.cod);
             DAORol data = DAORol.getInstance();
             data.eliminarRol(model.COD);
@@ -79,6 +134,19 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult ModificarRol(Rol model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Modifico Rol " + model.COD;
+            dataU.insertarAccion(codUser, 3, today, accion);
 
             DAORol data = DAORol.getInstance();
             data.modificarRol(model.COD, model.Nombre);
@@ -88,6 +156,12 @@ namespace bd1.Controllers
         }
         public PartialViewResult MenuSuperior()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             return PartialView("MenuSuperiorAdm");
         }
         public PartialViewResult TBOficina()

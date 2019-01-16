@@ -8,11 +8,11 @@
 
 @{
     string name = ViewBag.name;
-    
+    string rol = ViewBag.rol;
 }
 
 
-@Html.Action("MenuSuperior", "Cliente", new { viewba = ViewBag.name});
+@Html.Action("MenuSuperior", "Cliente", new { viewba = ViewBag.name });
 <div>
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>CLIENTES</b></p>
 </div>
@@ -22,10 +22,21 @@
 {
     @Html.Action("TBCliente", "Cliente");
     <input type="submit" value="Buscar" />
-    <input type="button" style="float:right" value="Eliminar Cliente"
-           onclick="location.href='@Url.Action("EliminarCliente", "Cliente")'" />
-    <input type="button" style="float:right; margin-right:1%" value="Agregar Cliente"
-           onclick="location.href='@Url.Action("AgregarCliente", "Cliente")'" />
+    if ((rol == "Admin") || (rol == "Supervisor"))
+    {
+        <input type="button" style="float:right" value="Eliminar Cliente"
+               onclick="location.href='@Url.Action("EliminarCliente", "Cliente")'" />
+        <input type="button" style="float:right; margin-right:1%" value="Agregar Cliente"
+               onclick="location.href='@Url.Action("AgregarCliente", "Cliente")'" />
+    }
+    else
+    {
+        if (rol == "Cajero")
+        {
+            <input type="button" value="Agregar Cliente"
+                   onclick="location.href='@Url.Action("AgregarCliente", "Cliente")'" />
+        }
+    }
 }
 <br />
 <div class="jumbotron">
@@ -43,7 +54,27 @@
                 </th>
             </tr>
         </thead>
-
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td>
+                    @if ((rol == "Admin") || (rol == "Supervisor") || (rol == "Cajero"))
+                    {
+                        @Html.ActionLink(cliente.CI.ToString(), "ModificarCliente", "Cliente", new { id = cliente.CI }, null)
+                    }
+                    else
+                    {
+                        <p>@cliente.CI</p>
+                    }
+                </td>
+                <td>
+                    <p>@cliente.Nombre</p>
+                </td>
+                <td>
+                    <p>@cliente.Apellido</p>
+                </td>
+            </tr>
+        }
 
 
     </table>

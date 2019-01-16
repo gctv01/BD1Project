@@ -1,0 +1,34 @@
+﻿@model bd1.Models.Empleado
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>REGISTRO DE ASISTENCIA</b></p>
+</div>
+<div class="jumbotron">
+    <h2>Registrando</h2>
+    <br />
+    @using (Html.BeginForm("RegistroAsistencia", "Empleado",
+    FormMethod.Post))
+    {
+        @Html.Action("EmpleadoDD");
+        <p>
+            Fecha:
+            @Html.TextBoxFor(model => model.fechaContratado, new { @class = "form-control", @type = "date" })
+        </p>
+        @Html.Action("ZonaDD");
+        <div>
+            <input type="submit" value="Registrar" />
+            <input type="button" value="Regresar" onclick="location.href='@Url.Action("AsistenciaEmpleado", "Empleado")'" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+

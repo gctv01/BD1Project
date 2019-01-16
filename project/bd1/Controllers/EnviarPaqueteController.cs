@@ -12,6 +12,20 @@ namespace bd1.Controllers
         // GET: EnviarPaquete
         public ActionResult IndexEnvio()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Envio Index";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             DAOEnvio data = DAOEnvio.getInstance();
             List<Envio> envios = data.obtenerEnvio();
             foreach (var item in envios)
@@ -24,6 +38,12 @@ namespace bd1.Controllers
         }
         public PartialViewResult MenuSuperior()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             return PartialView("MenuSuperiorAdm");
         }
         public PartialViewResult TBEnvio()
@@ -33,6 +53,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult BuscarEnvio(string envio)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Busco Envio " + envio;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             if (envio != "")
             {
                 int cod = Int32.Parse(envio);
@@ -64,11 +98,29 @@ namespace bd1.Controllers
         //ENVIANDO PAQUETE (INSERTANDO PAQUETE, ENVIO, TRASLADO y VEH-RUT)
         public ActionResult nuevoEnvio()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
             return View();
         }
         [HttpPost]
         public ActionResult nuevoEnvio(Envio model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
             DAOEnvio data = DAOEnvio.getInstance();
             data.insertarEnvio(model.fechaInicio, model.fechaLlegada);
 
@@ -76,12 +128,30 @@ namespace bd1.Controllers
         }
         public ActionResult NuevoEnvio2()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
             return View();
         }
         [HttpPost]
         public ActionResult nuevoEnvio2(Paquete model, Envio model2, string tipoPaquete, string sucursal, 
             string clienteR, string clienteD, string transporte)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
             int fkC1 = Int32.Parse(clienteR);
             int fkC2 = Int32.Parse(clienteD);
             int fkTP = Int32.Parse(tipoPaquete);
@@ -98,11 +168,28 @@ namespace bd1.Controllers
         }
         public ActionResult NuevoEnvio3()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
             return View();
         }
         [HttpPost]
         public ActionResult nuevoEnvio3(Envio model2, string ruta, string avion, string barco, string terrestre, string empleadoE)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
             int r = Int32.Parse(ruta);
             int precioV = 0;
             TempData["fkE"] = empleadoE;
@@ -154,11 +241,34 @@ namespace bd1.Controllers
         }
         public ActionResult NuevoEnvioFinal()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
             return View();
         }
         [HttpPost]
         public ActionResult nuevoEnvioFinal(Envio model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Registro el Envio " + model.cod;
+            dataU.insertarAccion(codUser, 1, today, accion);
+
             int fkE = Int32.Parse(TempData["fkE"].ToString());
             DAOEnvio data2 = DAOEnvio.getInstance();
             data2.actualizarEnvio(model.cod, model.monto, model.fechaLlegada, fkE);
@@ -236,6 +346,12 @@ namespace bd1.Controllers
         //CAMBIANDO ESTADO DEL ENVIO
         public ActionResult CambiarEstado(string id)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             int cod = Int32.Parse(id);
             DAOEnvio data = DAOEnvio.getInstance();
             Envio estatus = data.buscarEnvio(cod);
@@ -250,6 +366,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult CambiarEstado(Envio model, string estatus)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Cambio Estado de " + model.cod;
+            dataU.insertarAccion(codUser, 3, today, accion);
+
             int fkE = Int32.Parse(estatus);
             DAOEnvio data2 = DAOEnvio.getInstance();
             data2.cambiarEstado(model.cod, fkE);
@@ -266,7 +396,21 @@ namespace bd1.Controllers
         //DETALLES DEL ENVIO
         public ActionResult DetallesEnvio(string id)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
             int cod = Int32.Parse(id);
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Detalles del envio " + id;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             DAOEnvio data = DAOEnvio.getInstance();
             Envio detalles = data.detallesEnvio(cod);
             List<Envio> envios = new List<Envio>();
@@ -286,13 +430,41 @@ namespace bd1.Controllers
         }
         public ActionResult DetallePaquete(string id2)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
             int cod = Int32.Parse(id2);
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Detalles del paquete en " + id2;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             DAOPaquete data = DAOPaquete.getInstance();
             Paquete paquete = data.buscarPaquete(cod);
             return View(paquete);
         }
         public ActionResult DetallePago(string id2)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Detalles del pago en " + id2;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             int cod = Int32.Parse(id2);
             DAOPago data = DAOPago.getInstance();
             Pago pago = data.buscarPago(cod);
@@ -300,6 +472,20 @@ namespace bd1.Controllers
         }
         public ActionResult DetalleRuta(string id2)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Detalles de ruta en " + id2;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             int cod = Int32.Parse(id2);
             DAORuta data = DAORuta.getInstance();
             Ruta ruta = data.buscarRuta(cod);
@@ -307,6 +493,20 @@ namespace bd1.Controllers
         }
         public ActionResult DetalleVehiculo(string id2)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Detalles del vehiculo en " + id2;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             DAOVehiculo data = DAOVehiculo.getInstance();
             Vehiculo veh = data.buscarDetalleTerrestre(id2);
             if(veh.placa == null)
@@ -322,6 +522,15 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult RegresoDetallesEnvio(Envio m)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
             //int cod = Int32.Parse(m.cod);
             DAOEnvio data = DAOEnvio.getInstance();
             Envio detalles = data.detallesEnvio(m.cod);
@@ -332,11 +541,29 @@ namespace bd1.Controllers
         //Eliminar Envio
         public ActionResult EliminarEnvio()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             return View();
         }
         [HttpPost]
         public ActionResult EliminarEnvio(Envio model)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Elimino Envio " + model.cod;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             //int cod = Int32.Parse(model.cod);
             DAOPago data1 = DAOPago.getInstance();
             data1.eliminarPago(model.cod);

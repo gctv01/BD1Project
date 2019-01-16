@@ -12,7 +12,20 @@ namespace bd1.Controllers
         // GET: Empleado
         public ActionResult IndexEmpleado(string viewba)
         {
-            ViewBag.name = viewba;
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Empleados Index";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             DAOEmpleado data = DAOEmpleado.getInstance();
             List<Empleado> Empleados = data.obtenerEmpleado();
             return View(Empleados);
@@ -20,6 +33,20 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult BuscarEmpleado(string cliente)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Busco Empleado " + cliente;
+            dataU.insertarAccion(codUser, 1, today, accion);
+
             if (cliente != "")
             {
                 int cod = Int32.Parse(cliente);
@@ -38,9 +65,14 @@ namespace bd1.Controllers
                 return View("~/Views/Empleado/IndexEmpleado.cshtml", Empleados);
             }
         }
+        
         //Agregar
         public ActionResult AgregarEmpleado()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             return View();
         }
         [HttpPost]
@@ -49,6 +81,20 @@ namespace bd1.Controllers
             string ScantHijos, string correoEmp, string salarioAsigS, string fechaContratado,
             string sucursal, string horarioI)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Registro Empleado " + ciS;
+            dataU.insertarAccion(codUser, 1, today, accion);
+
             int codSucursal = Int32.Parse(sucursal);
             int ci = Int32.Parse(ciS);
             int cantHijos = Int32.Parse(ScantHijos);
@@ -72,13 +118,30 @@ namespace bd1.Controllers
         //Eliminar Empleado
         public ActionResult EliminarEmpleado()
         {
-
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             return View();
         }
         [HttpPost]
         public ActionResult EliminarEmpleado(Empleado model)
         {
-            //int cod = Int32.Parse(model.cod);
+
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Elimino Empleado " + model.CI;
+            dataU.insertarAccion(codUser, 4, today, accion);
+
             DAOTelefono data3 = DAOTelefono.getInstance();
             data3.eliminarTelefonoEmp(model.CI);
 
@@ -88,11 +151,17 @@ namespace bd1.Controllers
             DAOUsuario data2 = DAOUsuario.getInstance();
             data2.eliminarUsuarioE(model.CI);
             List<Empleado> Empleados = data.obtenerEmpleado();
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
             return View("~/Views/Empleado/IndexEmpleado.cshtml", Empleados);
         }
         //Modificando Empleado
         public ActionResult ModificarEmpleado(string id)
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             int cod2 = Int32.Parse(id);
             DAOEmpleado data = DAOEmpleado.getInstance();
             Empleado EmpleadoEncontrado = data.buscarEmpleado(cod2);
@@ -101,6 +170,21 @@ namespace bd1.Controllers
         [HttpPost]
         public ActionResult ModificarEmpleado(Empleado model, string estCivil)
         {
+
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Modifico Empleado " + model.CI;
+            dataU.insertarAccion(codUser, 3, today, accion);
+
             int ci = Int32.Parse(model.CI.ToString());
             int cantHijos = Int32.Parse(model.cantHijos.ToString());
             int salarioAsig = Int32.Parse(model.salarioAsig.ToString());
@@ -112,8 +196,100 @@ namespace bd1.Controllers
 
             return View("~/Views/Empleado/IndexEmpleado.cshtml", Empleados);
         }
+        //ASISTENCIA
+        public ActionResult AsistenciaEmpleado()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Asistencia de Empleados";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOEmpleado data = DAOEmpleado.getInstance();
+            List<Empleado> empleados = data.obtenerEmpleadoAsistencia();
+            return View(empleados);
+        }
+        public ActionResult RegistroAsistencia()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult RegistroAsistencia(Empleado model, string empleadoE, string zona)
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Registro Asistencia de " + model.CI;
+            dataU.insertarAccion(codUser, 1, today, accion);
+
+            int ci = Int32.Parse(empleadoE);
+            int codZ = Int32.Parse(zona);
+            DAOEmpleado data = DAOEmpleado.getInstance();
+            data.registrarAsistencia(ci, codZ, model.fechaContratado);
+            data = DAOEmpleado.getInstance();
+            List<Empleado> empleados = data.obtenerEmpleadoAsistencia();
+            return View("~/Views/Empleado/AsistenciaEmpleado.cshtml", empleados);
+        }
+        [HttpPost]
+        public ActionResult BuscarEmpleadoAsistencia(string cliente)
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Busco Asistencia de " + cliente;
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            if (cliente != "")
+            {
+                int cod = Int32.Parse(cliente);
+                DAOEmpleado data = DAOEmpleado.getInstance();
+                List<Empleado> empleados = data.buscarEmpleadoAsistencia(cod);
+                return View("~/Views/Empleado/AsistenciaEmpleado.cshtml", empleados);
+            }
+            else
+            {
+                DAOEmpleado data = DAOEmpleado.getInstance();
+                List<Empleado> Empleados = data.obtenerEmpleadoAsistencia();
+
+                return View("~/Views/Empleado/AsistenciaEmpleado.cshtml", Empleados);
+            }
+        }
         public PartialViewResult MenuSuperior()
         {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
             return PartialView("MenuSuperiorAdm");
         }
         public PartialViewResult TBCliente()
@@ -141,6 +317,18 @@ namespace bd1.Controllers
         public PartialViewResult Empleado()
         {
             return PartialView("formEmpleado");
+        }
+        public PartialViewResult EmpleadoDD()
+        {
+            DAOEmpleado data = DAOEmpleado.getInstance();
+            List<Empleado> empleados = data.obtenerEmpleado();
+            return PartialView("EmpleadoEnvioDropDown", empleados);
+        }
+        public PartialViewResult ZonaDD()
+        {
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> zonas = data.obtenerZona();
+            return PartialView("ZonaDropDown", zonas);
         }
     }
 }

@@ -7,6 +7,13 @@
     text-decoration: underline;
     
 }
+.holaCli {
+    background-color: snow;
+    list-style: none;
+    padding: 10px;
+    width: 100%;
+    text-decoration: underline;
+}
 
 .chao {
     background-color: snow;

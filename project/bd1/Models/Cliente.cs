@@ -66,31 +66,34 @@ namespace bd1.Models
         }
         public List<Cliente> obtenerClientes()
         {
-
+            List<Cliente> data = new List<Cliente>();
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
             string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\" " +
                 "FROM \"Cliente\"" +
                 "Order by \"Nombre\", \"Apellido\"";
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            List<Cliente> data = new List<Cliente>();
-
-            while (dr.Read())
+            try
             {
-                System.Diagnostics.Debug.WriteLine("connection established");
-                data.Add(new Cliente()
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();           
+                while (dr.Read())
                 {
-                    CI = Int32.Parse(dr[0].ToString()),
-                    Nombre = dr[1].ToString(),
-                    Apellido = dr[2].ToString(),
-                });
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Cliente()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        Apellido = dr[2].ToString(),
+                    });
+                }
+                dr.Close();
             }
-            dr.Close();
+            catch (Exception e)
+            {
+                conn.Close();
+            }
             conn.Close();
             return data;
-
         }
 
         //BUSCAR A UNO

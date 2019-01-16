@@ -1,0 +1,82 @@
+﻿@model IEnumerable<bd1.Models.Empleado>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string name = ViewBag.name;
+    string rol = ViewBag.rol;
+}
+
+
+@Html.Action("MenuSuperior", new { viewba = ViewBag.name });
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ASISTENCIA</b></p>
+</div>
+
+@using (Html.BeginForm("BuscarEmpleadoAsistencia", "Empleado",
+           FormMethod.Post))
+{
+    if ((rol == "Admin") || (rol == "Supervisor"))
+    {
+        @Html.Action("TBCliente");
+        <input type="submit" value="Buscar" />
+        <input type="button" style="float:right; margin-right:1%" value="Registrar Asistencia"
+               onclick="location.href='@Url.Action("RegistroAsistencia", "Empleado")'" />
+    }
+    else
+    {
+        <input type="button" value="Registrar Asistencia"
+               onclick="location.href='@Url.Action("RegistroAsistencia", "Empleado")'" />
+    }
+}
+<br />
+@if ((rol == "Admin") || (rol == "Supervisor"))
+{
+    <div class="jumbotron">
+        <table class="table table-bordered table-hover" style="border-spacing:5px;">
+            <thead style="background:lightgray">
+                <tr>
+                    <th>
+                        Cedula
+                    </th>
+                    <th>
+                        Empleado
+                    </th>
+                    <th>
+                        Asistencia
+                    </th>
+                    <th>
+                        Zona
+                    </th>
+                    <th>
+                        Sucursal
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (var empleado in Model)
+            {
+                <tr>
+                    <td>
+                        <p>@empleado.CI</p>
+                    </td>
+                    <td>
+                        <p>@empleado.Nombre</p>
+                    </td>
+                    <td>
+                        <p>@empleado.horario</p>
+                    </td>
+                    <td>
+                        <p>@empleado.zona</p>
+                    </td>
+                    <td>
+                        <p>@empleado.perteneceOficina</p>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+}

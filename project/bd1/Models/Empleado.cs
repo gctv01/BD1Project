@@ -25,6 +25,7 @@ namespace bd1.Models
         public string gastos { get; set; }
         public string horario { get; set; }
         public string perteneceOficina { get; set; }
+        public string zona { get; set; }
         public string comandaOficina { get; set; }
         public string telefono { get; set; }
         //PARA REPORTES
@@ -176,6 +177,67 @@ namespace bd1.Models
             conn.Close();
             return data;
         }
+        //Para ASISTENCIA
+        public List<Empleado> obtenerEmpleadoAsistencia()
+        {
+            List<Empleado> data = null;
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"CI\", e.\"Nombre\"||' '||\"Apellido\", to_char(a.\"Fecha\",'DD-MM-YYYY'), z.\"Nombre\", s.\"Nombre\" " +
+                "FROM \"Empleado\" e, \"Asistencia\" a, \"Zona\" z, \"Sucursal\" s " +
+                "WHERE e.\"CI\"=a.\"CIEmpleado\" and a.\"CODZona\"=z.\"COD\" and z.\"FK-SucursalZ\"=s.\"COD\" " +
+                "order by a.\"Fecha\" DESC ";
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+
+                while (dr.Read())
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Empleado()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        horario = dr[2].ToString(),
+                        zona = dr[3].ToString(),
+                        perteneceOficina = dr[4].ToString(),
+                    });
+                }
+                dr.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+            }
+            conn.Close();
+            return data;
+        }
+        public int registrarAsistencia(int ci, int codZona,string fecha)
+        {
+            NpgsqlConnection conn = DAOEmpleado.getInstanceDAO();
+            conn.Open();
+            int fkgastos = 4;
+
+            String sql = "INSERT INTO \"Asistencia\" (\"COD\", \"CIEmpleado\", \"CODZona\", \"Fecha\") " +
+                " VALUES ((SELECT NEXTVAL('seq')),'" + ci + "','" + codZona + "', " +
+                "TO_DATE('" + fecha + "', 'YYYY-MM-DD'));";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+                conn.Close();
+                return 0;
+            }
+        }
         //BUSCAR A UNO
         public Empleado buscarEmpleado(int cod)
         {
@@ -184,7 +246,7 @@ namespace bd1.Models
             conn.Open();
             string sql = "SELECT \"CI\", \"Nombre\", \"Apellido\", \"FechaNac\", " +
                 " \"Correo\", \"NivelAca\", \"Profesion\", \"EstadoCivil\", \"CantHijos\", \"CorreoEmpresa\", " +
-                " \"SalarioAsig\", \"FechaContratado\" " +
+                " \"SalarioAsig\", to_char(\"FechaContratado\", 'DD-MM-YYYY') " +
                 "FROM \"Empleado\" " +
                 "WHERE \"CI\" = " + cod + ";";
 
@@ -208,12 +270,49 @@ namespace bd1.Models
                 data.correoEmp = dr[9].ToString();
                 data.salarioAsig = Int32.Parse(dr[10].ToString());
                 data.fechaContratado = dr[11].ToString();
-                //data.telefono = dr[12].ToString();
             }
             dr.Close();
             conn.Close();
             return data;
 
+        }
+        //Buscar asistencia de ese empleado
+        public List<Empleado> buscarEmpleadoAsistencia(int cod)
+        {
+            List<Empleado> data = null;
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"CI\", e.\"Nombre\"||' '||\"Apellido\", to_char(a.\"Fecha\",'DD-MM-YYYY'), z.\"Nombre\", s.\"Nombre\" " +
+                "FROM \"Empleado\" e, \"Asistencia\" a, \"Zona\" z, \"Sucursal\" s " +
+                "WHERE e.\"CI\"=a.\"CIEmpleado\" and a.\"CODZona\"=z.\"COD\" and z.\"FK-SucursalZ\"=s.\"COD\" and e.\"CI\" = " + cod + " " +
+                "order by a.\"Fecha\" DESC  ";
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+
+                while (dr.Read())
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Empleado()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        horario = dr[2].ToString(),
+                        zona = dr[3].ToString(),
+                        perteneceOficina = dr[4].ToString(),
+                    });
+                }
+                dr.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+            }
+            conn.Close();
+            return data;
         }
         //ELIMINAR
         public int eliminarEmpleado(int cod)
@@ -248,7 +347,7 @@ namespace bd1.Models
                             "\"Correo\"='" + correo + "', \"NivelAca\"='" + nivelAca + "'," +
                             "\"Profesion\"='" + profesion + "',\"EstadoCivil\"='" + estCivil + "', \"CantHijos\"='" + cantHijos + "'," +
                             "\"CorreoEmpresa\"='" + correoEmp + "', \"SalarioAsig\"='" + salarioAsig + "'," +
-                            "\"FechaContratado\"= TO_DATE('" + fechaContratado + "', 'YYYY-MM-DD')," +
+                            "\"FechaContratado\"= TO_DATE('" + fechaContratado + "', 'YYYY-MM-DD') " +
                             " WHERE \"CI\"= " + ci + "";
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -455,6 +554,47 @@ namespace bd1.Models
                 data.gastos = dr[0].ToString();
             }
             dr.Close();
+            conn.Close();
+            return data;
+        }
+        //REPORTE 3 DEL ENUNCIADO
+        public List<Empleado> obtenerReporte3E()
+        {
+            List<Empleado> data = null;
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"CI\", \"Nombre\"||' '||\"Apellido\", to_char(\"FechaNac\", 'DD-MM-YYYY'), \"Correo\", " +
+                "\"Profesion\", \"EstadoCivil\", \"CantHijos\", \"SalarioAsig\", to_char(\"FechaContratado\", 'DD-MM-YYYY') " +
+                "FROM \"Empleado\" ";
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+
+                while (dr.Read())
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Empleado()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        fechaNac = dr[2].ToString(),
+                        correo = dr[3].ToString(),
+                        profesion = dr[4].ToString(),
+                        estCivil = dr[5].ToString(),
+                        cantHijos = dr[6].ToString(),
+                        salarioAsig = Int32.Parse(dr[7].ToString()),
+                        fechaContratado = dr[8].ToString(),
+                    });
+                }
+                dr.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+            }
             conn.Close();
             return data;
         }

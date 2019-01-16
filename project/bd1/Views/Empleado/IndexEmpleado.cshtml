@@ -4,7 +4,10 @@
     ViewBag.Title = "Homempleado";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@{
+    string name = ViewBag.name;
+    string rol = ViewBag.rol;
+}
 
 @Html.Action("MenuSuperior", new { viewba = ViewBag.name });
 <div>
@@ -16,10 +19,16 @@
 {
     @Html.Action("TBCliente");
     <input type="submit" value="Buscar" />
-    <input type="button" style="float:right" value="Eliminar Empleado"
-           onclick="location.href='@Url.Action("EliminarEmpleado", "Empleado")'" />
-    <input type="button" style="float:right; margin-right:1%" value="Agregar Empleado"
-           onclick="location.href='@Url.Action("AgregarEmpleado", "Empleado")'" />
+    if ((rol == "Admin") || (rol == "Supervisor"))
+    {
+        <input type="button" style="float:right" value="Eliminar Empleado"
+               onclick="location.href='@Url.Action("EliminarEmpleado", "Empleado")'" />
+    }
+    if ((rol == "Admin") || (rol == "Supervisor") || (rol == "Empleado"))
+    {
+        <input type="button" style="float:right; margin-right:1%" value="Agregar Empleado"
+               onclick="location.href='@Url.Action("AgregarEmpleado", "Empleado")'" />
+    }
 }
 <br />
 <div class="jumbotron">
@@ -46,23 +55,30 @@
 
         @foreach (var empleado in Model)
         {
-        <tr>
-            <td>
-                @Html.ActionLink(empleado.CI.ToString(), "ModificarEmpleado", "Empleado", new { id = empleado.CI }, null)
-            </td>
-            <td>
-                <p>@empleado.Nombre</p>
-            </td>
-            <td>
-                <p>@empleado.Apellido</p>
-            </td>
-            <td>
-                <p>@empleado.salarioAsig</p>
-            </td>
-            <td>
-                <p>@empleado.fechaNac</p>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @if ((rol == "Admin") || (rol == "Supervisor"))
+                    {
+                        @Html.ActionLink(empleado.CI.ToString(), "ModificarEmpleado", "Empleado", new { id = empleado.CI }, null)
+                    }
+                    else
+                    {
+                        <p>@empleado.CI</p>
+                    }
+                </td>
+                <td>
+                    <p>@empleado.Nombre</p>
+                </td>
+                <td>
+                    <p>@empleado.Apellido</p>
+                </td>
+                <td>
+                    <p>@empleado.salarioAsig</p>
+                </td>
+                <td>
+                    <p>@empleado.fechaNac</p>
+                </td>
+            </tr>
         }
 
     </table>

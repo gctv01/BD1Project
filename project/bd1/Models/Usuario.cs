@@ -12,6 +12,7 @@ namespace bd1.Models
         public string username { get; set; }
         public string contrasena { get; set; }
         public string Rol { get; set; }
+        public int codRol { get; set; }
     }
 
     public class DAOUsuario : DAO
@@ -121,7 +122,7 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            string sql = "SELECT \"Nombre\", \"Contrasena\", \"FK-EmpleadoU\" " +
+            string sql = "SELECT \"Nombre\", \"Contrasena\", \"FK-EmpleadoU\", \"FK-RolU\" " +
                         "FROM \"Usuario\" WHERE \"Nombre\" = '" + username + "' AND" +
                         "\"FK-ClienteU\" is NULL";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -198,7 +199,7 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT u.\"COD\", u.\"Nombre\", r.\"Nombre\" " +
+            string sql = "SELECT u.\"COD\", u.\"Nombre\", u.\"FK-RolU\", r.\"Nombre\" " +
                             "FROM \"Usuario\" u, \"Rol\" r " +
                             "WHERE u.\"FK-RolU\" = r.\"COD\"";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -213,7 +214,8 @@ namespace bd1.Models
                 {
                     cod = Int32.Parse(dr[0].ToString()),
                     username = dr[1].ToString(),
-                    Rol = dr[2].ToString()
+                    codRol = Int32.Parse(dr[2].ToString()),
+                    Rol = dr[3].ToString()
                 });
             }
             dr.Close();
@@ -246,6 +248,31 @@ namespace bd1.Models
             conn.Close();
             return data;
         }
+        public Usuario buscarUsuarioRol(string username, string contrasena)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT u.\"COD\", u.\"Nombre\", u.\"FK-RolU\", r.\"Nombre\" " +
+                            "FROM \"Usuario\" u, \"Rol\" r " +
+                            "WHERE u.\"FK-RolU\" = r.\"COD\" and u.\"Nombre\"= '"+ username + "' and u.\"Contrasena\"= '" + contrasena + "' ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Usuario data = new Usuario();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.cod = Int32.Parse(dr[0].ToString());
+                data.username = dr[1].ToString();
+                data.codRol = Int32.Parse(dr[2].ToString());
+                data.Rol = dr[3].ToString();
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
         //MODIFICAR
         public int modificarUsuario(int cod, string nombre, string contrasena, string rol)
         {
@@ -268,6 +295,31 @@ namespace bd1.Models
                 conn.Close();
                 return 0;
             }
+        }
+        //
+        public int insertarAccion(int codU, int codAcc, string fecha, string accion)
+        {
+            NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
+            conn.Open();
+
+            String sql = "INSERT INTO \"Accion-Usuario\" (\"codUsuario\", \"codAccion\", \"Fecha\", \"Descripcion\") " +
+                "VALUES (" + codU + ", " + codAcc + ", TO_TIMESTAMP('" + fecha + "', 'DD-MM-YYYY HH24:MI:SS'), '"+ accion + "');";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            try
+            {
+                int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                conn.Close();
+                return resp;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.TextWriterTraceListener writer = new System.Diagnostics.TextWriterTraceListener(System.Console.Out);
+                System.Diagnostics.Debug.Listeners.Add(writer);
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+                conn.Close();
+                return 0;
+            }
+
         }
     }
 

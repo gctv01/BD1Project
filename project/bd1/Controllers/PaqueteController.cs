@@ -17,6 +17,9 @@ namespace bd1.Controllers
         }
         public PartialViewResult MenuSuperior()
         {
+            string name = TempData["username"].ToString();
+            ViewBag.name = name;
+            TempData["username"] = name;
             return PartialView("MenuSuperiorAdm");
         }
     }

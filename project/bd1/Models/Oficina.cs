@@ -13,6 +13,8 @@ namespace bd1.Models
         public int capacidad { get; set; }
         public string correo { get; set; }
         public int almacenamiento { get; set; }
+        public int codZona { get; set; }
+        public string nombreZona { get; set; }
         //Para reportes
         public int cantEnvios { get; set; }
         public string descripcion { get; set; }
@@ -205,6 +207,32 @@ namespace bd1.Models
                 conn.Close();
                 return 0;
             }
+        }
+        //Registro de Asistencias
+        public List<Oficina> obtenerZona()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT z.\"COD\",z.\"Nombre\" FROM \"Zona\" z ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Oficina> data = new List<Oficina>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Oficina()
+                {
+                    codZona = Int32.Parse(dr[0].ToString()),
+                    nombreZona = dr[1].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
         }
         //REPORTE 1 REQUERIMIENTOS
         public List<Oficina> obtenerReporte1R()

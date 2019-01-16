@@ -4,7 +4,10 @@
     ViewBag.Title = "Homempleado";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@{
+    string name = ViewBag.name;
+    string rol = ViewBag.rol;
+}
 
 @Html.Action("MenuSuperior", new { viewba = ViewBag.name });
 <div>
@@ -15,11 +18,22 @@
            FormMethod.Post))
 {
     @*@Html.Action("TBOficina");*@
-    <input type="submit" value="Buscar" />
-    <input type="button" style="float:right" value="Eliminar Ruta"
-           onclick="location.href='@Url.Action("EliminarRuta", "Ruta")'" />
-    <input type="button" style="float:right; margin-right:1%" value="Agregar Ruta"
-           onclick="location.href='@Url.Action("AgregarRuta", "Ruta")'" />
+    @*<input type="submit" value="Buscar" />*@
+    if ((rol == "Admin") || (rol == "Supervisor"))
+    {
+        <input type="button" value="Agregar Ruta"
+               onclick="location.href='@Url.Action("AgregarRuta", "Ruta")'" />
+        <input type="button" value="Eliminar Ruta"
+               onclick="location.href='@Url.Action("EliminarRuta", "Ruta")'" />
+    }
+    else
+    {
+        if ((rol == "Admin") || (rol == "Supervisor") || (rol == "Cajero"))
+        {
+            <input type="button" value="Agregar Ruta"
+                   onclick="location.href='@Url.Action("AgregarRuta", "Ruta")'" />
+        }
+    }
 }
 <br />
 <div class="jumbotron">
@@ -45,7 +59,14 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(@oficina.COD.ToString(), "ModificarRuta", "Ruta", new { id = @oficina.COD}, null)
+                    @if ((rol == "Admin") || (rol == "Supervisor"))
+                    {
+                        @Html.ActionLink(@oficina.COD.ToString(), "ModificarRuta", "Ruta", new { id = @oficina.COD }, null)
+                    }
+                    else
+                    {
+                        <p>@oficina.COD</p>
+                    }
                 </td>
                 <td>
                     <p>@oficina.origen</p>
