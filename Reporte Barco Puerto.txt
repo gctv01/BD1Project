@@ -1,0 +1,2 @@
+Select b."Placa", b."Nombre",b."SerialMotor",b."Peso", b."Descripcion"  , pu."COD" as Puerto, pu."Puestos", pu."Calado", pu."TotalMuelles"
+From "Barco" b, "Puerto" pu

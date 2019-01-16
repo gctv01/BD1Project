@@ -1,0 +1,5 @@
+Select pa."COD" as Paquete, estado
+From "Paquete" pa, (Select es."Nombre" as estado
+				   From "Estatus" es, "Envio" e, "Paquete" pa
+				   Where e."FK-EstatusE"=es."COD" and pa."FK-EnvioP"=e."COD") x
+Order by estado

@@ -1,0 +1,3 @@
+Select te."Placa"
+From "Terrestre" te
+Order by te."Placa"

@@ -1,0 +1,6 @@
+Select cl."CI", cl."Nombre", count(pa."FK-Cliente1")
+From "Cliente" cl, "Paquete" pa, "Sucursal" s
+Where pa."FK-Cliente1"=cl."CI"
+Group by cl."CI"
+order by count(pa."FK-Cliente1") DESC
+limit 1

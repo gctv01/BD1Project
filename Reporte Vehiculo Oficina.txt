@@ -1,0 +1,3 @@
+Select te."Placa", s."COD" as Sucursal
+From "Terrestre" te, "Sucursal" s
+Group by s."COD", te."Placa"a

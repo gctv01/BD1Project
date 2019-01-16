@@ -1,0 +1,3 @@
+Select pa."COD", ti."Clasificacion", s."COD", s."Nombre"
+From "Paquete" pa, "TipoPaquete" ti, "Sucursal" s, "Envio" e 
+Where pa."FK-Sucursal"=s."COD" and pa."FK-TipoPaquete"=ti."COD" and  e."FechaInicio">= '01-01-2015' and e."FechaInicio" < '2-12-2018' and pa."FK-EnvioP" = e."COD"

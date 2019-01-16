@@ -1,0 +1,4 @@
+Select s."COD", s."Nombre", AVG(pa."COD"), e."FechaInicio"
+From "Sucursal" s, "Paquete" pa, "Envio" e
+Where pa."FK-EnvioP" = e."COD" and pa."FK-Sucursal" = s."COD" 
+Group by s."COD", s."Nombre", e."FechaInicio"
