@@ -721,7 +721,7 @@ namespace bd1.Models
                 {
                     cod = Int32.Parse(dr[0].ToString()),
                     nombre = dr[1].ToString(),
-                    descripcion = dr[4].ToString(),
+                    descripcion = dr[2].ToString(),
                 });
             }
             dr.Close();
