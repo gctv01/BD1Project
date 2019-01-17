@@ -16,7 +16,7 @@
             }
         }
         <li style="margin-right:8%">@Html.ActionLink("Clientes", "IndexCliente", "Cliente", new { viewba = ViewBag.name }, null)</li>
-        <li style="margin-right:8%">@Html.ActionLink("Clientes", "LVIP", "Cliente", new { viewba = ViewBag.name }, null)</li>
+        <li style="margin-right:8%">@Html.ActionLink("Clientes L-VIP", "LVIP", "Cliente", new { viewba = ViewBag.name }, null)</li>
         @{
             if (nameRol == "Admin")
             {
@@ -24,12 +24,13 @@
                 <li style="margin-right:8%">@Html.ActionLink("Usuarios", "IndexUsuario", "Usuario", new { viewba = ViewBag.name }, null)</li>
             }
         }
-        <li style="margin-right:8%">@Html.ActionLink("RUTAS", "IndexRuta", "Ruta", new { viewba = ViewBag.name }, null)</li>
+        
     </ul>
 </div>
 <div class="hola">
     <ul class="hola">
         @{
+            <li style="margin-right:8%">@Html.ActionLink("RUTAS", "IndexRuta", "Ruta", new { viewba = ViewBag.name }, null)</li>
             <li style="margin-right:8%">@Html.ActionLink("Enviar paquete", "IndexEnvio", "EnviarPaquete", new { viewba = ViewBag.name }, null)</li>
             <li style="margin-right:8%">@Html.ActionLink("Asistencia", "AsistenciaEmpleado", "Empleado", new { viewba = ViewBag.name }, null)</li>
 

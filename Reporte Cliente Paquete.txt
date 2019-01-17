@@ -1,6 +1,6 @@
-Select cl."CI", cl."Nombre", count(pa."FK-Cliente1")
-From "Cliente" cl, "Paquete" pa, "Sucursal" s
-Where pa."FK-Cliente1"=cl."CI"
-Group by cl."CI"
-order by count(pa."FK-Cliente1") DESC
+﻿Select u."COD", u."Nombre", count(au."Descripcion")
+From "Accion-Usuario" au, "Usuario" u
+Where au."Descripcion"='Registro Envio%' and au."codUsuario"=u."COD"
+Group by u."COD", u."Nombre"
+order by count(au."Descripcion") DESC
 limit 1

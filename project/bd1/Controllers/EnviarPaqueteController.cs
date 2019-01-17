@@ -156,8 +156,12 @@ namespace bd1.Controllers
             int fkC2 = Int32.Parse(clienteD);
             int fkTP = Int32.Parse(tipoPaquete);
             int fkS = Int32.Parse(sucursal);
+
+            OficinaDAO dataS = OficinaDAO.getInstance();
+            Oficina oficina = dataS.buscarOficina(fkS);
+
             DAOPaquete data = DAOPaquete.getInstance();
-            data.insertarPaquete(model.peso, model.volumen, fkTP, fkS, model2.cod, fkC1, fkC2);
+            data.insertarPaquete(model.peso, model.volumen, fkTP, fkS, model2.cod, fkC1, fkC2, oficina.nombre);
 
             DAOEnvio data2 = DAOEnvio.getInstance();
             Envio envio = data2.buscarUltimoEnvio();
@@ -234,7 +238,7 @@ namespace bd1.Controllers
             if (cliente.cantEnvios >= 5)
             {
                 ViewBag.LVIP = "10% de descuento por ser L-VIP, sin serlo el monto era " + envio.monto;
-                envio.monto = envio.monto * 0.1;      
+                envio.monto = envio.monto - (envio.monto * 0.1);      
             }
 
             return View("~/Views/EnviarPaquete/NuevoEnvioFinal.cshtml", envio);
@@ -561,7 +565,8 @@ namespace bd1.Controllers
 
             DAOUsuario dataU = DAOUsuario.getInstance();
             string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
-            string accion = "Elimino Envio " + model.cod;
+            string accion = "Elimino Envio " + model.cod
+                ;
             dataU.insertarAccion(codUser, 2, today, accion);
 
             //int cod = Int32.Parse(model.cod);

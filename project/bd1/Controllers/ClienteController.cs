@@ -238,6 +238,17 @@ namespace bd1.Controllers
             string name = TempData["username"].ToString();
             string nameRol = TempData["rol"].ToString();
             int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Cliente L-VIP ";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
             return View();
         }
        

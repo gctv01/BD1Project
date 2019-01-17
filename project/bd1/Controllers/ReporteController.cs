@@ -188,6 +188,26 @@ namespace bd1.Controllers
             List<Empleado> empleados = data.obtenerReporte8R();
             return View(empleados);
         }
+        public ActionResult Reporte10R()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 10R";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOUsuario data = DAOUsuario.getInstance();
+            List<Usuario> usuarios = data.obtenerReporte10R();
+            return View(usuarios);
+        }
         public ActionResult Reporte12_1R()
         {
             string name = TempData["username"].ToString();
@@ -439,6 +459,401 @@ namespace bd1.Controllers
             DAOCliente data = DAOCliente.getInstance();
             List<Cliente> clientes = data.obtenerReporte8E();
             return View(clientes);
+        }
+        public ActionResult Reporte9E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 9E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOPaquete data = DAOPaquete.getInstance();
+            List<Paquete> paquetes = data.obtenerReporte9E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte10E_1()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Reporte10E_1(string fecha1, string fecha2)
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 10E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> oficinas = data.obtenerReporte10E(fecha1, fecha2);
+            return View("~/Views/Reporte/Reporte10E.cshtml", oficinas);
+        }
+        public ActionResult Reporte11E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 11E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOUsuario data = DAOUsuario.getInstance();
+            List<Usuario> paquetes = data.obtenerReporte11E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte12E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 12E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            List<Vehiculo> paquetes = data.obtenerReporte12E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte13E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 13E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            List<Vehiculo> paquetes = data.obtenerReporte13E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte14E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 14E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> paquetes = data.obtenerReporte14E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte16E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 16E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOAvion data = DAOAvion.getInstance();
+            List<Avion> paquetes = data.obtenerAviones();
+            return View(paquetes);
+        }
+        public ActionResult Reporte17_1E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 17_1E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            List<Vehiculo> paquetes = data.obtenerReporte17_1E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte17_2E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 17_2E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            List<Vehiculo> paquetes = data.obtenerReporte17_2E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte18E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 18E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOEmpleado data = DAOEmpleado.getInstance();
+            List<Empleado> paquetes = data.obtenerReporte18E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte19E_1()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Reporte19E_1(string fecha1, string fecha2)
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 19E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOPaquete data = DAOPaquete.getInstance();
+            List<Paquete> paquetes = data.obtenerReporte19E(fecha1, fecha2);
+            return View("~/Views/Reporte/Reporte19E.cshtml", paquetes);
+        }
+        public ActionResult Reporte20E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 20E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> paquetes = data.obtenerReporte20E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte21E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 21E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> paquetes = data.obtenerReporte21E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte22E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 22E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> paquetes = data.obtenerReporte22E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte23E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 23E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOUsuario data = DAOUsuario.getInstance();
+            List<Usuario> paquetes = data.obtenerReporte23E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte26E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 26E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOLugar data = DAOLugar.getInstance();
+            List<Lugar> paquetes = data.obtenerReporte26E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte27E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 27E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            DAOVehiculo data = DAOVehiculo.getInstance();
+            List<Vehiculo> paquetes = data.obtenerReporte27E();
+            return View(paquetes);
+        }
+        public ActionResult Reporte28E_1()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Reporte28E_1(string fecha1, string fecha2)
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 28E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> paquetes = data.obtenerReporte28E(fecha1, fecha2);
+            return View("~/Views/Reporte/Reporte28E.cshtml", paquetes);
+        }
+        public ActionResult Reporte30E()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            ViewBag.name = name;
+            ViewBag.rol = nameRol;
+            TempData["username"] = name;
+            TempData["rol"] = nameRol;
+            TempData["codUser"] = codUser;
+
+            DAOUsuario dataU = DAOUsuario.getInstance();
+            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+            string accion = "Reporte 30E";
+            dataU.insertarAccion(codUser, 2, today, accion);
+
+            OficinaDAO data = OficinaDAO.getInstance();
+            List<Oficina> paquetes = data.obtenerReporte30E();
+            return View(paquetes);
         }
         public PartialViewResult MenuSuperior()
         {

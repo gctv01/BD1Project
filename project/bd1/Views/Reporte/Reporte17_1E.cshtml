@@ -1,0 +1,76 @@
+﻿@model IEnumerable<bd1.Models.Vehiculo>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px">
+        <b>
+            Listado de puertos con la información base.
+        </b>
+    </p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Puerto
+                </th>
+                <th>
+                    Puestos
+                </th>
+                <th>
+                    Calado(m)
+                </th>
+                <th>
+                    Total Muelles
+                </th>
+                <th>
+                    Uso
+                </th>
+                <th>
+                    Longitud(m)
+                </th>
+                <th>
+                    Ancho(m)
+                </th>
+            </tr>
+        </thead>
+        @foreach (var envio in Model)
+        {
+            <tr>
+                <td>
+                    <p>@envio.codPuerto</p>
+                </td>
+                <td>
+                    <p>@envio.puestosPuerto</p>
+                </td>
+                <td>
+                    <p>@envio.CaladoPuerto</p>
+                </td>
+                <td>
+                    <p>@envio.muellesPuerto</p>
+                </td>
+                <td>
+                    <p>@envio.descripcion</p>
+                </td>
+                <td>
+                    <p>@envio.longitudPuerto</p>
+                </td>
+                <td>
+                    <p>@envio.anchoPuerto</p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

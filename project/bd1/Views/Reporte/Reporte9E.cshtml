@@ -1,0 +1,77 @@
+﻿@model IEnumerable<bd1.Models.Paquete>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>Listado de paquetes por estatus</b></p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Paquete
+                </th>
+                <th>
+                    Peso(Kg)
+                </th>
+                <th>
+                    Volumen(m3)
+                </th>
+                <th>
+                    Tipo
+                </th>
+                <th>
+                    Sucursal
+                </th>
+                <th>
+                    Cliente Remitente
+                </th>
+                <th>
+                    Cliente Destinatario
+                </th>
+                <th>
+                    Estatus
+                </th>
+            </tr>
+        </thead>
+        @foreach (var paquete in Model)
+        {
+        <tr>
+            <td>
+                <p>@paquete.cod</p>
+            </td>
+            <td>
+                <p>@paquete.peso</p>
+            </td>
+            <td>
+                <p>@paquete.volumen</p>
+            </td>
+            <td>
+                <p>@paquete.ClasificacionTipoPaquete</p>
+            </td>
+            <td>
+                <p>@paquete.NombreSucursal</p>
+            </td>
+            <td>
+                <p>@paquete.NombreClienteEnvia</p>
+            </td>
+            <td>
+                <p>@paquete.NombreClienteRecibe</p>
+            </td>
+            <td>
+                <p>@paquete.estatus</p>
+            </td>
+        </tr>
+        }
+    </table>
+</div>

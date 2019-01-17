@@ -25,7 +25,7 @@
     <ul>
         <!-- REPORTES DE LOS REQUERIMIENTOS -->
         <li style="margin-right:15%">@Html.ActionLink("Oficina que envia y recibe mas paquetes", "Reporte1R", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Ingresos y Egresos por Oficina", "Reporte2R", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Ingresos y Egresos por oficina por mes", "Reporte2R", "Reporte")</li>
         <li style="margin-right:15%">@Html.ActionLink("Peso promedio de los paquete que se envian por Oficina", "Reporte3R", "Reporte")</li>
         <li style="margin-right:15%">@Html.ActionLink("Mes del ano en el que se realizan mas envios", "Reporte4R", "Reporte")</li>
         <li style="margin-right:15%">@Html.ActionLink("Ruta mas utilizada", "Reporte5R", "Reporte")</li>
@@ -35,7 +35,7 @@
             @Html.ActionLink("Listado de Asistencia indicando el horario asignado al Empleado", "Reporte8R", "Reporte")
         </li>
         <li style="margin-right:15%">
-            @Html.ActionLink("Listado de paquetes con todos los cambios de estatus indicando las fechas de cambio.", "IndexReporte", "Reporte")
+            @Html.ActionLink("AUDITORIA DEL SISTEMA", "Reporte10R", "Reporte")
         </li>
         <li style="margin-right:15%">@Html.ActionLink("Sucursales de Puertos", "Reporte12_1R", "Reporte")</li>
         <li style="margin-right:15%">@Html.ActionLink("Sucursales de Aeropuertos", "Reporte12_2R", "Reporte")</li>
@@ -69,38 +69,42 @@
             @Html.ActionLink("¿Cuáles son los clientes frecuentes por oficina ordenado alfabéticamente? " +
        "Un cliente es frecuente si envía más de 5 paquetes en un mes.", "Reporte8E", "Reporte")
         </li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de paquetes por estatus", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Oficina que tiene más tránsito de paquetes según un periodo.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("¿Qué usuario registra más paquetes por oficina?", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de vehículos por oficina BASE.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Oficinas y sus zonas por estado.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Oficina que tiene más tránsito de paquetes según un periodo.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("¿Qué usuario registra más paquetes por oficina?", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Oficinas y sus zonas por estado.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de aviones y sus características.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de puertos y aeropuertos con la información base.", "IndexReporte", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Listado de paquetes por estatus", "Reporte9E", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Oficina que tiene más tránsito de paquetes según un periodo.", "Reporte10E_1", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("¿Qué usuario registra más paquetes por oficina?", "Reporte11E", "Reporte")</li>
+        <li style="margin-right:15%">@Html.ActionLink("Listado de vehículos por oficina BASE.", "Reporte12E", "Reporte")</li>
         <li style="margin-right:15%">
-            @Html.ActionLink("Listado de empleados con su horario y ubicación dentro de cada oficina ordenando " +
-       "el listado por oficina y por empleado.", "IndexReporte", "Reporte")
-        </li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de paquetes por clasificación y por oficina en un periodo de tiempo.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Promedio de paquetes diarios por oficina.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de oficinas indicando región, país, continente.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("¿Qué tipo de paquetes combinan más medios de transporte?", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("¿Cuál oficina es la más amplia por estado, región y país?", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de usuarios y roles.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de acciones ejecutadas por usuario y con qué rol se hizo.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Promedio de días de estancia de un paquete dentro de las zonas de cada oficina.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de nomina semanal por oficina.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">
-            @Html.ActionLink("Costo de cada empleado por oficina en un periodo de tiempo. Al final del" +
-       " reporte debe mostrar el total los cálculos.", "IndexReporte", "Reporte")
-        </li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de talleres por zona.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de flota con su última fecha de revisión y próxima fecha por oficina.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Contabilidad: Indicar ingresos y egresos por oficina. Por periodo de tiempo.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Oficinas más costosas por estado.", "IndexReporte", "Reporte")</li>
-        <li style="margin-right:15%">@Html.ActionLink("Listado de servicios por oficina.", "IndexReporte", "Reporte")</li>
+            @Html.ActionLink("Flota terrestre nacional con tipo de vehículo y ordenado por serial de motor " +
+       "alfabéticamente", "Reporte13E", "Reporte")
+    </li>
+    <li style="margin-right:15%">@Html.ActionLink("Oficinas y sus zonas por estado.", "Reporte14E", "Reporte")</li>
+
+    @*<li style="margin-right:15%">@Html.ActionLink("Centros de servicio a nivel internacional.", "Reporte15E", "Reporte")</li>*@
+    <li style="margin-right:15%">@Html.ActionLink("Listado de aviones y sus características.", "Reporte16E", "Reporte")</li>
+    <li style="margin-right:15%">@Html.ActionLink("Listado de puertos con la información base.", "Reporte17_1E", "Reporte")</li>
+    <li style="margin-right:15%">@Html.ActionLink("Listado de aeropuertos con la información base.", "Reporte17_2E", "Reporte")</li>
+    <li style="margin-right:15%">
+        @Html.ActionLink("Listado de empleados con su horario y ubicación dentro de cada oficina ordenando " +
+   "el listado por oficina y por empleado.", "Reporte18E", "Reporte")
+    </li>
+    <li style="margin-right:15%">@Html.ActionLink("Listado de paquetes por clasificación y por oficina en un periodo de tiempo.", "Reporte19E_1", "Reporte")</li>
+    <li style="margin-right:15%">@Html.ActionLink("Promedio de paquetes diarios por oficina.", "Reporte20E", "Reporte")</li>
+
+    <li style="margin-right:15%">@Html.ActionLink("Listado de oficinas indicando región.", "Reporte21E", "Reporte")</li>
+    @*<li style="margin-right:15%">@Html.ActionLink("¿Qué tipo de paquetes combinan más medios de transporte?", "IndexReporte", "Reporte")</li>*@
+    <li style="margin-right:15%">@Html.ActionLink("¿Cuál oficina es la más amplia por estado?", "Reporte22E", "Reporte")</li>
+    <li style="margin-right:15%">@Html.ActionLink("Listado de usuarios y roles.", "Reporte23E", "Reporte")</li>
+    @*<li style="margin-right:15%">@Html.ActionLink("Promedio de días de estancia de un paquete dentro de las zonas de cada oficina.", "IndexReporte", "Reporte")</li>*@
+    @*<li style="margin-right:15%">@Html.ActionLink("Listado de nomina semanal por oficina.", "Reporte24E", "Reporte")</li>
+    <li style="margin-right:15%">
+        @Html.ActionLink("Costo de cada empleado por oficina en un periodo de tiempo. Al final del" +
+   " reporte debe mostrar el total los cálculos.", "Reporte25E_1", "Reporte")*@
+    </li>
+    <li style="margin-right:15%">@Html.ActionLink("Listado de talleres por zona.", "Reporte26E", "Reporte")</li>
+    <li style="margin-right:15%">@Html.ActionLink("Listado de flota con su última fecha de revisión por oficina.", "Reporte27E", "Reporte")</li>
+    <li style="margin-right:15%">@Html.ActionLink("Contabilidad: Indicar ingresos y egresos por oficina. Por periodo de tiempo.", "Reporte28E_1", "Reporte")</li>
+    @*<li style="margin-right:15%">@Html.ActionLink("Oficinas más costosas por estado.", "Reporte29E", "Reporte")</li>*@
+    <li style="margin-right:15%">@Html.ActionLink("Listado de servicios por oficina.", "Reporte30E", "Reporte")</li>
 
     </ul>
 </div>

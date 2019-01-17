@@ -1,0 +1,43 @@
+﻿@model IEnumerable<bd1.Models.Usuario>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>¿Qué usuario registra más paquetes por oficina?</b></p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Usuario
+                </th>
+                <th>
+                    Conteo de Envios realizado
+                </th>
+            </tr>
+        </thead>
+        @foreach (var envio in Model)
+        {
+            <tr>
+                <td>
+                    <p>@envio.username</p>
+                </td>
+                <td>
+                    <p>@envio.integer</p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
