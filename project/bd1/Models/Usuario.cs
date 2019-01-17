@@ -258,8 +258,8 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "SELECT u.\"COD\", u.\"Nombre\", u.\"FK-RolU\", r.\"Nombre\" " +
-                            "FROM \"Usuario\" u, \"Rol\" r " +
+            string sql = "SELECT  u.\"Nombre\", u.\"FK-RolU\", r.\"Nombre\" " +
+                            "FROM \"Usuario\" u , \"Rol\" r " +
                             "WHERE u.\"FK-RolU\" = r.\"COD\" and u.\"Nombre\"= '"+ username + "' and u.\"Contrasena\"= '" + contrasena + "' ";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -269,10 +269,10 @@ namespace bd1.Models
             while (dr.Read())
             {
                 System.Diagnostics.Debug.WriteLine("connection established");
-                data.cod = Int32.Parse(dr[0].ToString());
-                data.username = dr[1].ToString();
-                data.codRol = Int32.Parse(dr[2].ToString());
-                data.Rol = dr[3].ToString();
+                //data.cod = Int32.Parse(dr[0].ToString());
+                data.username = dr[0].ToString();
+                data.codRol = Int32.Parse(dr[1].ToString());
+                data.Rol = dr[2].ToString();
             }
             dr.Close();
             conn.Close();
