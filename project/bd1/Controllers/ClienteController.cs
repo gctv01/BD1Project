@@ -233,5 +233,13 @@ namespace bd1.Controllers
             List<Lugar> Lugares = data.obtenerLugar();
             return PartialView("LugarDropDown", Lugares);
         }
+        public ActionResult LVIP()
+        {
+            string name = TempData["username"].ToString();
+            string nameRol = TempData["rol"].ToString();
+            int codUser = Int32.Parse(TempData["codUser"].ToString());
+            return View();
+        }
+       
     }
 }

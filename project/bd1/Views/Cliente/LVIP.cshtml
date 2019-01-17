@@ -1,0 +1,45 @@
+﻿@model bd1.Models.Cliente
+
+@{
+    ViewBag.Title = "L-VIP CARNET";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string name = ViewBag.name;
+    string rol = ViewBag.rol;
+    int cod = ViewBag.cod;
+}
+<div class="container">
+    <img src="~/Content/carnet 1.png" alt="CARNET L-VIP" style="width:100%;">
+    <div class="id"><b>ID</b></div>
+    <div class="nombrecliente"><b>Nombre del cliente</b></div>
+</div>
+
+<style>
+
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .id {
+        font-size: 28px;
+        color: #55ACEE;
+        position: absolute;
+        top: 63%;
+        left: 70%;
+        transform: translate(-70%, -63%);
+    }
+
+
+    .nombrecliente {
+        font-size: 28px;
+        color: #55ACEE;
+        position: absolute;
+        top: 88%;
+        left: 50%;
+        transform: translate(-50%, -88%);
+    }
+</style>
+
