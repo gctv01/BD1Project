@@ -1,0 +1,4 @@
+﻿Select s."COD", s."Nombre", z."Nombre", l2."Nombre"
+From "Sucursal" s, "Zona" z, "Lugar" l, "Lugar" l2
+WHERE z."FK-SucursalZ"=s."COD" and s."FK-LugarS"=l."COD" and l."Fk-LugarL"=l2."COD"
+Order by l2."Nombre"

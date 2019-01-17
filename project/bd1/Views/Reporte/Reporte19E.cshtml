@@ -1,0 +1,54 @@
+﻿@model IEnumerable<bd1.Models.Paquete>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px">
+        <b>
+            Listado de paquetes por clasificación y por oficina en un periodo de tiempo.
+        </b>
+    </p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Paquete
+                </th>
+                <th>
+                    Tipo
+                </th>
+                <th>
+                    Sucursal
+                </th>
+            </tr>
+        </thead>
+        @foreach (var envio in Model)
+        {
+            <tr>
+                <td>
+                    <p>@envio.cod</p>
+                </td>
+                <td>
+                    <p>@envio.ClasificacionTipoPaquete</p>
+                </td>
+                <td>
+                    <p>@envio.NombreSucursal</p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+

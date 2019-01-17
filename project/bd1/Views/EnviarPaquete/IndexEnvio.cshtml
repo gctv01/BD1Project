@@ -73,7 +73,7 @@
                     <p>@envio.fechaLlegada</p>
                 </td>
                 <td>
-                    @if ((envio.codPago == 0) && (rol == "Cajero"))
+                    @if ((envio.codPago == 0) && ((rol == "Cajero") || (rol == "Admin") || (rol == "Supervisor")))
                     {
                         @Html.ActionLink(envio.monto.ToString(), "PagoEnvio", "Pago", new { id = envio.cod, id2 = envio.monto }, null)
                     }

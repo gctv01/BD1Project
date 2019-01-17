@@ -38,7 +38,7 @@ namespace bd1.Controllers
             string tipoUsuario = model.Rol;
 
             DAOUsuario data = DAOUsuario.getInstance();
-            
+
             if (tipoUsuario == "Empleado")
             {
                 int redireccion = data.buscandoUsuarioE(model.username, model.contrasena);

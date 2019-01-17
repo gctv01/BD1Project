@@ -598,5 +598,44 @@ namespace bd1.Models
             conn.Close();
             return data;
         }
+        //REPORTE 3 DEL ENUNCIADO
+        public List<Empleado> obtenerReporte18E()
+        {
+            List<Empleado> data = null;
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select DISTINCT e.\"CI\", e.\"Nombre\", h.\"HorarioInicio\"||' a '|| h.\"HorarioFinal\", s.\"Nombre\", z.\"Nombre\" " +
+                "From \"Empleado\" e, \"Horario\" h, \"Zona\" z, \"Sucursal\" s, \"Asistencia\" asi " +
+                "Where e.\"FK-HorarioEmp\"=h.\"COD\" and asi.\"CIEmpleado\"= e.\"CI\" and asi.\"CODZona\"=z.\"COD\" " +
+                "and e.\"FK-SucursalEmp\" = s.\"COD\" and z.\"FK-SucursalZ\"=s.\"COD\" " +
+                "order by s.\"Nombre\", e.\"CI\" ";
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Empleado>();
+
+                while (dr.Read())
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Empleado()
+                    {
+                        CI = Int32.Parse(dr[0].ToString()),
+                        Nombre = dr[1].ToString(),
+                        horarioAsig = dr[2].ToString(),
+                        perteneceOficina = dr[3].ToString(),
+                        zona = dr[4].ToString(),
+                    });
+                }
+                dr.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+            }
+            conn.Close();
+            return data;
+        }
     }
 }

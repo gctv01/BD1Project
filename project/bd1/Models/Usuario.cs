@@ -13,6 +13,11 @@ namespace bd1.Models
         public string contrasena { get; set; }
         public string Rol { get; set; }
         public int codRol { get; set; }
+        public string accion { get; set; }
+        public string descripcion { get; set; }
+        public string fecha { get; set; }
+        public int integer { get; set; }
+
     }
 
     public class DAOUsuario : DAO
@@ -37,8 +42,8 @@ namespace bd1.Models
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
             conn.Open();
 
-            String sql = "INSERT INTO \"Usuario\" (\"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-ClienteU\")"+
-                "VALUES ('" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
+            String sql = "INSERT INTO \"Usuario\" (\"COD\", \"Nombre\", \"Contrasena\", \"FK-RolU\", \"FK-ClienteU\")" +
+                "VALUES (VALUES ((SELECT NEXTVAL('seq')), '" + username + "', '" + contrasena + "', " + rol + ", " + ci + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -296,7 +301,47 @@ namespace bd1.Models
                 return 0;
             }
         }
-        //
+        public void modificarAlgo()
+        {
+            NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
+            conn.Open();
+            String sql;
+            NpgsqlCommand cmd;
+            string nombre = "En Aduana";
+            int codNombre = 1;
+            int cod = 1;
+            for(int i=1; i<4351; i++)
+            {
+                sql = "UPDATE \"Paquete\" SET \"Estatus\"='" + nombre + "' WHERE \"COD\"=" + cod + " ";
+
+                cmd = new NpgsqlCommand(sql, conn);
+                try
+                {
+                    int resp = cmd.ExecuteNonQuery(); //CONTROLAR EXCEPTION DE UNIQUE
+                    cod++;
+                    codNombre++;
+                    if(codNombre == 1)
+                    {
+                        nombre = "En Aduana";
+                    }
+                    if (codNombre == 2)
+                    {
+                        nombre = "Entregado";
+                    }
+                    if (codNombre == 3)
+                    {
+                        nombre = "Por Entregar";
+                        codNombre = 0;
+                    }
+                }
+                catch (Exception e)
+                {
+                    cod++;
+                }
+            }
+            conn.Close();
+        }
+        //AUDITORIA DEL SISTEMA
         public int insertarAccion(int codU, int codAcc, string fecha, string accion)
         {
             NpgsqlConnection conn = DAOUsuario.getInstanceDAO();
@@ -319,6 +364,101 @@ namespace bd1.Models
                 conn.Close();
                 return 0;
             }
+
+        }
+        //RERPORTE 10 DE LOS REQUERIMIENTOS
+        public List<Usuario> obtenerReporte10R()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT u.\"Nombre\", r.\"Nombre\", a.\"Nombre\", au.\"Descripcion\", au.\"Fecha\" " +
+                "FROM \"Accion-Usuario\" au, \"Usuario\" u, \"Accion\" a, \"Rol\" r " +
+                "Where u.\"COD\"=au.\"codUsuario\" and a.\"COD\"=au.\"codAccion\" and r.\"COD\"=u.\"FK-RolU\" " +
+                "order by au.\"codUsuario\", au.\"Fecha\" DESC";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Usuario> data = new List<Usuario>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Usuario()
+                {
+                    username = dr[0].ToString(),
+                    Rol = dr[1].ToString(),
+                    accion = dr[2].ToString(),
+                    descripcion = dr[3].ToString(),
+                    fecha = dr[4].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+
+        }
+        //RERPORTE 11 DEL ENUNCIADO
+        public List<Usuario> obtenerReporte11E()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select u.\"COD\", u.\"Nombre\", count(au.\"Descripcion\") " +
+                "From \"Accion-Usuario\" au, \"Usuario\" u " +
+                "Where au.\"Descripcion\" like 'Registro el Envio%' and au.\"codUsuario\"=u.\"COD\" " +
+                "Group by u.\"COD\", u.\"Nombre\" " +
+                "order by count(au.\"Descripcion\") DESC " +
+                "limit 1 ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Usuario> data = new List<Usuario>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Usuario()
+                {
+                    cod = Int32.Parse(dr[0].ToString()),
+                    username = dr[1].ToString(),
+                    integer = Int32.Parse(dr[2].ToString()),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+
+        }
+        //RERPORTE 23 DEL ENUNCIADO
+        public List<Usuario> obtenerReporte23E()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select u.\"Nombre\", r.\"Nombre\" " +
+                "FROM \"Usuario\" u, \"Rol\" r " +
+                "Where u.\"FK-RolU\"=r.\"COD\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Usuario> data = new List<Usuario>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Usuario()
+                {
+                    username = dr[0].ToString(),
+                    Rol = dr[1].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
 
         }
     }

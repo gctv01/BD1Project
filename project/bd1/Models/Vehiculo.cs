@@ -17,10 +17,19 @@ namespace bd1.Models
         public string fechaCreacion { get; set; }
         public string modelo { get; set; }
         //PARA REPORTES
-        public int codMantenimiento { get; set; }
+        public int codMantenimiento { get; set; }       
         public string tipo { get; set; }
         public string nombreTaller { get; set; }
         public string duracion { get; set; }
+        public int codPuerto { get; set; }
+        public int CaladoPuerto { get; set; }
+        public int longitudPuerto { get; set; }
+        public int muellesPuerto { get; set; }
+        public int puestosPuerto { get; set; }
+        public int anchoPuerto { get; set; }
+        public int PistasAeropuerto { get; set; }
+        public int terminalesAeropuerto { get; set; }
+        public int capacidadAeropuerto { get; set; }
     }
     public class DAOVehiculo : DAO
     {
@@ -256,32 +265,28 @@ namespace bd1.Models
 
             return data;
         }
+
         //REPORTE 7 DE LOS ENUNCIADOS
         public List<Vehiculo> obtenerReporte7E(string fecha1, string fecha2)
         {
+
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "Select ((x.cant_usado*100)/x.envios) as porcentaje, x.tipo  " +
-                "from(Select Count(vr.\"PlacaB\") as cant_usado, COUNT(t.*) as envios, 'Barco' as tipo " +
-                    "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e " +
-                    "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" and " +
-                    "e.\"FechaInicio\" between '"+ fecha1 + "' and '" + fecha2 + "' " +
-                    "group by tipo) x " +
-                    "Union " +
-                    "Select((x.cant_usado * 100) / x.envios) as porcentaje, x.tipo " +
-                    "from(Select Count(vr.\"PlacaA\") as cant_usado, COUNT(t.*) as envios, 'Avion' as tipo " +
-                    "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e  " +
-                    "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" and " +
-                    "e.\"FechaInicio\" between '" + fecha1 + "' and '" + fecha2 + "' " +
-                    "group by tipo) x " +
-                    "Union " +
-                    "Select((x.cant_usado * 100) / x.envios) as porcentaje, x.tipo " +
-                    "from(Select Count(vr.\"PlacaT\") as cant_usado, COUNT(t.*) as envios, 'Terrestre' as tipo " +
-                    "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e " +
-                    "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" and " +
-                    "e.\"FechaInicio\" between '" + fecha1 + "' and '" + fecha2 + "' " +
-                    "group by tipo) x " +
-                    "order by porcentaje ";
+            string sql = "Select (Count(vr.\"PlacaB\")*100)/Count(t.\"COD\") as cant_usado, 'Barco' as tipo  " +
+                "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e  " +
+                "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" and e.\"FechaInicio\" between '"+ fecha1 +"' and '"+ fecha2 +"' " +
+                "group by tipo " +
+                "Union " +
+                "Select(Count(vr.\"PlacaA\")*100)/Count(t.\"COD\")  as cant_usado, 'Avion' as tipo  " +
+                "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e  " +
+                "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" and e.\"FechaInicio\" between '" + fecha1 + "' and '" + fecha2 + "'  " +
+                "group by tipo " +
+                "Union " +
+                "Select(Count(vr.\"PlacaT\")*100)/Count(t.\"COD\")  as cant_usado, 'Terrestre' as tipo  " +
+                "from \"Veh-Rut\" vr, \"Traslado\" t, \"Envio\" e  " +
+                "where vr.\"COD\"=t.\"CODVeh-Rut\" and t.\"CODEnvio\"=e.\"COD\" and e.\"FechaInicio\" between '" + fecha1 + "' and '" + fecha2 + "'   " +
+                "group by tipo " +
+                "order by cant_usado DESC ";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
@@ -294,6 +299,162 @@ namespace bd1.Models
                 {
                     duracion = dr[0].ToString(),
                     tipo = dr[1].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 12 DE LOS ENUNCIADOS
+        public List<Vehiculo> obtenerReporte12E()
+        {
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select te.\"Placa\", s.\"Nombre\" " +
+                "From \"Terrestre\" te, \"Sucursal\" s " +
+                "WHERE te.\"FK-SucursalT\"=s.\"COD\" " +
+                "order by s.\"Nombre\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Vehiculo> data = new List<Vehiculo>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Vehiculo()
+                {
+                    placa = dr[0].ToString(),
+                    descripcion = dr[1].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 13 DE LOS ENUNCIADOS
+        public List<Vehiculo> obtenerReporte13E()
+        {
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select te.\"Placa\", te.\"Tipo\", te.\"SerialMotor\" " +
+                "From \"Terrestre\" te " +
+                "Order by te.\"Placa\", te.\"Tipo\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Vehiculo> data = new List<Vehiculo>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Vehiculo()
+                {
+                    placa = dr[0].ToString(),
+                    tipo = dr[1].ToString(),
+                    serialMotor = Int32.Parse(dr[2].ToString()),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 17-1 DE LOS ENUNCIADOS
+        public List<Vehiculo> obtenerReporte17_1E()
+        {
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select \"COD\", \"Puestos\", \"Calado\", \"TotalMuelles\", \"Uso\", \"Longitud\", \"Ancho\" " +
+                "FROM \"Puerto\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Vehiculo> data = new List<Vehiculo>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Vehiculo()
+                {
+                    codPuerto = Int32.Parse(dr[0].ToString()),
+                    puestosPuerto = Int32.Parse(dr[1].ToString()),
+                    CaladoPuerto = Int32.Parse(dr[2].ToString()),
+                    muellesPuerto = Int32.Parse(dr[3].ToString()),
+                    descripcion = dr[4].ToString(),
+                    longitudPuerto = Int32.Parse(dr[5].ToString()),
+                    anchoPuerto = Int32.Parse(dr[6].ToString()),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 17-2 DE LOS ENUNCIADOS
+        public List<Vehiculo> obtenerReporte17_2E()
+        {
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select \"COD\", \"CantTerminales\", \"CantPistas\", \"Capacidad\" " +
+                "FROM \"Aeropuerto\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Vehiculo> data = new List<Vehiculo>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Vehiculo()
+                {
+                    codPuerto = Int32.Parse(dr[0].ToString()),
+                    terminalesAeropuerto = Int32.Parse(dr[1].ToString()),
+                    PistasAeropuerto = Int32.Parse(dr[2].ToString()),
+                    capacidadAeropuerto = Int32.Parse(dr[3].ToString()),
+                });
+            }
+            dr.Close();
+            conn.Close();
+
+            return data;
+        }
+        //REPORTE 27 DE LOS ENUNCIADOS
+        public List<Vehiculo> obtenerReporte27E()
+        {
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select b.\"Placa\", s.\"Nombre\", to_char(Max(m.\"FechaFinal\"),'DD-MM-YYYY') as fin, 'Barco' as tipo " +
+                "From \"Barco\" b, \"Mantenimiento\" m, \"Sucursal\" s, \"Puerto\" p  " +
+                "Where b.\"Placa\"=m.\"PlacaB\" and b.\"FK-PuertoB\"=p.\"COD\" and p.\"FK-Sucursal\"=s.\"COD\" " +
+                "group by b.\"Placa\", s.\"COD\", s.\"Nombre\" " +
+                "UNION " +
+                "Select b.\"Placa\", s.\"Nombre\", to_char(Max(m.\"FechaFinal\"),'DD-MM-YYYY') as fin, 'Avion' as tipo " +
+                "From \"Avion\" b, \"Mantenimiento\" m, \"Sucursal\" s, \"Puerto\" p  " +
+                "Where b.\"Placa\"=m.\"PlacaA\" and b.\"FK-Aeropuerto\"=p.\"COD\" and p.\"FK-Sucursal\"=s.\"COD\" " +
+                "group by b.\"Placa\", s.\"COD\", s.\"Nombre\" " +
+                "UNION " +
+                "Select b.\"Placa\", s.\"Nombre\", to_char(Max(m.\"FechaFinal\"),'DD-MM-YYYY') as fin, 'Terrestre' as tipo " +
+                "From \"Terrestre\" b, \"Mantenimiento\" m, \"Sucursal\" s " +
+                "Where b.\"Placa\"=m.\"PlacaT\" and b.\"FK-SucursalT\"=s.\"COD\" " +
+                "group by b.\"Placa\", s.\"COD\", s.\"Nombre\" " +
+                "order by fin DESC ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Vehiculo> data = new List<Vehiculo>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Vehiculo()
+                {
+                    placa = dr[0].ToString(),
+                    descripcion = dr[1].ToString(),
+                    fechaCreacion = dr[2].ToString(),
+                    tipo = dr[3].ToString(),
                 });
             }
             dr.Close();

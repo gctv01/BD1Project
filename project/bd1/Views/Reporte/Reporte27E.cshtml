@@ -1,0 +1,60 @@
+﻿@model IEnumerable<bd1.Models.Vehiculo>
+
+@{
+    ViewBag.Title = "Homempleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px">
+        <b>
+            Listado de flota con su última fecha de revisión por oficina.
+        </b>
+    </p>
+</div>
+
+<br />
+<div class="jumbotron">
+    <div>
+        <input type="button" value="Regresar" onclick="location.href='@Url.Action("IndexReporte", "Reporte")'" />
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="border-spacing:5px;">
+        <thead style="background:lightgray">
+            <tr>
+                <th>
+                    Placa
+                </th>
+                <th>
+                    Oficina
+                </th>
+                <th>
+                    Fecha del ultimo mantenimiento
+                </th>
+                <th>
+                    Tipo
+                </th>
+            </tr>
+        </thead>
+        @foreach (var envio in Model)
+        {
+            <tr>
+                <td>
+                    <p>@envio.placa</p>
+                </td>
+                <td>
+                    <p>@envio.descripcion</p>
+                </td>
+                <td>
+                    <p>@envio.fechaCreacion</p>
+                </td>
+                 <td>
+                    <p>@envio.tipo</p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+

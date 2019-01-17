@@ -20,6 +20,8 @@ namespace bd1.Models
         public string NombreClienteEnvia { get; set; }
         public int fkClienteRecibe { get; set; }
         public string NombreClienteRecibe { get; set; }
+        public string estatus { get; set; }
+
     }
     public class DAOPaquete : DAO
     {
@@ -39,15 +41,16 @@ namespace bd1.Models
             }
         }
         //INSERTAR PAQUETE
-        public int insertarPaquete(int peso, int volumen, int fkTipoPaquete, int fkSucursal, int fkEnvio, int fkCliente1, int fkCliente2)
+        public int insertarPaquete(int peso, int volumen, int fkTipoPaquete, int fkSucursal, int fkEnvio, 
+            int fkCliente1, int fkCliente2, string oficinaOrig)
         {
             NpgsqlConnection conn = OficinaDAO.getInstanceDAO();
             conn.Open();
 
             String sql = "INSERT INTO \"Paquete\" (\"COD\", \"Peso\", \"Volumen\", \"FK-TipoPaquete\", " +
-                "\"FK-Sucursal\", \"FK-EnvioP\", \"FK-Cliente1\", \"FK-Cliente2\") " +
+                "\"FK-Sucursal\", \"FK-EnvioP\", \"FK-Cliente1\", \"FK-Cliente2\", \"Estatus\") " +
                 "VALUES ((SELECT NEXTVAL('seq')), "+peso+ "," + volumen + ", " + fkTipoPaquete + ", " +
-                "" + fkSucursal + ", " + fkEnvio + ", " + fkCliente1 + ", " + fkCliente2 + ")";
+                "" + fkSucursal + ", " + fkEnvio + ", " + fkCliente1 + ", " + fkCliente2 + ", 'En "+ oficinaOrig + "')";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -201,6 +204,70 @@ namespace bd1.Models
             conn.Close();
 
             return resp;
+        }
+        //REPORTE 9 ENUNCIADO
+        public List<Paquete> obtenerReporte9E()
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select pa.\"COD\", pa.\"Peso\", pa.\"Volumen\", tp.\"Clasificacion\", s.\"Nombre\", c1.\"Nombre\", c2.\"Nombre\", pa.\"Estatus\" " +
+                "From \"Paquete\" pa, \"Sucursal\" s, \"TipoPaquete\" tp, \"Cliente\" c1, \"Cliente\" c2 " +
+                "WHERE s.\"COD\"=pa.\"FK-Sucursal\" and tp.\"COD\"=pa.\"FK-TipoPaquete\" and pa.\"FK-Cliente1\"=c1.\"CI\" and pa.\"FK-Cliente2\"=c2.\"CI\" " +
+                "Order by pa.\"Estatus\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Paquete> data = new List<Paquete>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Paquete()
+                {
+                    cod = Int32.Parse(dr[0].ToString()),
+                    peso = Int32.Parse(dr[1].ToString()),
+                    volumen = Int32.Parse(dr[2].ToString()),
+                    ClasificacionTipoPaquete = dr[3].ToString(),
+                    NombreSucursal = dr[4].ToString(),
+                    NombreClienteEnvia = dr[5].ToString(),
+                    NombreClienteRecibe = dr[6].ToString(),
+                    estatus = dr[7].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
+        //REPORTE 19 ENUNCIADO
+        public List<Paquete> obtenerReporte19E(string fecha1, string fecha2)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select Select pa.\"COD\", ti.\"Clasificacion\", s.\"Nombre\" " +
+                "From \"Paquete\" pa, \"TipoPaquete\" ti, \"Sucursal\" s, \"Envio\" e  " +
+                "Where pa.\"FK-Sucursal\"=s.\"COD\" and pa.\"FK-TipoPaquete\"=ti.\"COD\" and " +
+                "e.\"FechaInicio\" between '"+ fecha1 + "' and '" + fecha2 + "' and pa.\"FK-EnvioP\" = e.\"COD\" " +
+                "order by s.\"Nombre\" ";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            List<Paquete> data = new List<Paquete>();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.Add(new Paquete()
+                {
+                    cod = Int32.Parse(dr[0].ToString()),
+                    ClasificacionTipoPaquete = dr[1].ToString(),
+                    NombreSucursal = dr[2].ToString(),
+                });
+            }
+            dr.Close();
+            conn.Close();
+            return data;
         }
     }
 }

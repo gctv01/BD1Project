@@ -2,8 +2,7 @@
     string name = ViewBag.name;
     string nameRol = ViewBag.rol;
 }
-
+<a style="float:right; margin-right:1%; color:red" href='@Url.Action("Salir", "Home")'>Cerrar sesión</a>
 <div class="holaCli">
-    <h2> Bienvenido de nuevo, @ViewBag.name  </h2>
-    <a style="float:right; margin-right:1%; color:red" href='@Url.Action("Salir", "Home")'>Cerrar sesión</a>
+    <h2 style="text-decoration: none"> Bienvenido de nuevo, @ViewBag.name  </h2>
 </div>

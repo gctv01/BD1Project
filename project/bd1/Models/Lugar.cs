@@ -10,7 +10,9 @@ namespace bd1.Models
     {
         public int cod { get; set; }
         public string nombre { get; set; }
+        public string nombre2 { get; set; }
         public string tipo { get; set; }
+        public string taller { get; set; }
     }
 
     public class DAOLugar : DAO
@@ -123,6 +125,38 @@ namespace bd1.Models
                 return 0;
             }
         }
-        
+        //REPORTE 26 ENUNCIADO
+        public List<Lugar> obtenerReporte26E()
+        {
+            List<Lugar> data = null;
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "Select t.\"Nombre\", l.\"Nombre\", l2.\"Nombre\" " +
+                "FROM \"Taller\" t, \"Lugar\" l, \"Lugar\" l2 " +
+                "WHERE t.\"FK-LugarT\"=l.\"COD\" and l.\"Fk-LugarL\"=l2.\"COD\"";
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                data = new List<Lugar>();
+
+                while (dr.Read())
+                {
+                    System.Diagnostics.Debug.WriteLine("connection established");
+                    data.Add(new Lugar()
+                    {
+                        taller = dr[0].ToString(),
+                        nombre = dr[1].ToString(),
+                        nombre2 = dr[2].ToString(),
+                    });
+                }
+                dr.Close();
+            }
+            catch (Exception e) { conn.Close(); }
+            conn.Close();
+            return data;
+
+        }
     }
 }
