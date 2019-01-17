@@ -365,7 +365,29 @@
     <Content Include="Views\Shared\ZonaDropDown.cshtml" />
     <Content Include="Views\Cliente\CLIENTE.cshtml" />
     <Content Include="Views\Shared\MenuSuperiorCli.cshtml" />
-    <Content Include="Views\Cliente\LVIP.cshtml" />
+    <Content Include="Views\Reporte\Reporte10R.cshtml" />
+    <Content Include="Views\Reporte\Reporte9E.cshtml" />
+    <Content Include="Views\Reporte\Reporte10E_1.cshtml" />
+    <Content Include="Views\Reporte\Reporte10E.cshtml" />
+    <Content Include="Views\Reporte\Reporte11E.cshtml" />
+    <Content Include="Views\Reporte\Reporte12E.cshtml" />
+    <Content Include="Views\Reporte\Reporte13E.cshtml" />
+    <Content Include="Views\Reporte\Reporte14E.cshtml" />
+    <Content Include="Views\Reporte\Reporte16E.cshtml" />
+    <Content Include="Views\Reporte\Reporte17_1E.cshtml" />
+    <Content Include="Views\Reporte\Reporte17_2E.cshtml" />
+    <Content Include="Views\Reporte\Reporte18E.cshtml" />
+    <Content Include="Views\Reporte\Reporte19E.cshtml" />
+    <Content Include="Views\Reporte\Reporte20E.cshtml" />
+    <Content Include="Views\Reporte\Reporte19E_1.cshtml" />
+    <Content Include="Views\Reporte\Reporte21E.cshtml" />
+    <Content Include="Views\Reporte\Reporte22E.cshtml" />
+    <Content Include="Views\Reporte\Reporte23E.cshtml" />
+    <Content Include="Views\Reporte\Reporte26E.cshtml" />
+    <Content Include="Views\Reporte\Reporte27E.cshtml" />
+    <Content Include="Views\Reporte\Reporte28E_1.cshtml" />
+    <Content Include="Views\Reporte\Reporte28E.cshtml" />
+    <Content Include="Views\Reporte\Reporte30E.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
