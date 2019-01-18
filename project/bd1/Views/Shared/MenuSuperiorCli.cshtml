@@ -8,6 +8,7 @@
     <h2 style="text-decoration: none"> Bienvenido de nuevo, @ViewBag.name  </h2>
     <ul>
         <li style="margin-right:8%">@Html.ActionLink("Ver L-VIP", "LVIP", "Cliente", new { viewba = ViewBag.name }, null)</li>
+        @ViewBag.message
     </ul>
 </div>
 

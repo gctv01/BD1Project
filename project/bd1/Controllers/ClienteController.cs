@@ -210,6 +210,8 @@ namespace bd1.Controllers
             ViewBag.rol = nameRol;
             TempData["username"] = name;
             TempData["rol"] = nameRol;
+            string msg = TempData["message"].ToString();
+            ViewBag.message = msg;
             return PartialView("MenuSuperiorCli");
         }
         public PartialViewResult TBCliente()
@@ -246,8 +248,9 @@ namespace bd1.Controllers
             TempData["codUser"] = codUser;
 
             DAOUsuario dataU = DAOUsuario.getInstance();
+            Usuario user = dataU.buscarUsuarioCliente(codUser);
             DAOCliente dataC = DAOCliente.getInstance();
-            Cliente data2 = dataC.buscarLVIP(codUser);
+            Cliente data2 = dataC.buscarLVIP(user.codRol);
             if (data2.cantEnvios >= 5)
             {
                 Cliente data = dataC.buscarCliente(codUser);
@@ -259,11 +262,13 @@ namespace bd1.Controllers
                 string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
                 string accion = "Cliente L-VIP ";
                 dataU.insertarAccion(codUser, 2, today, accion);
-
+                TempData["message"] = " ";
                 return View();
             }
-
-            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+            TempData["message"] = "No es L-VIP, debe haber enviado 5 o mas paquetes";
+            DAOEnvio dataE = DAOEnvio.getInstance();
+            List<Envio> envios = dataE.obtenerEnvioUsuarioCliente(codUser);
+            return View("~/Views/Cliente/CLIENTE.cshtml", envios);
 
         }
        

@@ -16,27 +16,6 @@
     <p style="background-color: lightgray; color: black; padding: 15px; font-size: 20px"><b>ENVIOS</b></p>
 </div>
 
-@using (Html.BeginForm("BuscarEnvio", "EnviarPaquete",
-           FormMethod.Post))
-{
-    @Html.Action("TBEnvio", "EnviarPaquete");
-    <input type="submit" value="Buscar" />
-    if ((rol == "Admin") || (rol == "Supervisor"))
-    {
-        <input type="button" style="float:right" value="Eliminar Envio"
-               onclick="location.href='@Url.Action("eliminarEnvio", "EnviarPaquete")'" />
-        <input type="button" style="float:right; margin-right:1%" value="Nuevo Envio"
-               onclick="location.href='@Url.Action("nuevoEnvio", "EnviarPaquete")'" />
-    }
-    else
-    {
-        if (rol == "Cajero")
-        {
-            <input type="button" style="float:right; margin-right:1%" value="Nuevo Envio"
-                   onclick="location.href='@Url.Action("nuevoEnvio", "EnviarPaquete")'" />
-        }
-    }
-}
 <br />
 <div class="jumbotron">
     <table class="table table-bordered table-hover" style="border-spacing:5px;">

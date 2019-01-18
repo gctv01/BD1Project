@@ -253,6 +253,30 @@ namespace bd1.Models
             conn.Close();
             return data;
         }
+        public Usuario buscarUsuarioCliente(int cod)
+        {
+
+            NpgsqlConnection conn = DAO.getInstanceDAO();
+            conn.Open();
+            string sql = "SELECT \"COD\", \"Nombre\", \"Contrasena\", \"FK-ClienteU\" FROM \"Usuario\"" +
+                "WHERE \"COD\" = " + cod + "";
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            Usuario data = new Usuario();
+
+            while (dr.Read())
+            {
+                System.Diagnostics.Debug.WriteLine("connection established");
+                data.cod = Int32.Parse(dr[0].ToString());
+                data.username = dr[1].ToString();
+                data.contrasena = dr[2].ToString();
+                data.codRol = Int32.Parse(dr[3].ToString());
+            }
+            dr.Close();
+            conn.Close();
+            return data;
+        }
         public Usuario buscarUsuarioRol(string username, string contrasena)
         {
 

@@ -80,6 +80,7 @@ namespace bd1.Controllers
                         string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
                         string accion = "Iniciar sesion";
                         data.insertarAccion(usuario.cod, 5, today, accion);
+                        TempData["message"] = "";
                         return View("~/Views/Cliente/CLIENTE.cshtml", envios);
                     }
                     else
