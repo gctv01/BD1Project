@@ -258,11 +258,7 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-<<<<<<< HEAD
-            string sql = "SELECT u.\"COD\", u.\"Nombre\", u.\"FK-RolU\", r.\"Nombre\" " +
-=======
             string sql = "SELECT  u.\"COD\", u.\"Nombre\", u.\"FK-RolU\", r.\"Nombre\" " +
->>>>>>> 1d26a7de77c271326f03d0788e0fd3b4475a91ef
                             "FROM \"Usuario\" u , \"Rol\" r " +
                             "WHERE u.\"FK-RolU\" = r.\"COD\" and u.\"Nombre\"= '"+ username + "' and u.\"Contrasena\"= '" + contrasena + "' ";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);

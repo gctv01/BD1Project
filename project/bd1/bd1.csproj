@@ -216,6 +216,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\carnet 1.png" />
+    <Content Include="Content\Reves carnet.png" />
     <Content Include="Content\sislog.png" />
     <Content Include="Content\xd.css" />
     <Content Include="favicon.ico" />
@@ -388,6 +389,7 @@
     <Content Include="Views\Reporte\Reporte28E_1.cshtml" />
     <Content Include="Views\Reporte\Reporte28E.cshtml" />
     <Content Include="Views\Reporte\Reporte30E.cshtml" />
+    <Content Include="Views\Cliente\LVIP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

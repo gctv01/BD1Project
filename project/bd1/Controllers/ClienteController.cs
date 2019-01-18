@@ -240,16 +240,31 @@ namespace bd1.Controllers
             int codUser = Int32.Parse(TempData["codUser"].ToString());
             ViewBag.name = name;
             ViewBag.rol = nameRol;
+            ViewBag.coduser = codUser;
             TempData["username"] = name;
             TempData["rol"] = nameRol;
             TempData["codUser"] = codUser;
 
             DAOUsuario dataU = DAOUsuario.getInstance();
-            string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
-            string accion = "Cliente L-VIP ";
-            dataU.insertarAccion(codUser, 2, today, accion);
+            DAOCliente dataC = DAOCliente.getInstance();
+            Cliente data2 = dataC.buscarLVIP(codUser);
+            if (data2.cantEnvios >= 5)
+            {
+                Cliente data = dataC.buscarCliente(codUser);
+                ViewBag.name2 = data.Nombre;
+                ViewBag.name3 = data.Apellido;
+                ViewBag.estcivil = data.EstadoCivil;
+                ViewBag.nac = data.fechaNac;
+                ViewBag.trabajo = data.Trabajo;
+                string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
+                string accion = "Cliente L-VIP ";
+                dataU.insertarAccion(codUser, 2, today, accion);
 
-            return View();
+                return View();
+            }
+
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+
         }
        
     }

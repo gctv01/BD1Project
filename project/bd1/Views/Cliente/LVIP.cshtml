@@ -5,14 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    string name = ViewBag.name;
+    string name = ViewBag.name2;
+    string apellido = ViewBag.name3;
     string rol = ViewBag.rol;
+    int coduser = ViewBag.coduser;
+    string estcivil = ViewBag.estcivil;
+    string nac = ViewBag.nac;
+    string trabajo = ViewBag.trabajo;
 
 }
 <div class="container">
     <img src="~/Content/carnet 1.png" alt="CARNET L-VIP" style="width:100%;">
-    <div class="id"><b>ID</b></div>
-    <div class="nombrecliente"><b>Nombre del cliente</b></div>
+    <div class="id"><b>@coduser</b></div>
+    <div class="nombrecliente"><b>@name @apellido</b></div>
+</div>
+
+<div class="container2">
+    <img src="~/Content/Reves carnet.png" alt="CARNET L-VIPreverso" style="width:100%;">
+    <div class="rol"><b>Rol: @rol</b></div>
+    <div class="estadocivil"><b>Estado Civil: @estcivil</b></div>
+    <div class="nac"><b>Fecha de nacimiento: @nac</b></div>
+    <div class="trabajo"><b>Cargo: @trabajo</b></div>
 </div>
 
 <style>
@@ -40,6 +53,50 @@
         top: 88%;
         left: 50%;
         transform: translate(-50%, -88%);
+    }
+</style>
+
+<style>
+
+    .container2 {
+        position: relative;
+        text-align: justify;
+        color: white;
+    }
+
+    .rol {
+        font-size: 28px;
+        color: black;
+        position: absolute;
+        top: 20%;
+        left: 40%;
+        transform: translate(-40%, -20%);
+    }
+
+
+    .estadocivil {
+        font-size: 28px;
+        color: black;
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        transform: translate(-40%, -40%);
+    }
+    .nac {
+        font-size: 28px;
+        color: black;
+        position: absolute;
+        top: 60%;
+        left: 40%;
+        transform: translate(-40%, -60%);
+    }
+    .trabajo {
+        font-size: 28px;
+        color: black;
+        position: absolute;
+        top: 80%;
+        left: 40%;
+        transform: translate(-40%, -80%);
     }
 </style>
 
