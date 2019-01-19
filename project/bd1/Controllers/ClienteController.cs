@@ -253,7 +253,7 @@ namespace bd1.Controllers
             Cliente data2 = dataC.buscarLVIP(user.codRol);
             if (data2.cantEnvios >= 5)
             {
-                Cliente data = dataC.buscarCliente(codUser);
+                Cliente data = dataC.buscarCliente(data2.CI);
                 ViewBag.name2 = data.Nombre;
                 ViewBag.name3 = data.Apellido;
                 ViewBag.estcivil = data.EstadoCivil;

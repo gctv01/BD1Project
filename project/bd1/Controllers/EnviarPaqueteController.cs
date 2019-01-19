@@ -267,7 +267,6 @@ namespace bd1.Controllers
             TempData["username"] = name;
             TempData["rol"] = nameRol;
             TempData["codUser"] = codUser;
-
             DAOUsuario dataU = DAOUsuario.getInstance();
             string today = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt");
             string accion = "Registro el Envio " + model.cod;

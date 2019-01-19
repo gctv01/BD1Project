@@ -222,7 +222,7 @@ namespace bd1.Models
             int fkgastos = 4;
 
             String sql = "INSERT INTO \"Asistencia\" (\"COD\", \"CIEmpleado\", \"CODZona\", \"Fecha\") " +
-                " VALUES ((SELECT NEXTVAL('seq')),'" + ci + "','" + codZona + "', " +
+                "VALUES ((SELECT NEXTVAL('\"SQLasistencia\"')),'" + ci + "','" + codZona + "', " +
                 "TO_DATE('" + fecha + "', 'YYYY-MM-DD'));";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try

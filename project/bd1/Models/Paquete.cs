@@ -48,9 +48,9 @@ namespace bd1.Models
             conn.Open();
 
             String sql = "INSERT INTO \"Paquete\" (\"COD\", \"Peso\", \"Volumen\", \"FK-TipoPaquete\", " +
-                "\"FK-Sucursal\", \"FK-EnvioP\", \"FK-Cliente1\", \"FK-Cliente2\", \"Estatus\") " +
+                "\"FK-Sucursal\", \"FK-EnvioP\", \"FK-Cliente1\", \"FK-Cliente2\") " +
                 "VALUES ((SELECT NEXTVAL('seq')), "+peso+ "," + volumen + ", " + fkTipoPaquete + ", " +
-                "" + fkSucursal + ", " + fkEnvio + ", " + fkCliente1 + ", " + fkCliente2 + ", 'En "+ oficinaOrig + "')";
+                "" + fkSucursal + ", " + fkEnvio + ", " + fkCliente1 + ", " + fkCliente2 + ")";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             try
             {
@@ -245,7 +245,7 @@ namespace bd1.Models
 
             NpgsqlConnection conn = DAO.getInstanceDAO();
             conn.Open();
-            string sql = "Select Select pa.\"COD\", ti.\"Clasificacion\", s.\"Nombre\" " +
+            string sql = "Select pa.\"COD\", ti.\"Clasificacion\", s.\"Nombre\" " +
                 "From \"Paquete\" pa, \"TipoPaquete\" ti, \"Sucursal\" s, \"Envio\" e  " +
                 "Where pa.\"FK-Sucursal\"=s.\"COD\" and pa.\"FK-TipoPaquete\"=ti.\"COD\" and " +
                 "e.\"FechaInicio\" between '"+ fecha1 + "' and '" + fecha2 + "' and pa.\"FK-EnvioP\" = e.\"COD\" " +

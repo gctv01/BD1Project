@@ -591,7 +591,7 @@ namespace bd1.Models
                 {
                     cod = Int32.Parse(dr[0].ToString()),
                     nombre = dr[1].ToString(),
-                    cantEnvios = Int32.Parse(dr[2].ToString()),
+                    pesoProm = Convert.ToDouble(dr[2].ToString()),
                 });
             }
             dr.Close();
@@ -692,7 +692,7 @@ namespace bd1.Models
                     cod = Int32.Parse(dr[0].ToString()),
                     nombre = dr[1].ToString(),
                     monto = Int32.Parse(dr[2].ToString()),
-                    descripcion = dr[4].ToString(),
+                    descripcion = dr[3].ToString(),
                 });
             }
             dr.Close();

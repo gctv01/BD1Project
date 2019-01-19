@@ -157,7 +157,7 @@ namespace bd1.Models
             conn.Open();
             string sql = "SELECT c.\"CI\", COUNT(p.\"COD\") " +
                             "FROM \"Cliente\" c, \"Paquete\" p " +
-                            "WHERE c.\"CI\" = " + ci + " and c.\"CI\"=p.\"FK-Cliente1\" " +
+                            "WHERE c.\"CI\" = " + ci + " and p.\"FK-Cliente1\"=c.\"CI\" " +
                             "Group by c.\"CI\";";
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
